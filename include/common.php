@@ -23,7 +23,6 @@
 
 	$_objectTypes = array(
 	    '1.001' => '1.001: switching (on/off) (EIS1)',
-/*
       '1.002' => '1.002 : Boolean',
       '1.003' => '1.003 : Enable',
       '1.004' => '1.004 : Ramp',
@@ -49,13 +48,10 @@
       '2.010' => '2.010 : Start Control ',
       '2.011' => '2.011 : State Control ',
       '2.012' => '2.012 : Invert Control ',
-*/
 	    '3.007' => '3.007: dimming (EIS2)',
 	    '3.008' => '3.008: blinds',
-/*
       '4.001' => '4.001 : Char_ASCI',
       '4.002' => '4.002 : Char_8859_1',
-/*
 	    '5.xxx' => '5.xxx: 8bit unsigned integer (EIS6)',
 	    '5.001' => '5.001: scaling (from 0 to 100%)',
 	    '5.003' => '5.003: angle (from 0 to 360deg)',
@@ -63,7 +59,6 @@
 	    '7.xxx' => '7.xxx: 16bit unsigned integer (EIS10)',
 	    '8.xxx' => '8.xxx: 16bit signed integer',
 	    '9.xxx' => '9.xxx: 16 bit floating point number (EIS5)',
-/*
       '9.001' => '9.001 : Temp : °C',
       '9.002' => '9.002 : Tempd : °K',
       '9.003' => '9.003 : Tempa : K/H',
@@ -82,7 +77,6 @@
       '9.025' => '9.025 : VolumeFlow : l/h',
       '9.026' => '9.026 : Rain_Amount : l/m²',
       '9.027' => '9.027 : Value_Temp_F : °F',
-*/
       '9.028' => '9.028 : Value_Wsp_kmh : km/h',
 	    '10.001' => '10.001: time (EIS3)',
 	    '11.001' => '11.001: date (EIS4)',
@@ -93,10 +87,8 @@
 	    '16.001' => '16.001: string (EIS15) with range 0 to 255 ',
 	    '20.102' => '20.102: heating mode',
 	    '28.001' => '28.001: variable length string objects',
-	    '29.xxx' => '29.xxx: signed 64bit value'
-/*
+	    '29.xxx' => '29.xxx: signed 64bit value',
       '232.600' => '232.600 : RGBObject'
-*/
 	);
 	
 	// Convert to a Javascript array

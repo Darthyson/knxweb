@@ -7,7 +7,6 @@ var _floating_zone_margin = 10;
 
 var _objectTypesValues = {
 	'1.001': ['on','off'],
-/*
   '1.002': ['true ','false'],
   '1.003': ['enable ','disable'],
   '1.004': ['ramp ','no ramp'],
@@ -21,7 +20,6 @@ var _objectTypesValues = {
   '1.012': ['inverted ','not inverted'],
   '1.013': ['cyclically','start/stop'],
   '1.014': ['calculated','fixed'],
-*/
 	'3.007': ['up','down','stop'],
 	'3.008': ['close','open','stop'],
 	'20.102': ['comfort','standby','night','frost']

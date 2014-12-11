@@ -18,6 +18,7 @@
 		var _widgetscssexist = {$widgetscssexist};
     var i18n = {$_lang|json_encode};
 		var tab_objectTypes = {$json_objectTypes};
+    var _path_knxweb = "{$_path_knxweb}";
 		</script>
 		{foreach from=$jsList item=js}
 		<script type="text/javascript" src="{$js}"></script>
@@ -226,7 +227,7 @@ Credits : <br />
         <div class="subItem" id="button-save-design-mobile"><img src="images/fetch.png" />{l lang='en'}Save{/l}</div>
         <div class="subItem" id="show-list-widgets-design-mobile"><input type="checkbox" id="show-list-widgets-design-mobile-checkbox" > {l lang='en'}Widgets List{/l}</div>
       </div> -->			
-			<h3 tab_id="admin" tab_label="{l lang='en'}Administer{/l}" tab_url="setup_admin.php"><a href="#"><img src="images/construct.png"> {l lang='en'}Admin{/l}</a></h3>
+			<h3 tab_label="{l lang='en'}Administer{/l}" tab_url="setup_admin.php"><a href="#"><img src="images/construct.png"> {l lang='en'}Admin{/l}</a></h3>
 			<div>
 			  <div class="subItem" tab_id="admin-programs" tab_label="{l lang='en'}Programs{/l}" tab_url="setup_admin.php?progstatus"><img src="images/fetch.png" /> {l lang='en'}Programs Status{/l}</div>
 			  <div class="subItem" tab_id="admin-config-knxweb" tab_label="{l lang='en'}Config KnxWeb{/l}" tab_url="setup_admin.php?configknxweb"><img src="images/fetch.png" /> {l lang='en'}Config KnxWeb{/l}</div>

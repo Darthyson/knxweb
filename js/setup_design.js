@@ -578,20 +578,16 @@ var design = {
           } else if (this.only_type) {
             only_type = this.only_type.split(',');
             exlude_type = [];
-/*
             if (array_search( "1.001", only_type )==-1) {
               only_type.push(['1.002','1.003','1.004','1.005','1.006','1.007','1.008','1.009','1.010','1.011','1.012','1.013','1.014']);
             }
-*/
           }
 
           if (this.exlude_type) {
             exlude_type = this.exlude_type.split(',');
-/*
             if (array_search( "1.001", exlude_type )==-1) {
               exlude_type.push(['1.002','1.003','1.004','1.005','1.006','1.007','1.008','1.009','1.010','1.011','1.012','1.013','1.014']);
             }
-*/
           }
 
           if (only_type.length > 0) {
