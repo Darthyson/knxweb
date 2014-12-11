@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<param>
+  <linknx_host>127.0.0.1</linknx_host>
+  <linknx_port>1028</linknx_port>
+  <template>default</template>
+  <lang>de</lang>
+  <version>2.0.0</version>
+  <title>KnxWeb - Demo v 0.9.4</title>
+  <Path_Image_Background>images/</Path_Image_Background>
+  <defaultDesign>default</defaultDesign>
+  <defaultVersion>design</defaultVersion>
+  <startMobileView>false</startMobileView>
+  <defaultMobileDesign>default</defaultMobileDesign>
+  <defaultMobileVersion>mobile</defaultMobileVersion>
+  <eibd></eibd>
+  <linknx></linknx>
+  <loglinknx>file</loglinknx
+  <imageDir>pictures/</imageDir>
+  <useJavaIfAvailable>false</useJavaIfAvailable>
+  <versionLinknx>0.0.1.32</versionLinknx>
+  <haveSMS>true</haveSMS>
+  <haveEmail>true</haveEmail>
+  <haveLua>true</haveLua>
+  <haveLog4cpp>true</haveLog4cpp>
+  <haveMysql>true</haveMysql>
+  <uitheme>cupertino</uitheme>
+  <useEventSource>false</useEventSource>
+  <max_result_lines>1000</max_result_lines>
+</param>
