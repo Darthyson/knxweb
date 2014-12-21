@@ -565,11 +565,7 @@ var design = {
 		    // Object setting
 		    if (this.type=="object")
 		    {
-		    	select=$('<select>');
-		    	select.attr('name', this.id);
-
-	    		var option=($('<option value=""></option>'));
-	    		select.append(option);
+	var optname = this.id+'_eis_filter'
 
           var only_type = [];
           var exlude_type = [];
@@ -578,18 +574,62 @@ var design = {
           } else if (this.only_type) {
             only_type = this.only_type.split(',');
             exlude_type = [];
-            if (array_search( "1.001", only_type )==-1) {
-              only_type.push(['1.002','1.003','1.004','1.005','1.006','1.007','1.008','1.009','1.010','1.011','1.012','1.013','1.014']);
-            }
+//             if (array_search( "1.001", only_type )==-1) {
+//               only_type.push(['1.002','1.003','1.004','1.005','1.006','1.007','1.008','1.009','1.010','1.011','1.012','1.013','1.014']);
+//             }
           }
 
           if (this.exlude_type) {
             exlude_type = this.exlude_type.split(',');
-            if (array_search( "1.001", exlude_type )==-1) {
-              exlude_type.push(['1.002','1.003','1.004','1.005','1.006','1.007','1.008','1.009','1.010','1.011','1.012','1.013','1.014']);
-            }
+//             if (array_search( "1.001", exlude_type )==-1) {
+//               exlude_type.push(['1.002','1.003','1.004','1.005','1.006','1.007','1.008','1.009','1.010','1.011','1.012','1.013','1.014']);
+//             }
           }
+		if (this.eis_type == undefined)
+		{
+			var table_tr_filter=$('<tr>');
+			table_tr_filter.append($('<th>' + this.label+"'s EIS Datatype" + '</th>'));
+			var td_filter=$('<td>');
+			if (only_type.length)
+			{
+				select=$('<span>'+only_type.join(", ")+'</span>');
+			} else {
+				select=$('<select>');
+				select.attr('name', this.id);
+				var option=($('<option value=""></option>'));
+				select.append(option);
 
+				select=$('<select>');
+				select.attr('name', optname);
+				select.append($("<option value=''></option>"));
+				$.each(tab_objectTypes, function(key, descr) {
+					var option=($('<option value="' + key + '">' + descr + '</option>'));
+					if ( array_search( key, exlude_type ) != -1 )
+						option.attr('disabled','1');
+					else if (o.conf.getAttribute(optname)==key) option.attr('selected','1');
+					select.append(option);
+				});
+			}
+			td_filter.append(select);
+			table_tr_filter.append(td_filter);
+			$("#tab-design-widget-properties tbody").append(table_tr_filter);
+			var t = this;
+			select.change( function() {
+					filter_type = $(this).val();
+					o.conf.setAttribute(optname, filter_type);
+					var selectedWidget=$("#widgetdiv .selected").get(0);
+					design.displayProperties(selectedWidget.owner);
+			});
+		}
+
+		select=$('<select>');
+		select.attr('name', this.id);
+		var option=($('<option value=""></option>'));
+		select.append(option);
+
+		if ( o.conf.getAttribute(optname) ) {
+			only_type = [o.conf.getAttribute(optname)];
+		}
           if (only_type.length > 0) {
             var prev_groups=["","",""];
 					$('object', _objects).each(function() {
