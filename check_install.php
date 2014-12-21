@@ -22,10 +22,10 @@ $version_knxweb2 = file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . '
 //$eibd_running = `ps ax | grep eibd | grep -v grep`;
 /*
  * ps ax | grep eibd | grep -v grep => marche pas sur syno
- * ps | grep eibd | grep -v grep => marche pas sur pc 
+ * ps | grep eibd | grep -v grep => marche pas sur pc
  * pstree -a | grep eibd | grep -v grep => a priroi marche sur syno et PC
  *
- */  
+ */
 
 $eibd_running = exec('ps | grep eibd | grep -v grep');
 if ($eibd_running!="") {
@@ -60,9 +60,9 @@ if ($linknx_running!="") {
 }
 
 if (isset($_GET["ajax"])) {
-	
+
 	ini_set("display_errors", 0);
-	
+
 	// File permissions
 	if (isset($_GET["permissions"])) {
 		$error=false;
@@ -70,29 +70,29 @@ if (isset($_GET["ajax"])) {
 		Checking files permissions : <br />
 		<ul>
 			<li>
-				Is <strong>pictures/</strong> directory writable? 
-				<?php 
-					if (is_writable('pictures/')) echo '<span style="color: #00FF00">ok</span>'; 
-					else {
-						echo "<span style='color: #FF0000'>no</span> => chown -R $apache_user $pwd/pictures/"; 
-						$error=true;
-					}
-				?>
-			</li>
-			<li>
-				Is <strong>design/</strong> directory writable? 
+				Is <strong>pictures/</strong> directory writable?
 				<?php
-					if (is_writable('design/')) echo '<span style="color: #00FF00">ok</span>'; 
+					if (is_writable('pictures/')) echo '<span style="color: #00FF00">ok</span>';
 					else {
-						echo "<span style='color: #FF0000'>no</span> => chown -R $apache_user $pwd/design/"; 
+						echo "<span style='color: #FF0000'>no</span> => chown -R $apache_user $pwd/pictures/";
 						$error=true;
 					}
 				?>
 			</li>
 			<li>
-				Does <strong>template/template_c/</strong> exists? 
-				<?php 
-					if (file_exists('template/template_c/')) echo '<span style="color: #00FF00">ok</span>'; 
+				Is <strong>design/</strong> directory writable?
+				<?php
+					if (is_writable('design/')) echo '<span style="color: #00FF00">ok</span>';
+					else {
+						echo "<span style='color: #FF0000'>no</span> => chown -R $apache_user $pwd/design/";
+						$error=true;
+					}
+				?>
+			</li>
+			<li>
+				Does <strong>template/template_c/</strong> exists?
+				<?php
+					if (file_exists('template/template_c/')) echo '<span style="color: #00FF00">ok</span>';
 					else {
             //$mkdirtemplate_c = exec('mkdir '.$pwd.'/template/template_c/');
             $mkdirtemplate_c = mkdir($pwd.'/template/template_c/', 0777);
@@ -106,9 +106,9 @@ if (isset($_GET["ajax"])) {
 				?>
 			</li>
 			<li>
-				Is <strong>template/template_c/</strong> directory writable? 
-				<?php 
-					if (is_writable('template/template_c/')) echo '<span style="color: #00FF00">ok</span>'; 
+				Is <strong>template/template_c/</strong> directory writable?
+				<?php
+					if (is_writable('template/template_c/')) echo '<span style="color: #00FF00">ok</span>';
 					else {
 						echo "<span style='color: #FF0000'>no</span> => chown -R $apache_user $pwd/template/template_c/";
 						$error=true;
@@ -116,16 +116,16 @@ if (isset($_GET["ajax"])) {
 				?>
 			</li>
 			<li>
-				Is <strong>include/config.xml</strong> file writable? 
-				<?php 
+				Is <strong>include/config.xml</strong> file writable?
+				<?php
 					if (file_exists('include/config.xml') ) {
-          if (is_writable('include/config.xml')) echo '<span style="color: #00FF00">ok</span>'; 
+          if (is_writable('include/config.xml')) echo '<span style="color: #00FF00">ok</span>';
 					else {
 						echo "<span style='color: #FF0000'>no</span> => chown -R $apache_user $pwd/include/config.xml";
 						$error=true;
 					}
           } else {
-          if (is_writable('include/')) echo '<span style="color: #00FF00">ok</span>'; 
+          if (is_writable('include/')) echo '<span style="color: #00FF00">ok</span>';
 					else {
 						echo "<span style='color: #FF0000'>no</span> => chown -R $apache_user $pwd/include/";
 						$error=true;
@@ -139,7 +139,7 @@ if (isset($_GET["ajax"])) {
       <li>
 				<strong>EIBD</strong> is ACTIVE :
         <?php
-        if ($eibd_running!="") echo '<span style="color: #00FF00">ok</span>'; 
+        if ($eibd_running!="") echo '<span style="color: #00FF00">ok</span>';
 				else {
 					echo "<span style='color: #FF0000'>no</span> => for start exemple : <i>eibd -d -D -S -T -i ipt:192.168.1.10:3671</i> ";
 					//$error=true;
@@ -148,7 +148,7 @@ if (isset($_GET["ajax"])) {
       <li>
 				<strong>Linknx</strong> is ACTIVE :
         <?php
-        if ($linknx_running!="") echo '<span style="color: #00FF00">ok</span>'; 
+        if ($linknx_running!="") echo '<span style="color: #00FF00">ok</span>';
 				else {
 					echo "<span style='color: #FF0000'>no</span> => for start exemple : <i>linknx -d --config=/etc/linknx.xml --write=/etc/linknx.xml</i> ";
 					//$error=true;
@@ -156,7 +156,7 @@ if (isset($_GET["ajax"])) {
 			</li>
 		</ul>
 		<?php
-			if ($error) 
+			if ($error)
 				echo "Please fix errors before continuing to the next step. <br /><br /><button id='recheckPermissionButton' onclick=\"$('#tabs').tabs('load',0);\">Click here to recheck.</button>";
 			else {
 ?>
@@ -170,16 +170,16 @@ if (isset($_GET["ajax"])) {
 			}
 		?>
 		<script>$("#recheckPermissionButton").button();</script>
-<?php		
+<?php
 	}
 	// Check Linknx
 	elseif (isset($_GET["config"])) {
-    if (!$_config["title"]) 
+    if (!$_config["title"])
       $title_knxweb = "KnxWeb - My house in one click";
-    else 
+    else
       $title_knxweb = $_config["title"];
 
-    if (!isset($_GET['check'])) { // pas de check de fait donc on prend les valeur par défaut ou celles de la config existante 
+    if (!isset($_GET['check'])) { // pas de check de fait donc on prend les valeur par défaut ou celles de la config existante
       if (!$_config["lang"]) $default_lang = 'en'; else $default_lang = $_config["lang"];
       if (!$_config["useJavaIfAvailable"]) $useJavaIfAvailable = "off"; else $useJavaIfAvailable = (($_config["useJavaIfAvailable"]=="true")?"on":"off");
       if (!$_config["superuser"]) $superuser = "off"; else $superuser = (($_config["superuser"]=="true")?"on":"off");
@@ -237,11 +237,11 @@ if (isset($_GET["ajax"])) {
       <tr title="Use java applet to update objects value on display design if Java is installed on client">
 				<td>Use by default applet Java if available</td><!-- Use java applet to update objects value on display design if Java is installed on client -->
 				<td><input type="checkbox" name="useJavaIfAvailable" <?php echo ((_get('useJavaIfAvailable',$useJavaIfAvailable)==="on")?'checked="1"':""); ?>" > if supported by the navigator</td>
-			</tr> 
+			</tr>
       <tr title="Use Event Source to update objects value on display design">
 				<td>Use Event Source if available on navigator</td>
 				<td><input type="checkbox" name="useEventSource" <?php echo ((_get('useEventSource',$useEventSource)==="on")?'checked="1"':""); ?>" > if supported by the navigator</td>
-			</tr>  
+			</tr>
       <tr>
 				<td>Language</td>
 				<td>
@@ -256,7 +256,7 @@ if (isset($_GET["ajax"])) {
       <tr class="superuser">
 				<td></td>
 				<td><input type="checkbox" name="superuser" <?php echo ((_get('superuser',$superuser)==="on")?'checked="1"':""); ?>" >Super User</td>
-			</tr> 
+			</tr>
       <tr>
 				<td>UI Theme</td>
 				<td>
@@ -310,19 +310,19 @@ if (isset($_GET["ajax"])) {
       {
         $("link[href*=lib\\/jquery\\/css]:first").attr('href', 'lib/jquery/css/' + $(val).val() + '/jquery-ui.css');
       };
-			
+
 			$("#checkLinknxButton").button();
       $("#titleknxweb").html("KnxWeb use Jquery " + $().jquery + " and Jquery-Ui " + $.ui.version );
       $("#showsuperuser").dblclick( function() { $('.superuser').show();});
 		</script>
 <?php
 		$error=false;
-		
+
 		if ( (isset($_GET['linknx_host'])) && ($_GET['linknx_host']!="") )
 		{
 			if ($_GET['linknx_port']=="") die("Error : Please specify a port");
 			if (!preg_match("~(\d){2,5}~", $_GET['linknx_port'])) die("Error : Invalid port");
-			
+
 			echo "<br />";
 			try {
 				$linknx=new Linknx($_GET['linknx_host'], $_GET['linknx_port']);
@@ -348,16 +348,16 @@ if (isset($_GET["ajax"])) {
           $_SESSION['superuser']=($_GET['superuser']=="on")?"true":"false";
           $_SESSION['uitheme']=$_GET['uitheme'];
           $_SESSION['useEventSource']=($_GET['useEventSource']=="on")?"true":"false";
-					
+
 ?>
 				Found Linknx version : <?=$info["version"]?><br />
 				<br />
 				With compiled options: <br />
 				<ul>
-					<li>SMS : <?=(($info["haveSMS"])?'<span style="color: #00FF00">Yes</span>':'<span style="color: #FF0000">No</span>')?></li>	
-					<li>E-Mail : <?=(($info["haveEmail"])?'<span style="color: #00FF00">Yes</span>':'<span style="color: #FF0000">No</span>')?></li>	
-					<li>Lua : <?=(($info["haveLua"])?'<span style="color: #00FF00">Yes</span>':'<span style="color: #FF0000">No</span>')?></li>	
-					<li>log4cpp : <?=(($info["haveLog4cpp"])?'<span style="color: #00FF00">Yes</span>':'<span style="color: #FF0000">No</span>')?></li>	
+					<li>SMS : <?=(($info["haveSMS"])?'<span style="color: #00FF00">Yes</span>':'<span style="color: #FF0000">No</span>')?></li>
+					<li>E-Mail : <?=(($info["haveEmail"])?'<span style="color: #00FF00">Yes</span>':'<span style="color: #FF0000">No</span>')?></li>
+					<li>Lua : <?=(($info["haveLua"])?'<span style="color: #00FF00">Yes</span>':'<span style="color: #FF0000">No</span>')?></li>
+					<li>log4cpp : <?=(($info["haveLog4cpp"])?'<span style="color: #00FF00">Yes</span>':'<span style="color: #FF0000">No</span>')?></li>
 					<li>Mysql : <?=(($info["haveMysql"])?'<span style="color: #00FF00">Yes</span>':'<span style="color: #FF0000">No</span>')?></li>
           <li>Linknx have parameter "-w" or "--write=..."	: <?=(($linknx_param_pos_w)?'<span style="color: #00FF00">Yes</span>':'<span style="color: #FF0000">No</span>')?></li>
 				</ul>
@@ -418,7 +418,7 @@ if (isset($_GET["ajax"])) {
 $subpages = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>
 <subpages></subpages>";
     $res2 = true;
-    if (!is_file('design/subpages.xml')) $res2=file_put_contents('design/subpages.xml', $subpages); 
+    if (!is_file('design/subpages.xml')) $res2=file_put_contents('design/subpages.xml', $subpages);
 		if ($res!==false && $res2!==false)
 		{
 ?>
@@ -438,7 +438,7 @@ $subpages = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>
 <html xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	
+
 	<meta http-equiv="pragma" content="no-cache" />
 	<meta http-equiv="cache-control" content="no-cache, must-revalidate" />
 
@@ -458,12 +458,12 @@ $subpages = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>
 			margin-bottom: 10px;
 		}
 	</style>
-	
+
 	<title>KnxWeb - Setup</title>
 	<link rel="stylesheet" type="text/css" href="lib/jquery/css/cupertino/jquery-ui.css" />
 	<script type="text/javascript" src="lib/jquery/js/jquery.min.js"></script>
 	<script type="text/javascript" src="lib/jquery/js/jquery-ui.min.js"></script>
-	
+
 	<script>
 		$(function() {
 			$( "#tabs" ).tabs({
@@ -471,18 +471,18 @@ $subpages = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>
 			});
 		});
 	</script>
-		
+
 </head>
 <body>
 	<div class="ui-state-default welcome">Knxweb <?php echo $version_knxweb2; ?> Setup</div>
-	
+
 	<div id="tabs">
 		<ul>
 			<li><a href="check_install.php?ajax&permissions">File permissions</a></li>
 			<li><a href="check_install.php?ajax&config">Basic configuration</a></li>
 			<li><a href="check_install.php?ajax&writeconfig">Done</a></li>
 		</ul>
-	</div>	
+	</div>
 
 </body>
 </html>

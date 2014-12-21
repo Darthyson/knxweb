@@ -1,7 +1,7 @@
 <?php
-  $_lang = array();
-  $_lang["language"] = "Deutsch";
-  $_lang['Loading, please wait'] = 'Lädt, bitte warten';
+$_lang = array();
+$_lang["language"] = "Deutsch";
+$_lang['Loading, please wait'] = 'Lädt, bitte warten';
 $_lang['Services status'] = 'Status der Services';
 $_lang['ACTIVE'] = 'AKTIV';
 $_lang['DESACTIVE'] = 'INAKTIV';
@@ -291,7 +291,7 @@ $_lang['Sub-pages List'] = 'Liste der Sub-Pages';
 $_lang['Repository of Widgets'] = 'Repository für Widgets';
 $_lang['Version'] = 'Version';
 $_lang['Download the Widget'] = 'Das Widget herunterladen';
-$_lang['is complete'] = 'ist fertig';  
+$_lang['is complete'] = 'ist fertig';
 $_lang['Cancel'] = 'Abbrechen';
 $_lang['Ok'] = 'Ok';
 $_lang['Apply'] = 'Übernehmen';
@@ -436,7 +436,7 @@ $_lang['Active picture'] = 'Aktiviertes Bild';
 $_lang['Only on Edit Mode'] = 'Nur im Bearbeitungsmodus';
 $_lang['Font size'] = 'Schriftgröße';
 
-/*             
+/*
 $_lang[''] = '';
 */
 

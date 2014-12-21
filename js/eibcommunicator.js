@@ -4,7 +4,7 @@ if(typeof(EventSource)!=="undefined")
   _EventCanUse = true;
 } else {
   _EventCanUse = false;
-} 
+}
 
 // EIBCommunicator
 var EIBCommunicator = {
@@ -12,7 +12,7 @@ var EIBCommunicator = {
 	polling: false,
   stoppolling: false,
   date_stop_polling: null,
-	
+
 	add: function(o) {
 		var l=o.getListeningObject();
 		for(var i=0;i<l.length; i++)
@@ -31,7 +31,7 @@ var EIBCommunicator = {
 	},
 	refreshListeningObject: function(o) {
 		EIBCommunicator.remove(o);
-		EIBCommunicator.add(o);		
+		EIBCommunicator.add(o);
 	},
 	eibWrite: function(obj,value, successCallBack) {
 		if (!obj)
@@ -62,7 +62,7 @@ var EIBCommunicator = {
 						// Send update to subscribers
 						var objs = xmlResponse.getElementsByTagName('object');
 						if (objs.length == 0)
-								EIBCommunicator.sendUpdate(objects, xmlResponse.childNodes[0].nodeValue);	
+								EIBCommunicator.sendUpdate(objects, xmlResponse.childNodes[0].nodeValue);
 						else {
 							for (var i=0; i < objs.length; i++) {
 								var element = objs[i];
@@ -119,7 +119,7 @@ var EIBCommunicator = {
       var source=new EventSource("event_linknx.php");
       source.onmessage=function(event)
       {
-        var xmlResponse = StringtoXML(event.data).documentElement; // Convert the data in xml 
+        var xmlResponse = StringtoXML(event.data).documentElement; // Convert the data in xml
         if (xmlResponse.getAttribute('status') == 'error') { // retour de l'enregistrement de "notification"
           UIController.setNotification(tr("Error: ")+xmlResponse.textContent);
         } else if (xmlResponse.getAttribute('status') == 'success') {  // retour de l'enregistrement de "notification"
@@ -127,7 +127,7 @@ var EIBCommunicator = {
         } else if (xmlResponse.getAttribute('id') && xmlResponse.nodeName == "notify") {
           //console.log("EventSource update object id=", xmlResponse.getAttribute('id'), "value=", xmlResponse.childNodes[0].nodeValue);
           EIBCommunicator.sendUpdate(xmlResponse.getAttribute('id'), xmlResponse.childNodes[0].nodeValue);
-        } 
+        }
       }
     } else {
       if (tab_config.useJavaIfAvailable=='true')
@@ -141,7 +141,7 @@ var EIBCommunicator = {
     }
 	},
 	removeAll: function() {
-		for(key in EIBCommunicator.listeners) 
+		for(key in EIBCommunicator.listeners)
 			delete EIBCommunicator.listeners[key];
 	}
 }

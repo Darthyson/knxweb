@@ -17,15 +17,15 @@ var smsgateway = {
 			$('#smsgateway-enable').trigger('change');
 		}
 	},
-	
+
 	saveData: function() {
-		if ($('#smsgateway-password').val() == $('#smsgateway-password-confirm').val() ) 
-		{ 
+		if ($('#smsgateway-password').val() == $('#smsgateway-password-confirm').val() )
+		{
 			if ($("#smsgateway-form").valid())
 			{
 				if ($('#smsgateway-enable').attr("checked"))
 				{
-					var body = '<write><config><services><smsgateway ' + 
+					var body = '<write><config><services><smsgateway ' +
 											'type="' + $('#smsgateway-type').val() + '" ' +
 											'user="' + $('#smsgateway-username').val() + '" ' +
 											'pass="' + $('#smsgateway-password').val() + '" ' +
@@ -51,11 +51,11 @@ jQuery(document).ready(function(){
 		sortable: false,
 		selectable: false
 	});
-	
+
 	$("#smsgateway-enable").change(function() {
     if ($(this).attr('checked') == "checked" && tab_config['haveSMS'] != "true")
       messageBox(tr("We can't use this fonction your compiled version of linknx does not support SMS"), tr('Error'), 'alert');
-    else 
+    else
 		  $("#smsgateway-tab-table input,#smsgateway-tab-table select").attr('disabled',!($("#smsgateway-enable").attr('checked')));
 	});
 
@@ -66,10 +66,10 @@ jQuery(document).ready(function(){
 			$('.error').show();
 		}
 	});
-	
+
 	$("#smsgateway-button-save").button();
 	$("#smsgateway-button-save").click(smsgateway.saveData);
-	
+
 	smsgateway.refreshData();
 	loading.hide();
 });

@@ -4,18 +4,18 @@
 //										 Fonction Reseau Configuration								*
 //*****************************************************************************************************
 function getNetworkConfig()
-{	
+{
 	$config=array();
 	 global $Fnetwork;
-	 
+
 	if (file_exists($Fnetwork)){
 			$config['Networksetting']= true;
-			
+
 			$s=file_get_contents($Fnetwork);
-			
-			if (strpos($s,'iface eth0 inet dhcp')==false) $config['dhcp']=false; 
+
+			if (strpos($s,'iface eth0 inet dhcp')==false) $config['dhcp']=false;
 			else $config['dhcp']=true;
-			
+
 			$s= exec('/sbin/ifconfig eth0 | grep "inet addr"');
 			preg_match('~.*inet addr:(.*) Bcast:.* Mask:(.*)~',$s,$r);
 			$config['ip']=trim($r[1]);
@@ -30,8 +30,8 @@ function getNetworkConfig()
 			if (count($r)>0) $config['dns1']=$r[0][1];
 			if (count($r)>1) $config['dns2']=$r[1][1];
 	}
-	else{$config['Networksetting']= false;	
-		
+	else{$config['Networksetting']= false;
+
 	}
 	return $config;
 }
@@ -47,10 +47,10 @@ $linknxLog=str_replace("\n","<br />",$tail_log_linknx);
 //$eibd_running = `ps ax | grep eibd | grep -v grep`;
 /*
  * ps ax | grep eibd | grep -v grep => marche pas sur syno
- * ps | grep eibd | grep -v grep => marche pas sur pc 
+ * ps | grep eibd | grep -v grep => marche pas sur pc
  * pstree -a | grep eibd | grep -v grep => a priroi marche sur syno et PC
  *
- */  
+ */
 
 $eibd_running = exec('ps | grep eibd | grep -v grep');
 $eibd_running_param="";

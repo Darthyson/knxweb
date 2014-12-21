@@ -23,7 +23,7 @@ pos_top_condition[1] = 0;
 pos_right_condition[0] = 0;
 pos_right_condition[1] = 0;
 var conditionsCurrent = new Array(), actionsCurrent = new Array();
-var _ioport_select; 
+var _ioport_select;
 
 var conditionsList = {
     'and':'And',
@@ -57,13 +57,13 @@ var actionsList = {
     'cancel' : 'Cancel', // < type="" rule-id="" />
     'formula' : 'Formula', // a*x^m+b*y^n+c < type="" id="object" x="" y="" a="1" b="1" c="0" m="1" n="1" />
     'start-actionlist' : 'Start actionlist', // < type="" rule-id="" list="true/false" />
-    'set-rule-active' : 'Set rule active' // < type="" rule-id="" active="yes/no" /> 
+    'set-rule-active' : 'Set rule active' // < type="" rule-id="" active="yes/no" />
 };
 
 var rules = {
 
   addAnd: function() {
-  
+
     var div=$('<div>');
     div.addClass('condition');
     div.addClass('and');
@@ -72,7 +72,7 @@ var rules = {
     div[0].type="and";
     div[0].condition=true;
     $('#tab-rules-container').append(div);
-    
+
     div.dblclick(function () {
       if (confirm(tr("Delete this condition ?")))
       {
@@ -80,11 +80,11 @@ var rules = {
         $(this).remove();
       }
     });
-    
-    jsPlumb.draggable(div); 
-    
+
+    jsPlumb.draggable(div);
+
     div[0].endpoint = [];
-    
+
     div[0].endpoint[1] = jsPlumb.addEndpoint(div, $.extend({ anchor:[0, 0, 0, 0] }, inputEndpoint));
     div[0].endpoint[2] = jsPlumb.addEndpoint(div, $.extend({ anchor:[0, 0.1, 0, 0] }, inputEndpoint));
     div[0].endpoint[3] = jsPlumb.addEndpoint(div, $.extend({ anchor:[0, 0.2, 0, 0] }, inputEndpoint));
@@ -95,12 +95,12 @@ var rules = {
     div[0].endpoint[8] = jsPlumb.addEndpoint(div, $.extend({ anchor:[0, 0.7, 0, 0] }, inputEndpoint));
     div[0].endpoint[9] = jsPlumb.addEndpoint(div, $.extend({ anchor:[0, 0.8, 0, 0] }, inputEndpoint));
     div[0].endpoint[10] = jsPlumb.addEndpoint(div, $.extend({ anchor:[0, 0.9, 0, 0] }, inputEndpoint));
-    div[0].endpoint[11] = jsPlumb.addEndpoint(div, $.extend({ anchor:[0, 1, 0, 0] }, inputEndpoint));  
+    div[0].endpoint[11] = jsPlumb.addEndpoint(div, $.extend({ anchor:[0, 1, 0, 0] }, inputEndpoint));
 
     div[0].endpoint[0] = jsPlumb.addEndpoint(div, $.extend({ anchor:[1, 0.5, 0, 0] }, outputEndpoint));
-    
-    return div;   
-                                                              
+
+    return div;
+
   },
 
   addOr:function() {
@@ -113,7 +113,7 @@ var rules = {
     div[0].type="or";
     div[0].condition=true;
     $('#tab-rules-container').append(div);
-    
+
     div.dblclick(function () {
       if (confirm(tr("Delete this condition ?")))
       {
@@ -121,11 +121,11 @@ var rules = {
         $(this).remove();
       }
     });
-    
+
     jsPlumb.draggable(div);
-    
+
     div[0].endpoint = [];
-        
+
     div[0].endpoint[1] = jsPlumb.addEndpoint(div, $.extend({ anchor:[0, 0, 0, 0] }, inputEndpoint));
     div[0].endpoint[2] = jsPlumb.addEndpoint(div, $.extend({ anchor:[0, 0.1, 0, 0] }, inputEndpoint));
     div[0].endpoint[3] = jsPlumb.addEndpoint(div, $.extend({ anchor:[0, 0.2, 0, 0] }, inputEndpoint));
@@ -136,8 +136,8 @@ var rules = {
     div[0].endpoint[8] = jsPlumb.addEndpoint(div, $.extend({ anchor:[0, 0.7, 0, 0] }, inputEndpoint));
     div[0].endpoint[9] = jsPlumb.addEndpoint(div, $.extend({ anchor:[0, 0.8, 0, 0] }, inputEndpoint));
     div[0].endpoint[10] = jsPlumb.addEndpoint(div, $.extend({ anchor:[0, 0.9, 0, 0] }, inputEndpoint));
-    div[0].endpoint[11] = jsPlumb.addEndpoint(div, $.extend({ anchor:[0, 1, 0, 0] }, inputEndpoint));  
-                     
+    div[0].endpoint[11] = jsPlumb.addEndpoint(div, $.extend({ anchor:[0, 1, 0, 0] }, inputEndpoint));
+
     div[0].endpoint[0]= jsPlumb.addEndpoint(div, $.extend({ anchor:[1, 0.5, 0, 0] }, outputEndpoint));
 
     return div;
@@ -153,7 +153,7 @@ var rules = {
     div[0].type="not";
     div[0].condition=true;
     $('#tab-rules-container').append(div);
-    
+
     div.dblclick(function () {
       if (confirm(tr("Delete this condition ?")))
       {
@@ -161,9 +161,9 @@ var rules = {
         $(this).remove();
       }
     });
-    
+
     jsPlumb.draggable(div);
-        
+
     div[0].endpoint = [];
     div[0].endpoint[1] = jsPlumb.addEndpoint(div, $.extend({ anchor:[0, 0.5, 0, 0] }, inputEndpoint));
 
@@ -171,14 +171,14 @@ var rules = {
 
     return div;
   },
-  
+
   generateNodeXML: function(div) {
     var xml;
     if(typeof div[0].condition != 'undefined' && div[0].condition) {
       xml = rulesCondition.generateNodeXMLCondition(div);
     } else {
       xml = rulesAction.generateNodeXMLAction(div);
-    } 
+    }
     return xml;
   },
 
@@ -190,7 +190,7 @@ var rules = {
     rule.attr("id", $('#id-current-rule').val());
     rule.attr("description", $('#description-current-rule').val());
     rule.attr("init", $('#init-current-rule').val());
-    
+
     $('#actionlist')[0].condition = true;
 
     if (jsPlumb.getConnections({target:"actionlist"})[0] ) {
@@ -202,7 +202,7 @@ var rules = {
       xmlactionlist = $('<actionlist type="on-true" >');
     } else {
       xmlactionlist = $('<actionlist type="if-true" >');
-    } 
+    }
     var c = jsPlumb.getConnections({source:'actionlistOnTrue'});
 
     for (var i in c) {
@@ -218,12 +218,12 @@ var rules = {
         }
       }
     }
-    
+
     rule.append(xmlactionlist);
 
     var c = jsPlumb.getConnections({source:'actionlistOnFalse'});
-    
-    if (c.length > 0) {    
+
+    if (c.length > 0) {
       if ($("span", '#actionlistOnFalse').text() == 'On-False') {
         xmlactionlist2 = $('<actionlist type="on-false" >');
       } else {
@@ -245,35 +245,35 @@ var rules = {
       }
     }
     rule.append(xmlactionlist2);
-    
+
     $("#tab-rules-property").text('<rule id="'+$('#id-current-rule').val()+'" description="' + $('#description-current-rule').val() + '" init="' + $('#init-current-rule').val() + '" >'+rule.html()+'</rule>').html();
   },
-  
+
   handleDialogCancel: function(dialog) {
     if (dialog.isNew)
     {
       jsPlumb.removeAllEndpoints(dialog.editing);
       $(dialog.editing).remove();
     }
-    $(dialog).dialog("close"); 
+    $(dialog).dialog("close");
   },
 
   handleDialogDelete: function(dialog) {
     jsPlumb.removeAllEndpoints(dialog.editing);
     $(dialog.editing).remove();
-    $(dialog).dialog("close"); 
+    $(dialog).dialog("close");
   },
-  
-  handleDialogSave: function(dialog) {    
+
+  handleDialogSave: function(dialog) {
     var type = dialog.editing.type;
     if (dialog.editing.condition) {
       rulesCondition.saveCondition(type);
     } else {
       rulesAction.saveAction(type);
     }
-    $(dialog).dialog("close"); 
+    $(dialog).dialog("close");
   },
-  
+
   deleteAllCurrentRule: function () {
     $('#id-current-rule').val('');
     $('#next-exec-current-rule').html('');
@@ -296,9 +296,9 @@ var rules = {
       }
     };
   },
-  
+
   autoManuRule: function(ruleid, active) {
-    if (!active || active == "off" || active == "false" || active == "no") active = false; else active = true; 
+    if (!active || active == "off" || active == "false" || active == "no") active = false; else active = true;
     var responseXML=queryLinknx('<write><config><rules><rule id="'+ruleid+'" active="'+active+'" /></rules></config></write>');
     if (responseXML!=false)
     {
@@ -308,11 +308,11 @@ var rules = {
     }
     return false;
   },
-  
+
   addconditionCurrent: function (div) {
     conditionsCurrent.push(div);
   },
-  
+
   addactionCurrent: function (div) {
     actionsCurrent.push(div);
   }
@@ -328,7 +328,7 @@ function serializeToString(doc)
     return doc.xml;
   return (new XMLSerializer()).serializeToString(doc);
 };
-function convertDate(dateToConvert) 
+function convertDate(dateToConvert)
 {
   if (!dateToConvert) return '';
   var elem = dateToConvert.split(' ');
@@ -344,8 +344,8 @@ function loadRule(xml)
   nbrCondition = 0;
   $('#description-current-rule').val($(xml).attr('description'));
   if ($(xml).attr('init')) $('#init-current-rule').val($(xml).attr('init')); else $('#init-current-rule').val('false');
-  
-  if (arrayStatusRules[$(xml).attr('id')] == "false") { 
+
+  if (arrayStatusRules[$(xml).attr('id')] == "false") {
     $('.checkbox', '.slidermanuelautorule').removeAttr("checked"); // => mode Manuel
     $('.slidermanuelautorule').removeClass('sliderauto');
     $('.slidermanuelautorule').addClass('slidermanuel');
@@ -363,7 +363,7 @@ function loadRule(xml)
     /* il y a qu'une condition globale !! rattacher condition à actionlist */
     if (type == "and" || type == "or" || type == "not" ) {
       jsPlumb.connect({source:condition[0].endpoint[0], target:actionlist[0].endpoint[0]});
-    } else jsPlumb.connect({source:condition[0].endpointout, target:actionlist[0].endpoint[0]}); 
+    } else jsPlumb.connect({source:condition[0].endpointout, target:actionlist[0].endpoint[0]});
   });
 
   $('actionlist', xml).each(function() { // TODO gérér les stopcondition ...
@@ -381,20 +381,20 @@ function loadRule(xml)
         var action = rulesAction.addActionRule( this.getAttribute('type'), this, i, true);
         i++;
         jsPlumb.connect({source:actionlist[0].ontrue[i], target: action[0].endpointin});
-        if (i>10) { messageBox(tr("Maximum number of share reached"),tr("Action True"),"alert"); return 0; }// TODO gérer si plus de 10 actions ... 
+        if (i>10) { messageBox(tr("Maximum number of share reached"),tr("Action True"),"alert"); return 0; }// TODO gérer si plus de 10 actions ...
       });
     } else if ( typeactionlist == "on-false" || typeactionlist == "if-false") {
       $('action', this).each(function() {
         var action = rulesAction.addActionRule( this.getAttribute('type'), this, i, false);
         i++;
         jsPlumb.connect({source:actionlist[0].onfalse[i], target: action[0].endpointin});
-        if (i>10) { messageBox(tr("Maximum number of share reached"),tr("Action False"),"alert"); return 0; }// TODO gérer si plus de 10 actions ... 
+        if (i>10) { messageBox(tr("Maximum number of share reached"),tr("Action False"),"alert"); return 0; }// TODO gérer si plus de 10 actions ...
       });
     }
 
-  }); 
-  
-  generateXmlFlag = true; // ré-active la génération du xml    
+  });
+
+  generateXmlFlag = true; // ré-active la génération du xml
 };
 function loadRulesList()
 {
@@ -407,15 +407,15 @@ function loadRulesList()
     $('#listRules').append('<option value="">' + tr("Select a rule") + '</option>');
     $('rule', responseXML).each(function() {
       $('#listRules').append('<option value="' + this.getAttribute("id") + '">' + this.getAttribute("id")+ ((arrayStatusRules[this.getAttribute('id')] != 'true' )?" ("+tr("inactive")+")":"") + '</option>');
-      arrayRules[this.getAttribute('id')]=this; 
+      arrayRules[this.getAttribute('id')]=this;
     });
   } else $('#listRules').append('<option value="">' + tr("No definite rule") + '</option>');
-  
+
   $('#listRules').change(function(){
     $("#tab-rules-property").text(serializeToString(arrayRules[this.value]));
     loadRule(arrayRules[this.value]);
     $('#id-current-rule').val(this.value);
-    
+
     this.value = "";
   });
 };
@@ -425,11 +425,11 @@ function loadStatusRulesList()
   if (responseXML!=false)
   {
     $('task', responseXML).each(function() {
-      arrayRulesTimer[this.getAttribute("owner")] = this.getAttribute("next-exec"); 
+      arrayRulesTimer[this.getAttribute("owner")] = this.getAttribute("next-exec");
     })
-    
+
     $('rule', responseXML).each(function() {
-      arrayStatusRules[this.getAttribute('id')] = this.getAttribute("active"); 
+      arrayStatusRules[this.getAttribute('id')] = this.getAttribute("active");
     });
   }
 };
@@ -459,14 +459,14 @@ function validRule()
 function deleteRule()
 {
   var body = '<write><config><rules><rule id="'+$('#id-current-rule').val()+'" delete="true" /></rules></config></write>';
-  
+
   var responseXML=queryLinknx(body);
   if (responseXML!=false)
   {
     messageBox(tr("Delete successfully the rule"),"Delete Rule","");
   }
   rules.deleteAllCurrentRule();
-  reloadloadRulesList();  
+  reloadloadRulesList();
 };
 
 function executeActionRule(type)  // type = true => actionlist de type "true" sinon "false"
@@ -479,7 +479,7 @@ function executeActionRule(type)  // type = true => actionlist de type "true" si
   } else {
     var actions = $('actionlist[type=on-false]', rule)[0];
     if (!actions) actions = $('actionlist[type=if-false]', rule)[0];
-  }  
+  }
   //var actions = $('rule[id="' + eventid + '"] actionlist',events.config)[0];
   var actionsText = '';
   $('action', actions).each(function() {
@@ -494,5 +494,5 @@ function executeActionRule(type)  // type = true => actionlist de type "true" si
         messageBox(tr("Action of the rule execute successfully"),tr("Execute Actionlist"),"");
       }
   	}
-  } 
+  }
 }

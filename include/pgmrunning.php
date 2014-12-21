@@ -1,7 +1,7 @@
 <?php
 /*
 
-Ce script est à modifier pour chaque programmes que l'utilisateur soouhaite vérifier si il est ou non actif 
+Ce script est à modifier pour chaque programmes que l'utilisateur soouhaite vérifier si il est ou non actif
 
 TODO : a détailler ...
 

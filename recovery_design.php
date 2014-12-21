@@ -1,18 +1,18 @@
 <?php
 
-  header('Content-Type: text/html; charset=utf-8'); 
+  header('Content-Type: text/html; charset=utf-8');
 
   $send = isset($_POST['send'])?$_POST['send']:'none';
 
   $dossier_image = isset($_POST['dossier_image'])?$_POST['dossier_image']:"reprise"; // dossier dans knxweb2/pictures/
-  
+
   $design = isset($_POST['design'])?$_POST['design']:'default';
   $version_knxwebOld = isset($_POST['version_knxwebOld'])?$_POST['version_knxwebOld']:"design_knxweb1_2";//'design_old';
   $version_knxwebNew = isset($_POST['version_knxwebNew'])?$_POST['version_knxwebNew']:"design";
 
   $subpage_dimmer = isset($_POST['subpage_dimmer'])?$_POST['subpage_dimmer']:"old_dimmer22";
   $subpage_dimmer2 = isset($_POST['subpage_dimmer2'])?$_POST['subpage_dimmer2']:"old_dimmer2";
-  
+
   $subpage_thermostat = isset($_POST['subpage_thermostat'])?$_POST['subpage_thermostat']:"old_thermostat";
   $subpage_thermostat2 = isset($_POST['subpage_thermostat2'])?$_POST['subpage_thermostat2']:"old_thermostat2";
   $subpage_thermostat3 = isset($_POST['subpage_thermostat3'])?$_POST['subpage_thermostat3']:"old_thermostat3";
@@ -283,9 +283,9 @@ caption {
 
 </form>
 
-<?php 
+<?php
 
-if ($send =="yes") { 
+if ($send =="yes") {
 
 ?>
 
@@ -304,7 +304,7 @@ if ($send =="yes") {
 </table>
 
 <?php
- 
+
   if (!file_exists('design/' . $design.'/'.$version_knxwebOld.'.xml'))
   {
     //header('Location: check_install.php');
@@ -338,7 +338,7 @@ foreach($_design as $key0 => $value){
         if (file_exists('pictures/Background/' . $attributesvalue2)) {
           $xml = $xml . " " . $attributeskey . '="Background/' . $attributesvalue2 . '"';
           $infos_image = @getImageSize('pictures/Background/' . $attributesvalue2);
-        } else {                                                      
+        } else {
           //$xml = $xml . " " . $attributeskey . '="pictures/' . $dossier_image . '/' .  $attributesvalue2 . '"';
           $xml = $xml . " " . $attributeskey . '="' . $dossier_image . '/' .  $attributesvalue2 . '"';
           $infos_image = @getImageSize('pictures/' . $dossier_image . '/' . $attributesvalue2);
@@ -356,7 +356,7 @@ foreach($_design as $key0 => $value){
         $width = 32;
         $height = 32;
         $control = '<control type="button" ';
-        $control = $control . 'name="' . $arr['label'] . '" '; 
+        $control = $control . 'name="' . $arr['label'] . '" ';
         if ($arr['img'] == "custom" ) {
           $control = $control . 'picture="' . $dossier_image . '/' . $arr['off'] . '" picture-active="' . $dossier_image . '/' . $arr['on'] . '" ';
           $infos_image = @getImageSize('pictures/' . $dossier_image . '/' . $arr['off']);
@@ -370,20 +370,20 @@ foreach($_design as $key0 => $value){
         else if ($arr['img'] == "blinds" ) $control = $control . 'picture="32x32_blinds_up.png" picture-active="32x32_blinds_down.png" ';
         else $control = $control . 'picture="32x32_ampouleOff.png" picture-active="32x32_ampouleOn.png" ';
         $control = $control . 'text="" size="12" color="#000000" align="" text-padding="0" ';
-        if ($arr['type'] == "switch3") $control = $control . 'confirm="yes" '; 
+        if ($arr['type'] == "switch3") $control = $control . 'confirm="yes" ';
         else $control = $control . 'confirm="no" ';
-        $control = $control . 'feedback-object="' . $arr['object'] . '" feedback-compare="eq" feedback-value="on" '; 
-        $control = $control . 'inactive-goto="" inactive-action="" active-goto="" active-action="" '; 
-        $control = $control . 'x="' . ($arr['x'] - 10 ). '" y="' . ($arr['y'] - 10 ) . '" '; 
-        $control = $control . 'width="' . $width . '" height="' . $height . '" '; 
+        $control = $control . 'feedback-object="' . $arr['object'] . '" feedback-compare="eq" feedback-value="on" ';
+        $control = $control . 'inactive-goto="" inactive-action="" active-goto="" active-action="" ';
+        $control = $control . 'x="' . ($arr['x'] - 10 ). '" y="' . ($arr['y'] - 10 ) . '" ';
+        $control = $control . 'width="' . $width . '" height="' . $height . '" ';
         $control = $control . 'id="' . $arr['label'] . '" > ';
         $control = $control . '<actionlist id="inactive-action"><action type="set-value" id="' . $arr['object'] . '" value="on"/></actionlist> ';
         $control = $control . '<actionlist id="active-action"><action type="set-value" id="' . $arr['object'] . '" value="off"/></actionlist> ';
         $control = $control . '</control>';
       } else if ($arr['type'] == "goto") {
 /* new
-<control type="button" picture="" picture-active="" display-picture="no" text="My button" size="12" color="#000000" align="" 
- text-padding="0" confirm="no" validation-code="" feedback-object="" feedback-compare="eq" feedback-value="" inactive-goto="2" 
+<control type="button" picture="" picture-active="" display-picture="no" text="My button" size="12" color="#000000" align=""
+ text-padding="0" confirm="no" validation-code="" feedback-object="" feedback-compare="eq" feedback-value="" inactive-goto="2"
  inactive-action="" active-goto="" active-action="" x="104" y="89" width="32" height="32" />
 */
 /* old
@@ -405,14 +405,14 @@ foreach($_design as $key0 => $value){
         else if ($arr['img'] == "upper" ) $control = $control . 'picture="32x32_flecheUp2.png" picture-active="" ';
         else if ($arr['img'] == "lower" ) $control = $control . 'picture="32x32_flecheDown2.png" picture-active="" ';
         else $control = $control . 'picture="32x32_ampouleOff.png" picture-active="" ';
-        $control = $control . 'text="" size="12" color="#000000" align="" text-padding="0" confirm="no" '; 
-        $control = $control . 'feedback-object="" feedback-compare="eq" feedback-value="" '; 
-        $control = $control . 'inactive-goto="' . $arr['target'] . '" inactive-action="" active-goto="" active-action="" '; 
+        $control = $control . 'text="" size="12" color="#000000" align="" text-padding="0" confirm="no" ';
+        $control = $control . 'feedback-object="" feedback-compare="eq" feedback-value="" ';
+        $control = $control . 'inactive-goto="' . $arr['target'] . '" inactive-action="" active-goto="" active-action="" ';
         $control = $control . 'x="' . ($arr['x'] - 10 ) . '" y="' . ($arr['y'] - 10 ) . '" ';
         $control = $control . 'width="' . $width . '" height="' . $height . '" />';
       } else if ($arr['type'] == "text") {
 /* new
-<control type="text" text="Date : $3/$2/$1" size="20" color="#cc6e1e" bgcolor="" align="" style="" 
+<control type="text" text="Date : $3/$2/$1" size="20" color="#cc6e1e" bgcolor="" align="" style=""
 object="Date" pattern="(\d+)-(\d+)-(\d+)" x="280" y="300" width="193" height="30" />
 */
 /* old
@@ -423,7 +423,7 @@ object="Date" pattern="(\d+)-(\d+)-(\d+)" x="280" y="300" width="193" height="30
         $control = '<control type="text" ';
         $control = $control . 'name="' . $arr['label'] . '" ';
         $control = $control . 'text="' . (($arr['format'])?$arr['format']:$arr['label']) . '" size="12" color="#000000" bgcolor="" align="" style="' . $arr['style'] . 'white-space: nowrap;" ';
-        $control = $control . 'object="' . $arr['object'] . '" pattern="' . (($arr['pattern'])?$arr['pattern']:"(.*)") . '" '; 
+        $control = $control . 'object="' . $arr['object'] . '" pattern="' . (($arr['pattern'])?$arr['pattern']:"(.*)") . '" ';
         $control = $control . 'x="' . ($arr['x'] - 10 ). '" y="' . ($arr['y'] - 10 ) . '" ';
         $control = $control . 'width="' . $arr['width'] . '" height="' . $arr['height'] . '" />';
       } else if ($arr['type'] == "html") {
@@ -438,7 +438,7 @@ object="Date" pattern="(\d+)-(\d+)-(\d+)" x="280" y="300" width="193" height="30
         $control = '<control type="html" ';
         $control = $control . 'name="' . $arr['label'] . '" ';
         //$control = $control . 'html="' . $value3 . '" ';  // TODO à améliorer html="<![CDATA[' . $value3 . ']]>"
-        //$control = $control . 'html="TODO..." ';  // TODO à améliorer  
+        //$control = $control . 'html="TODO..." ';  // TODO à améliorer
         $control = $control . 'x="' . ($arr['x'] - 10 ). '" y="' . ($arr['y'] - 10 ) . '" ';
         $control = $control . 'width="32" height="32" >';
         $control = $control . '<![CDATA[' . $value3 . ']]>';
@@ -488,7 +488,7 @@ object="Date" pattern="(\d+)-(\d+)-(\d+)" x="280" y="300" width="193" height="30
 */
         $control = '<control type="subpage" subpage="' . $subpage_dimmer . '" ';
         $control = $control . 'name="' . $arr['label'] . '" ';
-        $control = $control . 'view_mode="" hidetitledialog="false" picture-dialog="" '; 
+        $control = $control . 'view_mode="" hidetitledialog="false" picture-dialog="" ';
         $control = $control . 'x="' . ($arr['x'] - 10 ). '" y="' . ($arr['y'] - 10 ) . '" ';
         $control = $control . 'dim="' . $arr['dim'] . '" ';
         $control = $control . 'switch="' . $arr['switch'] . '" ';
@@ -515,7 +515,7 @@ object="Date" pattern="(\d+)-(\d+)-(\d+)" x="280" y="300" width="193" height="30
 
         $control = $control . '<control type="subpage" subpage="' . $subpage_dimmer2 . '" ';
         $control = $control . 'name="' . $arr['label'] . '" desc="' . $arr['label'] . '" ';
-        $control = $control . 'view_mode="hideshow" hidetitledialog="true" picture-dialog="32x32_vide.png" '; //Black/var/blinds/1.png 
+        $control = $control . 'view_mode="hideshow" hidetitledialog="true" picture-dialog="32x32_vide.png" '; //Black/var/blinds/1.png
         $control = $control . 'x="' . ($arr['x'] - 10 ). '" y="' . ($arr['y'] - 10 ) . '" ';
         $control = $control . 'dim="' . $arr['dim'] . '" ';
         $control = $control . 'switch="' . $arr['switch'] . '" ';
@@ -523,12 +523,12 @@ object="Date" pattern="(\d+)-(\d+)-(\d+)" x="280" y="300" width="193" height="30
         $control = $control . ' />';
       } else if ($arr['type'] == "scale") {
 /* new
-<control type="slider" 
- slider-color="#FF0000" name="" desc="" 
- translatepicture="true" background-picture="32x32_blinds_up.png" slider-picture="32x32_blinds_down.png" translaterimage="false" 
- border="false" border-color="#000000" orientation="vertical" position="percent" min="0" max="100" 
- feedback-object="volet_Sejour" 
- slidestop-action="" slide-action="" 
+<control type="slider"
+ slider-color="#FF0000" name="" desc=""
+ translatepicture="true" background-picture="32x32_blinds_up.png" slider-picture="32x32_blinds_down.png" translaterimage="false"
+ border="false" border-color="#000000" orientation="vertical" position="percent" min="0" max="100"
+ feedback-object="volet_Sejour"
+ slidestop-action="" slide-action=""
  x="200" y="200"
  width="32" height="32" />
 */
@@ -558,13 +558,13 @@ object="Date" pattern="(\d+)-(\d+)-(\d+)" x="280" y="300" width="193" height="30
         $control = $control . 'width="' . $arr['width'] . '" height="' . $arr['height'] . '" />';
       } else if ($arr['type'] == "temp") {
 /* new
-<control type="temp" feedback-object="Temp_Exterieur" 
-mod="0.01" decimal="2" scale="100" tempinf="-99" tempsup="99" tempmin="-99" tempmax="99" 
-width="100" height="100" x="856" y="11" 
+<control type="temp" feedback-object="Temp_Exterieur"
+mod="0.01" decimal="2" scale="100" tempinf="-99" tempsup="99" tempmin="-99" tempmax="99"
+width="100" height="100" x="856" y="11"
 name="" desc="" ></control>
 */
 /* old
-<control type="temp" label="Temp_Exterieur" object="Temp_Exterieur" x="720" y="60" 
+<control type="temp" label="Temp_Exterieur" object="Temp_Exterieur" x="720" y="60"
 tempmin="-10" tempmax="35" tempinf="18" tempsup="24" decimal="2" mod="0.01"/>
 */
         $control = '<control type="temp" ';
@@ -584,7 +584,7 @@ tempmin="-10" tempmax="35" tempinf="18" tempsup="24" decimal="2" mod="0.01"/>
 */
         $control = '<control type="subpage" subpage="' . $subpage_thermostat . '" ';
         $control = $control . 'name="' . $arr['label'] . '" ';
-        $control = $control . 'view_mode="" hidetitledialog="false" picture-dialog="" '; 
+        $control = $control . 'view_mode="" hidetitledialog="false" picture-dialog="" ';
         $control = $control . 'x="' . ($arr['x'] - 10 ). '" y="' . ($arr['y'] - 10 ) . '" ';
         $control = $control . 'mode="' . $arr['mode'] . '" ';
         $control = $control . 'setpoint="' . $arr['setpoint'] . '" ';
@@ -598,7 +598,7 @@ tempmin="-10" tempmax="35" tempinf="18" tempsup="24" decimal="2" mod="0.01"/>
 */
         $control = '<control type="subpage" subpage="' . $subpage_thermostat2 . '" ';
         $control = $control . 'name="' . $arr['label'] . '" ';
-        $control = $control . 'view_mode="" hidetitledialog="false" picture-dialog="" '; 
+        $control = $control . 'view_mode="" hidetitledialog="false" picture-dialog="" ';
         $control = $control . 'x="' . ($arr['x'] - 10 ). '" y="' . ($arr['y'] - 10 ) . '" ';
         $control = $control . 'comfort="' . $arr['comfort'] . '" ';
         $control = $control . 'night="' . $arr['night'] . '" ';
@@ -614,7 +614,7 @@ tempmin="-10" tempmax="35" tempinf="18" tempsup="24" decimal="2" mod="0.01"/>
 */
         $control = '<control type="subpage" subpage="' . $subpage_thermostat3 . '" ';
         $control = $control . 'name="' . $arr['label'] . '" ';
-        $control = $control . 'view_mode="" hidetitledialog="false" picture-dialog="" '; 
+        $control = $control . 'view_mode="" hidetitledialog="false" picture-dialog="" ';
         $control = $control . 'x="' . ($arr['x'] - 10 ). '" y="' . ($arr['y'] - 10 ) . '" ';
         $control = $control . 'mode="' . $arr['mode'] . '" ';
         $control = $control . 'setpoint="' . $arr['setpoint'] . '" ';
@@ -624,10 +624,10 @@ tempmin="-10" tempmax="35" tempinf="18" tempsup="24" decimal="2" mod="0.01"/>
       } else {
         echo " The widget <b>\"". $arr['label'] . "\"</b> with type=<b>\"" . $arr['type']."\"</b> can't be convert <br />";
       }
-      
 
 
-/*      
+
+/*
 <control type="text" text="Date : $3/$2/$1" size="20" color="#cc6e1e" bgcolor="" align="" style="" object="Date" pattern="(\d+)-(\d+)-(\d+)" x="280" y="300" width="193" height="30" />
 <control type="temp" feedback-object="Temp_Exterieur" mod="0.01" decimal="2" scale="100" tempinf="-99" tempsup="99" tempmin="-99" tempmax="99" width="100" height="100" x="856" y="11" name="" desc="" />
 <control type="button" picture="20x20_ampouleOff.png" picture-active="20x20_ampouleOn.png" display-picture="no" text="" size="12" color="#000000" align="" text-padding="0" confirm="no" feedback-object="ecl_CH1" feedback-compare="eq" feedback-value="on" inactive-goto="" inactive-action="" active-goto="" active-action="" x="377" y="547" width="32" height="32" id="ecl_CH1" values="off">
@@ -655,7 +655,7 @@ Old Knxweb :
 <control type="thermostat" label="Ch1" mode="Temp_mode_CH1" setpoint="Temp_consigne_CH1" temp="Temp_CH1" x="1194" y="511"/>
 
 <control type="html" label="afficheSSol" x="34" y="74"><![CDATA[
-  <script type="text/javascript">afficheSSol();</script>                                                                      
+  <script type="text/javascript">afficheSSol();</script>
 ]]></control>
 */
 

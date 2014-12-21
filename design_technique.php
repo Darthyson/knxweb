@@ -7,7 +7,7 @@ error_reporting(0);
 header('Content-Type: application/xml; charset=utf-8');
 
 if (isset($_GET['action'])) {
-	switch ($_GET['action']) 
+	switch ($_GET['action'])
 	{
 		case 'savedesign':
 			$name = "default";
@@ -30,7 +30,7 @@ if (isset($_GET['action'])) {
 				echo "<savedesign status='error'>Unable to write design to file";
 			echo "</savedesign>\n";
 	    break;
-	    
+
 		case 'designlist':
 			if ($dh = opendir("design")) {
 				echo "<designlist status='success'>\n";
@@ -53,7 +53,7 @@ if (isset($_GET['action'])) {
 				echo "<designlist status='error'>Unable to find design folder on server\n";
 			echo "</designlist>\n";
 	    break;
-	    
+
 		case 'createdesign':
 	    if (isset($_GET['name'])) {
         $name = $_GET['name'];
@@ -85,7 +85,7 @@ if (isset($_GET['action'])) {
 				echo "<createdesign status='error'>No design name specified";
 			echo "</createdesign>\n";
 	    break;
-      
+
 	  case 'removedesign':
 	    if (isset($_GET['name'])) {
         $name = $_GET['name'];
@@ -106,11 +106,11 @@ if (isset($_GET['action'])) {
 				echo "<removedesign status='error'>No design name specified";
 			echo "</removedesign>\n";
 	    break;
-      
+
 		case 'savefile':
 			echo "<savefile status='error'>File save is not possible, please put the file manually in design folder on server</savefile>\n";
 	    break;
-	    
+
 		case 'filelist':
 			$name = "default";
 	    if (isset($_GET['name']))
@@ -127,11 +127,11 @@ if (isset($_GET['action'])) {
 				echo "<filelist status='error'>Unable to find design '$name' on server\n";
 			echo "</filelist>\n";
 	    break;
-	    
+
 		case 'filelistdir':
 			$name = "images";
 			if (isset($_GET['name']))	$name = $_GET['name'];
-			
+
 			$files=glob($_config['imageDir'] . $name . "*");
 
 			echo "<filelist status='success'>\n";
@@ -140,7 +140,7 @@ if (isset($_GET['action'])) {
 				if (is_file($f)) echo "<file>" . basename($f) . "</file>\n";
 			}
 
-				
+
 /*				if ($dh = opendir($name)) {
 					echo "<filelist status='success'>\n";
 					while (($file = readdir($dh)) !== false) {
@@ -150,7 +150,7 @@ if (isset($_GET['action'])) {
 					closedir($dh); */
 			echo "</filelist>\n";
 			break;
-			
+
 		case 'saveconfig':
 			$dir = "include";
 	    if (isset($_GET['dir']))
@@ -169,17 +169,17 @@ if (isset($_GET['action'])) {
 				echo "<saveconfig status='error'>Unable to create config.xml file";
 			echo "</saveconfig>\n";
 	    break;
-	    
+
 		case 'newWidget':
 			$w = getWidget($_GET['type']);
-			
+
 			$xml = new SimpleXMLElement("<control></control>");
 			$xml->addAttribute("type", $w['name']);
-			
+
 			foreach($w['settings'] as $s) {
 				if (isset($s['id'])) $xml->addAttribute($s['id'], ((isset($s['default']))?$s['default']:'') );
 			}
-			
+
 			echo $xml->asXML();
 			break;
 
@@ -213,16 +213,16 @@ if (isset($_GET['action'])) {
       $path_knxweb2 = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'widgets' . DIRECTORY_SEPARATOR;
       exec('tar -xf /tmp/widget.tar --directory='.$path_knxweb2);
       exec('rm /tmp/widget.tar');
-      echo "<widgetsdl status='success' />\n"; 
+      echo "<widgetsdl status='success' />\n";
       break;
-      
+
     case 'subpagesdl':
       $subpage = $_GET['subpage'];
       /* $widgetcss = $_GET['widgetcss']; */ /* 0: pas de fichier css; 1: présence du fichier widgets.css */
       $opts = array(
         'http'=>array(
           'method'=>"GET",
-          'header'=>"Content-Type: application/xml; charset=utf-8", 
+          'header'=>"Content-Type: application/xml; charset=utf-8",
           'timeout' => 20
         )
       );
@@ -243,21 +243,21 @@ if (isset($_GET['action'])) {
   			} else
   				echo "<updatesubpagesxml status='error'>Unable to update design/subpages.xml file";
   			echo "</updatesubpagesxml>\n";
-      } 
+      }
       $widgetscss = file_get_contents('http://linknx.cvs.sourceforge.net/viewvc/linknx/knxweb/subpages_knxweb2/' . $subpage . '/widgets.css', false, $context);
       if ($widgetscss) {
         $fp = fopen("widgets/widgets.css", 'a+');  // 'a+' => Ouvre en lecture et écriture ; place le pointeur de fichier à la fin du fichier. Si le fichier n'existe pas, on tente de le créer.
-        if ($fp) {  
+        if ($fp) {
   				fwrite($fp, "\n /* Subpage " . $subpage . " Add from cvs */\n" . $widgetscss);
   				fclose($fp);
   				echo "<updatewidgetscss status='success'>";
   			} else
   				echo "<updatewidgetscss status='error'>Unable to update/create widgets/widgets.css file";
   			echo "</updatewidgetscss>\n";
-      }      
+      }
       echo "</subpagesdl>\n";
       break;
-      
+
     case 'updateknxweb':
       exec('wget -O /tmp/knxweb2.tar "http://linknx.cvs.sourceforge.net/viewvc/linknx/knxweb/knxweb2/?view=tar"');
       $path_knxweb2 = explode(DIRECTORY_SEPARATOR, dirname(__FILE__));
@@ -265,7 +265,7 @@ if (isset($_GET['action'])) {
       $path_knxweb2 = implode( DIRECTORY_SEPARATOR , $path_knxweb2 ) . DIRECTORY_SEPARATOR;
       exec('tar xvf /tmp/knxweb2.tar --directory='.$path_knxweb2);
       exec('rm /tmp/knxweb2.tar');
-      echo "<updateknxweb status='success' />\n"; 
+      echo "<updateknxweb status='success' />\n";
       break;
 
 		default:

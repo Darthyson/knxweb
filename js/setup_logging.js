@@ -23,7 +23,7 @@ var logging = {
 						$("#logging-format").val('custom');
 						$("#logging-customformat").val(data.getAttribute('format'));
 					}
-						
+
 					$("#logging-log4cpp-maxfilesize").val(data.getAttribute('maxfilesize'));
 					$("#logging-log4cpp-maxfileindex").val(data.getAttribute('maxfileindex'));
 					$("#logging-log4cpp-config").val(data.getAttribute('config'));
@@ -34,7 +34,7 @@ var logging = {
 			$("#logging-format").trigger('change');
 		}
 	},
-	
+
 	saveData: function() {
 
 		if ($("#logging-form").valid())
@@ -51,7 +51,7 @@ var logging = {
 			if ($("#logging-log4cpp-maxfileindex").val()!="") body += 'maxfileindex="' + $("#logging-log4cpp-maxfileindex").val() + '" ';
 			if ($("#logging-log4cpp-config").val()!="") body += 'config="' + $("#logging-log4cpp-config").val() + '" ';
 			body += '/>';
-			
+
 			body += '</config></write>';
 
 			loading.show();
@@ -59,7 +59,7 @@ var logging = {
 			saveConfig();
 			loading.hide();
 		  if (responseXML!=false) maintab.tabs('remove', '#tab-logging');
-		}	
+		}
 	}
 }
 
@@ -69,14 +69,14 @@ jQuery(document).ready(function(){
 		sortable: false,
 		selectable: false
 	});
-	
+
 	$("#logging-button-save").button();
 	$("#logging-button-save").click(logging.saveData);
 
 	$("#logging-format").change(function () {
 		$("#logging-customformat").attr('disabled',!($(this).val()=='custom'));
 	});
-	
+
 	logging.refreshData();
 	loading.hide();
 });

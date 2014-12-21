@@ -8,11 +8,11 @@ var design_view = {
 
 	load: function(designName, version, zone, callback)	{
 		var url = 'design/' + designName + '/' + version + '.xml';
-	
+
 		design_view.currentDesign=designName;
 		design_view.currentVersion=version;
     design_view.currentZone=zone;
-		
+
 		req = jQuery.ajax({ url: url, dataType: 'xml', async: true, cache: false,
 			success: function(responseXML, status) {
 				design_view.config=responseXML;
@@ -21,7 +21,7 @@ var design_view = {
 			}
 		});
 	},
-	
+
 	loadSubPages: function(callback) {
 	    var url = 'design/subpages.xml';
 
@@ -30,7 +30,7 @@ var design_view = {
 		    _subpages=responseXML
 		    callback();
 		}
-	    });	
+	    });
 	},
 
 	// Add existing widget
@@ -45,7 +45,7 @@ var design_view = {
 
 //				obj.edit(design.onWidgetSelect, design.onWidgetMove, design.onWidgetResize);
 				div.append(obj.div);
-        // If the widget had Children 
+        // If the widget had Children
         //$('control', conf).each(function() {
         $(conf).children('control').each(function() {
   				design_view.addWidgetChildren(this, obj.content);
@@ -72,7 +72,7 @@ var design_view = {
         parent.append(obj.div);
 				EIBCommunicator.add(obj);
 				return true;
-			} 
+			}
 			return false;
 		}	else return false;
 	},
@@ -80,29 +80,29 @@ var design_view = {
 	draw: function(zone) {
 		var enableSlider=(($("config",design_view.config)[0].getAttribute('enableSlider')=='true')?true:false);
     var conf_zone = $("config",design_view.config)[0];
-    
+
     _floating_zone = ((conf_zone.getAttribute('floating'))?true:false);
     _floating_zone_margin = conf_zone.getAttribute('floating');
-		
+
 		design_view.clear();
 
 		var width=$("config",design_view.config)[0].getAttribute('width');
 		var height=$("config",design_view.config)[0].getAttribute('height');
-		
+
 		$("#zoneContainer").width(width);
 		$("#zoneContainer").height(height);
-		
+
 		if (enableSlider) {
 			var container=$("<ul>");
 			$("#zoneContainer").append(container);
 		} else container=$("#zoneContainer");
-		
+
 		var zones=$('zone', design_view.config);
-		
+
 		$("#zoneContainer ul").width(zones.length*width);
-		
+
 		zones.each(function() {
-			if (enableSlider) 
+			if (enableSlider)
 				var e=$("<li>");
 			else
 				var e=$("<div>");
@@ -130,7 +130,7 @@ var design_view = {
         });
       }
 
-			
+
 			$('#bgImage_' + this.getAttribute('id')).maphilight();
 			design_view.currentZone = null;
 		});
@@ -139,10 +139,10 @@ var design_view = {
 		{
 			$("#screen .prev").css('left', '10px');
 			$("#screen .prev").css('top', Math.round(height/2)-25 + 'px');
-	
+
 			$("#screen .next").css('left', (width-50) + 'px');
 			$("#screen .next").css('top', Math.round(height/2)-25 + 'px');
-			
+
 			$("#screen .prev").css('display','block');
 			$("#screen .next").css('display','block');
 
@@ -157,7 +157,7 @@ var design_view = {
       }
 		}
 	},
-	
+
 	clear: function() {
 		EIBCommunicator.removeAll();
 		$("#widgetdiv .widget").each(function() {
@@ -171,7 +171,7 @@ var design_view = {
 function gotoZone(id)
 {
 	var enableSlider=(($("config",design_view.config)[0].getAttribute('enableSlider')=='true')?true:false);
-	
+
 	if (enableSlider) {
 		var i=0;
 		$("#zoneContainer ul li").each(function() {
@@ -188,7 +188,7 @@ function gotoZone(id)
     var selectedEffect = $("config",design_view.config)[0].getAttribute('effect');
     if (!selectedEffect) selectedEffect = "";
     if (selectedEffect=="random" ) selectedEffect = _tab_effects[Math.floor(Math.random() * (_tab_effects.length + 1 ) )];
-    
+
     // most effect types need no options passed by default
     var options = {};
     // some effects have required parameters
@@ -199,7 +199,7 @@ function gotoZone(id)
   		var height=$("config",design_view.config)[0].getAttribute('height');
       options = { to: { width: width, height: height } };
     }
-    
+
     // run the effect
     $("#" + id).show( selectedEffect, options, 1000 );
 		//$("#" + id).show();
@@ -211,7 +211,7 @@ jQuery(function($) {
 	var design = tab_config['defaultDesign'];
 	var version = tab_config['defaultVersion'];
   var zone = null;
-	
+
 	var matched;
 	if (matched = location.search.match(/design=([^&]+)/))
 		design = matched[1];
@@ -222,9 +222,9 @@ jQuery(function($) {
 
 	design_view.loadSubPages(function() {
 		design_view.load(design, version, zone, function() {
-			
+
 			design_view.draw();
-			
+
 			if ($("config",design_view.config)[0].getAttribute('enableSlider')=='true') {
 				$('#screen').serialScroll({
 					target:'#zoneContainer',
@@ -236,9 +236,9 @@ jQuery(function($) {
 					force:true
 				});
 			}
-			 
+
       EIBCommunicator.runUpdate();
-/* 
+/*
 			if (tab_config.useJavaIfAvailable=='true')
 			{
 				if (navigator.javaEnabled())
@@ -248,7 +248,7 @@ jQuery(function($) {
 				} else EIBCommunicator.periodicUpdate();
 			} else EIBCommunicator.periodicUpdate();
 */
-			
+
 			loading.hide();
 		});
 	});
@@ -266,7 +266,7 @@ $(window).focus(function() {
       console.log( "focus windows", d.getHours(), d.getMinutes(), d.getSeconds()); // d.getTime()
       EIBCommunicator.periodicUpdate();
     }
-  }   
+  }
 });
 
 $(window).blur(function() {

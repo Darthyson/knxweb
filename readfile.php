@@ -6,7 +6,7 @@ paramètres :
 soit :
   objectlog : id de l'object a récupérer la log éventuellement suivi du type "IDOBJECT_type_DATATYPE" ou "IDOBJECT"
 soit :
-  LogLinknx="true" => récupératio de la log de linknx si de type "file" ... 
+  LogLinknx="true" => récupératio de la log de linknx si de type "file" ...
 
 et
   output : "html" / "json" / ""
@@ -51,7 +51,7 @@ if (isset($_GET['LogLinknx'])) { // log linknx
     header("Content-type: text/plain; charset=utf-8");
     print("No object to restitute");
     exit(0);
-  } 
+  }
 
   $info=$linknx->getServices();
   if ($info!==false) {
@@ -59,7 +59,7 @@ if (isset($_GET['LogLinknx'])) { // log linknx
     if ($typelog == 'file') {
       $pathlogfile = $info['persistence']['logpath'];
       if ($pathlogfile == "") $pathlogfile = $info['persistence']['path'];
-      // reconstitution du path complet + extension 
+      // reconstitution du path complet + extension
       $filelog = $pathlogfile . $objectlog . ".log";
     }
   } else {
@@ -70,7 +70,7 @@ if (isset($_GET['LogLinknx'])) { // log linknx
 }
 
 if ($typelog == 'mysql') {
-  // $info['persistence'][] host/user/pass/db/table/logtable 
+  // $info['persistence'][] host/user/pass/db/table/logtable
   //nom du serveur serveur:
   $serveur       = $info['persistence']['host'];
   // pseudo de connexion au serveur
@@ -78,7 +78,7 @@ if ($typelog == 'mysql') {
   // Mot de pass de connexon au serveur
   $password       = $info['persistence']['pass'];
   // Nom de la base de donnée
-  $base  = $info['persistence']['db']; //"linknx"; 
+  $base  = $info['persistence']['db']; //"linknx";
   $table = $info['persistence']['logtable']; //"log";
   // structure de la table logtable
   $ts = "ts";
@@ -97,19 +97,19 @@ else {
     $log_nbenreg = 20;
   } else {
     $log_nbenreg = 1000;
-  } 
+  }
 }
 
 $result = "";
 $result_tab = array();
 
 if ($typelog == "mysql") {
-  
+
   // On ouvre la connexion à Mysql
-  $db = mysql_connect($serveur, $login, $password) or die('<h1>Connexion au serveur impossible !</h1>'); 
+  $db = mysql_connect($serveur, $login, $password) or die('<h1>Connexion au serveur impossible !</h1>');
   mysql_select_db($base,$db) or die('<h1>Connexion impossible à la base</h1>');
   mysql_query("SET NAMES 'utf8'");
-   
+
   if ($_GET['output'] == "json") {
     $sql = "SELECT COUNT(".$ts.")-".$log_nbenreg." AS lowlimit FROM ".$table." WHERE ".$object." = '".$objectlog."'";
     $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
@@ -133,7 +133,7 @@ if ($typelog == "mysql") {
 
   $nbenreg = mysql_num_rows($req);
   $nbenreg--;
-  
+
   while ($nbenreg >= 0 ){
     /*
      $data["ts"] : est de la forme 2011-9-18 19:21:32
@@ -142,7 +142,7 @@ if ($typelog == "mysql") {
 
     // récupérer prochaine occurence de la table
     $data = mysql_fetch_array($req);
-    
+
     // Conversion des "on/off ..." en "numérique" puis en float
     $float_value = $data["value"];
     if ($float_value == "on") $float_value = 1;
@@ -156,32 +156,32 @@ if ($typelog == "mysql") {
     /* 2011-9-18 19:21:32 > 20.7<br />2011-9-18 19:23:32 > 20.9<br />2011-9-18 19:37:32 > 21<br />2011-9-18 19:39:32 > 20.9<br />2011-9-18 19:41:32 > 21<br />2011-9-18 19:47:32 > 20.9<br />2011-9-18 19:57:33 ... */
     //$result = $data["ts"] . " > ".$data["value"]."<br />" . $result;
     $result = $data["ts"] . " > ".$float_value."<br />" . $result;
-    
+
     // Format de sortie "json"
-    // convertir les dates en timestamps pour le format json (pour highcharts notament) 
+    // convertir les dates en timestamps pour le format json (pour highcharts notament)
     $ts = strtotime($data["ts"]) * 1000;
-    //array_push ( $result_tab , array($data["ts"], $data["value"] ) ); 
+    //array_push ( $result_tab , array($data["ts"], $data["value"] ) );
     array_push ( $result_tab , array($ts, $float_value ) );
 
     $nbenreg--;
   }
-  
+
   mysql_close();
 
 } else if ($typelog == "file") {
-  
+
   if ($_GET['output'] == 'json') {
   //$result=str_replace("\n","<br />",`tail -n $log_nbenreg $filelog`);
   exec('tail -n ' . $log_nbenreg . ' ' . $filelog, $res);
   $result=implode("<br />", $res);
 
-    //$result2 = substr($result, 0, -6); // enlève le dernier "<br />" 
-  
+    //$result2 = substr($result, 0, -6); // enlève le dernier "<br />"
+
   // convertit en tableau surement moyen de faire plus propre qu'un "eval" ...
     //eval( "\$result_tab = array(array(\"" . str_replace(" > ","\",\"",str_replace("<br />","\"), array(\"",$result2)) . "\"));" );
     eval( "\$result_tab = array(array(\"" . str_replace(" > ","\",\"",str_replace("<br />","\"), array(\"",$result)) . "\"));" );
 
-  // pour le format json on converti les données 
+  // pour le format json on converti les données
   foreach ($result_tab as $k => $v) {
     // convertir les dates en timestamps
     $result_tab[$k][0] = strtotime($result_tab[$k][0]) * 1000;
@@ -203,7 +203,7 @@ if ($typelog == "mysql") {
 
 }
 
-switch ($_GET['output']) 
+switch ($_GET['output'])
 {
   case 'json':
     header('Content-Type: application/json');

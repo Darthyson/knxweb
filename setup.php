@@ -8,11 +8,11 @@ if (isset($_GET['ajax']))
 {
 	ini_set("display_errors", 0);
 	error_reporting(0);
-	
+
 	header('Content-Type: text/xml; charset=UTF-8');
 
 	if (isset($_GET['uploadImage'])) {
-	
+
 		if (!preg_match("/\.jpeg$|\.jpg$|\.gif$|\.png$/i", $_FILES["file"]["name"]))
     {
 			echo "<response status='error'>Only .jpg .jpeg .gif and .png files are supported</response>\n";
@@ -67,15 +67,15 @@ tpl()->assignByRef("lang",$lang);
       'header'=>"Content-Type: text/html; charset=utf-8"
     )
   );
-  
+
   $context = stream_context_create($opts);
   $version_knxweb2_cvs = @file_get_contents('http://linknx.cvs.sourceforge.net/viewvc/linknx/knxweb/knxweb2/version', false, $context);
   if ($version_knxweb2_cvs) {
   $tab_version = explode(".", $version_knxweb2);
-  $version = $tab_version[0] * 100 + $tab_version[1] * 10 + $tab_version[2];   
+  $version = $tab_version[0] * 100 + $tab_version[1] * 10 + $tab_version[2];
   $tab_version_cvs = explode(".", $version_knxweb2_cvs);
   $version_cvs = $tab_version_cvs[0] * 100 + $tab_version_cvs[1] * 10 + $tab_version_cvs[2];
-  $MAJ_knxweb2 = ( $version_cvs > $version ); 
+  $MAJ_knxweb2 = ( $version_cvs > $version );
   } else $MAJ_knxweb2 = false;
 
 /* /version on cvs sourceforge */
@@ -116,7 +116,7 @@ tpl()->assignByRef("widgetsCategorized",$widgetsCategorized);
 addWidgetsJsCssToTpl(true);
 
 $widgetscssexist = "false";
-if (file_exists('widgets/widgets.css')) { 
+if (file_exists('widgets/widgets.css')) {
   tpl()->addCss('widgets/widgets.css');
   $widgetscssexist = "true";
 }

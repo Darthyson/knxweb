@@ -3,7 +3,7 @@ function widgetsdl(w)
   loading.show();
   var result = queryKnxweb('widgetsdl&widget=' + w, 'xml', '', false);
   if (result != false ) messageBox(tr("Download the Widget") + " " + w + " " + tr("is complete"), tr("Info"), "check");
-  loading.hide(); 
+  loading.hide();
 }
 
 function subpagesdl(w,css)
@@ -11,7 +11,7 @@ function subpagesdl(w,css)
   loading.show();
   var result = queryKnxweb('subpagesdl&subpage=' + w + '&widgetcss=' + css, 'xml', '', false);
   if (result != false ) messageBox(tr("Download the Subpage") + " " + w + " " + tr("is complete"), tr("Info"), "check");
-  loading.hide(); 
+  loading.hide();
 }
 
 function displayImg(subpage, directory , picture)
@@ -41,7 +41,7 @@ jQuery(function($) {
       if (parseFloat(parseFloat(_widgets[i].version)) >= parseFloat($("#widget_"+i).data("version")))
         $(".widgetsdl", "#widget_" + i).html('<span class="ui-button-text">' + tr("Already downloaded") + " / " + tr("Up to date") + '</span>').removeAttr("onclick");
       else $(".widgetsdl", "#widget_" + i).html('<span class="ui-button-text">' + tr("New version available") + '</span>');
-    } 
+    }
   }
 
   /* _subpages list on this knxweb : hide download button if exist */

@@ -13,7 +13,7 @@ class MySmarty extends Smarty
 	public function MySmarty()
 	{
 		global $_config;
-		
+
 		$this->use_sub_dirs = false;
 
 		$this->force_compile = true;
@@ -27,37 +27,37 @@ class MySmarty extends Smarty
 
 		$this->_cssList = array();
 		$this->assignByRef('cssList', $this->_cssList);
-		
-		if (file_exists("template/" . $_config['template'] . "/css/style.css")) 
+
+		if (file_exists("template/" . $_config['template'] . "/css/style.css"))
 		    $this->_cssList[] = "template/" . $_config['template'] . "/css/style.css";
 
 		$this->_jsList = array();
 		$this->assignByRef('jsList', $this->_jsList);
 
-		if (file_exists("template/" . $_config['template'] . "/js/default.js")) 
+		if (file_exists("template/" . $_config['template'] . "/js/default.js"))
 		    $this->_jsList[] = "template/" . $_config['template'] . "/js/default.js";
-		    
-		$this->registerPlugin('block', 'l', array($this,'lBlock')); 
-		
+
+		$this->registerPlugin('block', 'l', array($this,'lBlock'));
+
 		$this->_errors=array();
 		$this->assignByRef("errors", $this->_errors);
-		if ((isset($_GET['error']))&&($_GET['error']!="")) $this->addError($_GET['error']); 
+		if ((isset($_GET['error']))&&($_GET['error']!="")) $this->addError($_GET['error']);
 		if ((isset($_SESSION['error']))&&($_SESSION['error']!=""))
 		{
-			$this->addError($_SESSION['error']); 
+			$this->addError($_SESSION['error']);
 			unset($_SESSION['error']);
 		}
 
 		$this->_messages=array();
 		$this->assignByRef("messages", $this->_messages);
-		if ((isset($_GET['message']))&&($_GET['message']!="")) $this->addError($_GET['message']); 
-		if ((isset($_SESSION['message']))&&($_SESSION['message']!="")) 
+		if ((isset($_GET['message']))&&($_GET['message']!="")) $this->addError($_GET['message']);
+		if ((isset($_SESSION['message']))&&($_SESSION['message']!=""))
 		{
-			$this->addMessage($_SESSION['message']); 
+			$this->addMessage($_SESSION['message']);
 			unset($_SESSION['message']);
 		}
 	}
-	
+
 	public function lBlock($params, $content, &$smarty, &$repeat)
 	{
     // n'affiche que lors de la balise fermante
@@ -68,7 +68,7 @@ class MySmarty extends Smarty
   		}
     }
 	}
-	
+
 	public function addCss($path)
 	{
 		$this->_cssList[] = $path;
@@ -78,12 +78,12 @@ class MySmarty extends Smarty
 	{
 		$this->_jsList[] = $path;
 	}
-	
+
 	public function setTitle($title)
 	{
 		$this->_tpl_vars['Title'] = $title;
 	}
-	
+
 	public function addError($error)
 	{
 	    if (is_array($error))
@@ -91,7 +91,7 @@ class MySmarty extends Smarty
 	    else
 		$this->_errors[]=$error;
 	}
-	
+
 	public function haveError()
 	{
 		return (count($this->_errors)>0);
@@ -100,7 +100,7 @@ class MySmarty extends Smarty
 	public function addSessionError($error)
 	{
 		if (!isset($_SESSION['error'])) $_SESSION['error']=array();
-		
+
 	   if (is_array($error))
 			$_SESSION['error']=array_merge($_SESSION['error'], $error);
 	   else
@@ -119,7 +119,7 @@ class MySmarty extends Smarty
 	public function addSessionMessage($message)
 	{
 		if (!isset($_SESSION['message'])) $_SESSION['message']=array();
-		
+
 	  if (is_array($message))
 			$_SESSION['message']=array_merge($_SESSION['message'], $message);
 	  else
@@ -132,14 +132,14 @@ $_tpl = null;
 function tpl()
 {
 	global $_tpl, $_config, $_lang;
-	if($_tpl == null) 
+	if($_tpl == null)
 	{
 		$_tpl = new MySmarty();
-		
+
 		$_tpl->assignByRef("_config",$_config);
     $_tpl->assignByRef("_lang",$_lang);
 	}
-	
+
 	return $_tpl;
 }
 

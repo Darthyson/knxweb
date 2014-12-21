@@ -90,7 +90,7 @@
 	    '29.xxx' => '29.xxx: signed 64bit value',
       '232.600' => '232.600 : RGBObject'
 	);
-	
+
 	// Convert to a Javascript array
 	$json_objectTypes = json_encode($_objectTypes);
 
@@ -108,20 +108,20 @@
 	function parseSetting($xml) {
 		$setting=array();
 		foreach($xml->attributes() as	$key => $value)  $setting[(string)$key]=(string)$value;
-		
+
 		if ($setting['type']=='list') {
 			$setting['options']=array();
 			foreach($xml as $value) $setting['options'][(string)$value->attributes()->key]=(string)$value->attributes()->value;
 		}
 		return $setting;
 	}
-	
+
 	function getWidget($type) {
 		$path='widgets/' . $type;
 		if (file_exists($path . '/manifest.xml'))
 		{
 			$xml = (array)simplexml_load_file($path . '/manifest.xml');
-			
+
 			$ret=array(
 				"name"	=>	$type,
 				"path"	=>	$path,
@@ -164,11 +164,11 @@
 				}
 			}
 			}
-	
+
 			return $ret;
 		} else return false;
 	}
-	
+
 	function getWidgets()
 	{
 		$plugins = glob('widgets/*', GLOB_ONLYDIR);
@@ -186,7 +186,7 @@
 	{
 		//$widgets=getWidgets();
     global $_widgets;
-		
+
 		$ret=array();
 		foreach($_widgets as $id => $w) {
 			$cat=$w['category'];
@@ -196,7 +196,7 @@
 		}
 		return $ret;
 	}
-	
+
 	function addWidgetsJsCssToTpl($isEdit = false, $isMobile = false)
 	{
 		//$widgets = getWidgets();
