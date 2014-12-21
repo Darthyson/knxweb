@@ -55,6 +55,7 @@
 	    '5.xxx' => '5.xxx: 8bit unsigned integer (EIS6)',
 	    '5.001' => '5.001: scaling (from 0 to 100%)',
 	    '5.003' => '5.003: angle (from 0 to 360deg)',
+	    '5.010' => '5.010: 1 byte unsigned integer',
 	    '6.xxx' => '6.xxx: 8bit signed integer (EIS14)',
 	    '7.xxx' => '7.xxx: 16bit unsigned integer (EIS10)',
 	    '8.xxx' => '8.xxx: 16bit signed integer',
