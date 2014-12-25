@@ -21,13 +21,17 @@
       <option key="true" value="Yes" />
       <option key="false" value="No" />
     </setting>
+    <setting id="liveupdate" label="Live Update" type="list" default="true">
+      <option key="true" value="Yes" />
+      <option key="false" value="No" />
+    </setting>
 
     <setting label="Delay to date (mysql log)" type="comment" />
     <setting id="duration" label="Duration" type="text" default="1" />
     <setting id="periodicity" label="Periodicity" type="list" default="day">
       <option key="hour" value="Hour" />
       <option key="day" value="Day" />
-      <!-- <option key="week" value="Week" /> -->
+      <option key="week" value="Week" />
       <option key="month" value="Month" />
       <option key="year" value="year" />
     </setting>
@@ -104,5 +108,10 @@
 
   </settings>
   <feedbacks>
+		<feedback id="id" />
+		<feedback id="id1" />
+		<feedback id="id2" />
+		<feedback id="id3" />
+		<feedback id="id4" />
   </feedbacks>
 </widget>
