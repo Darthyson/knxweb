@@ -133,6 +133,13 @@ function getTSperiod(periodicity, duration)
   return period;
 }
 
+function setUnits(unitsDict, widget) {
+    for(var i=0; i<widget.curves.length; i++) {
+      var idx = i == 0 ? 0 : i+1;
+      widget.chart.series[idx].unit = unitsDict[widget.curves[i].id];
+    }
+}
+
 function creategraph(widget) {
 
   var graph;
@@ -203,6 +210,12 @@ function creategraph(widget) {
       },
       yAxis: [],
       tooltip: {
+        shared: false,
+        useHTML: true,
+        headerFormat: '{point.key}<table>',
+        pointFormat: '<tr><td style="color: {series.color}; text-shadow: 1px 1px 1px #202020;">{series.name}: </td>' +
+            '<td style="text-align: right"><b>{point.y} {series.unit}</b></td></tr>',
+        footerFormat: '</table>',
         valueDecimals: 2
       },
       series: [],
@@ -409,7 +422,6 @@ function creategraph(widget) {
 
 //   création du graph
   options_chart.series.push(createSeries(widget, 0, options_chart));
-
   if (widget.navigator) {
     graph = new Highcharts.StockChart( options_chart,
       function(c) {
@@ -421,6 +433,8 @@ function creategraph(widget) {
         for(var i=1; i<widget.curves.length; i++) {
           c.addSeries(createSeries(widget, i, options_chart));
         }
+
+        var units = getUnits(setUnits, widget);
 
         var deferred_requests = [];
         for(var i=0; i<widget.curves.length; i++) {
@@ -521,7 +535,6 @@ function createSeries(widget, i, options_chart, async) {
 function getdatajson_teleinfo(id, start, end, valcount) {
 
   var url = 'widgets/charts/retrieve.php?objectlog=' + id + '&start=' + start + '&end=' + end + (valcount?('&valcount=' + valcount):'');
-
   var data_json = [];
 
   jQuery.ajax({ type: "GET", url: url, dataType: "json", async : false,
