@@ -9,14 +9,13 @@ jQuery(function($) {
 
   Highcharts.setOptions({
     lang: {
-//       months: [('January'), 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-//         'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', ('December')],
-//       shortMonths: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aou', 'Sep', 'Oct', 'Nov', ('Dec')],
-//       weekdays: [('Sunday'), 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+      months: _months,
+      shortMonths: _shortmonths,
+      weekdays: _weekdays,
       decimalPoint: ",",
       thousandsSep: ".",
-//       rangeSelectorFrom: "Du",
-//       rangeSelectorTo: "au"
+      rangeSelectorFrom: tr("From"),
+      rangeSelectorTo: tr("to")
     },
     legend: {
       enabled: false
@@ -204,7 +203,7 @@ function creategraph(widget) {
       },
       yAxis: [],
       tooltip: {
-        yDecimals: 2
+        valueDecimals: 2
       },
       series: [],
       legend: {},
