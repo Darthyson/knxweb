@@ -1,4 +1,4 @@
-$(function () {
+jQuery(function($) {
     // création de la "Dialog" ensuite uniquement l'ouvrir/fermer au besoin
   $( "#containerhighstockdialog" ).dialog({
     modal: true,
@@ -208,8 +208,7 @@ function creategraph(widget) {
       },
       series: [],
       legend: {},
-      navigator: {},
-      widget: widget
+      navigator: {}
   };
 
   var conf_period = getTSperiod(widget.periodicity, widget.duration);
@@ -413,7 +412,6 @@ function creategraph(widget) {
   options_chart.series.push(createSeries(widget, 0, options_chart));
 
   if (widget.navigator) {
-    var series = options_chart.series;
     graph = new Highcharts.StockChart( options_chart,
       function(c) {
         c.setTitle(null, {
@@ -459,8 +457,8 @@ function creategraph(widget) {
   return graph;
 }
 
-function createSeries(widget, idx, options_chart, async) {
-    curve = widget.curves[idx];
+function createSeries(widget, i, options_chart, async) {
+    curve = widget.curves[i];
     var data2 = [];
     var series2 = {
       yAxis: 0, // premier axe yAxis par défaut
@@ -468,7 +466,6 @@ function createSeries(widget, idx, options_chart, async) {
     };
     series2.name = curve.libel; //curve.id;
     series2.type = curve.type;
-    series2.widget = widget;
 
     series2.type_curve = curve.type_curve; // utiliseable dans les tooltip ensuite si besoin
 
