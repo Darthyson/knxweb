@@ -23,18 +23,6 @@ jQuery(function($) {
     global: {
       useUTC: false
     },
-    scrollbar: { // scrollbar "stylée" grise
-      barBackgroundColor: 'gray',
-      barBorderRadius: 7,
-      barBorderWidth: 0,
-      buttonBackgroundColor: 'gray',
-      buttonBorderWidth: 0,
-      buttonBorderRadius: 7,
-      trackBackgroundColor: 'none',
-      trackBorderWidth: 1,
-      trackBorderRadius: 8,
-      trackBorderColor: '#CCC'
-    }
   });
 });
 
@@ -164,10 +152,6 @@ function creategraph(widget) {
           count: 6,
           text: '6h'
         },{
-          type: 'hour',
-          count: 12,
-          text: '12h'
-        },{
           type: 'day',
           count: 1,
           text: 'd'
@@ -197,9 +181,6 @@ function creategraph(widget) {
         trackBorderRadius: 8,
         trackBorderColor: '#CCC'
       },
-      subtitle: {
-        text: 'Construit en...'
-      },
       xAxis: {
         ordinal: widget.ordinal,
            events : {
@@ -207,9 +188,6 @@ function creategraph(widget) {
                afterSetExtremesDummy(e);
              }
            },
-      },
-      title: {
-        text: widget.title
       },
       yAxis: [],
       tooltip: {
@@ -252,12 +230,18 @@ function creategraph(widget) {
 
   var legend = {
     enabled: true,
-    align: 'right',
+    align: 'center',
     borderColor: 'black',
     borderWidth: 2,
+    backgroundColor: 'rgba(255,255,255,0.6)',
     layout: 'vertical',
-    verticalAlign: 'middle',
-    shadow: true
+    verticalAlign: 'top',
+    shadow: true,
+    floating: true,
+    draggable: true,
+    title: {
+             text: widget.title
+           }
   };
   if (widget.legend) {
     options_chart.legend = legend;
@@ -428,9 +412,6 @@ function creategraph(widget) {
   if (widget.navigator) {
     graph = new Highcharts.StockChart( options_chart,
       function(c) {
-        c.setTitle(null, {
-          text: 'Construit en '+ (new Date() - widget.construct_time) +'ms'
-        });
         c.showLoading('loading navigator data...');
 
         for(var i=1; i<widget.curves.length; i++) {
