@@ -168,8 +168,7 @@ if ($typelog == "mysql") {
     OR rownum = $num_rows
     OR (rownum % $step = 0)
   )
-  ORDER BY ts
-  LIMIT $log_valcount";
+  ORDER BY ts";
 
   } else {
     $sql = "SELECT DATE_FORMAT(".$ts.", '%Y-%m-%d %H:%i:%s') AS ts , ".$value." AS value FROM ".$table." WHERE ".$object." = '".$objectlog."' ORDER BY ".$ts." DESC LIMIT 0 , ".$log_valcount;

@@ -42,13 +42,15 @@ var afterSetExtremesDummy = function(e) { };
 var afterSetExtremes = function(e, widget)
 {
   var c = widget.chart;
+  if (c.series.last_extremes !== undefined && e.min == c.series.last_extremes.min && e.max == c.series.last_extremes.max)
+      return;
   c.showLoading('Loading detail data...');
   afterSetExtremesDummy = function(e) { };
 
   var deferred_requests = [];
   for(var i=0; i<widget.curves.length; i++) {
     var uri = 'http://knx.snaut.eu/knxweb2/widgets/charts/retrieve.php?objectlog=' + widget.curves[i].id
-    + '&start=' + Math.round(e.min) + '&end=' + Math.round(e.max) + '&valcount=' + c.chartWidth;;
+    + '&start=' + Math.round(e.min) + '&end=' + Math.round(e.max) + '&valcount=' + c.chartWidth;
 //     console.log("i:", i, "scheduling detail retrieve", uri);
     widget.curves[i].ready = false;
     deferred_requests.push(
@@ -76,6 +78,7 @@ var afterSetExtremes = function(e, widget)
       )
     );
   }
+  c.series.last_extremes = e;
   $.when.apply($, deferred_requests).done( function() {
     finishedDetailsRetrieve(widget);
   });
@@ -96,8 +99,8 @@ function finishedOverviewRetrieve(widget)
 {
   var c = widget.chart;
   c.hideLoading();
-  c.xAxis[0].setExtremes(widget.initial_start, Date.now());
-  c.series[1].setData([].concat(c.series[0].options.data))
+//   c.xAxis[0].setExtremes(widget.initial_start, Date.now());
+//   c.series[1].setData([].concat(c.series[0].options.data))
   afterSetExtremesDummy = (function(widget) {
     return function(e) {
       afterSetExtremes(e, widget);
