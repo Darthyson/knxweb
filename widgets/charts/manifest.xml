@@ -37,25 +37,25 @@
     </setting>
     <setting label="Nb Enreg (file log)" type="comment" />
     <setting id="nbenreg" label="Nb Enreg" type="text" default="1000" />
-
+    <setting id="timezone" label="Timezone Offset" type="text" default="0" />
     <setting label="Curves" type="comment" />
-    <setting id="id" label="Object" type="object" />
+    <setting id="id0" label="Object" type="object" />
 
-    <setting id="typecurve" label="Type of the object" type="list" default="spline">
+    <setting id="typecurve0" label="Type of the object" type="list" default="spline">
       <option key="line" value="line" />
       <option key="switch" value="line 'switch On/Off'" />
       <option key="dimmer" value="line 'dimmer Up/Stop/Down'" />
       <option key="pourcent" value="line '%'" />
       <option key="area" value="area" />
-      <option key="areaspline" value="areaspline" />   
+      <option key="areaspline" value="areaspline" />
       <option key="spline" value="spline" />
       <option key="temperature" value="spline 'temperature'" />
-      <!-- <option key="bar" value="bar" />        
-      <option key="column" value="column" />     
-      <option key="pie" value="pie" />        
-      <option key="scatter" value="scatter" />      
+      <!-- <option key="bar" value="bar" />
+      <option key="column" value="column" />
+      <option key="pie" value="pie" />
+      <option key="scatter" value="scatter" />
       <option key="candlestick" value="candlestick" />
-      <option key="ohlc" value="ohlc" /> -->       
+      <option key="ohlc" value="ohlc" /> -->
 		</setting>
     <setting label="" type="separator" />
     <setting id="id1" label="Object" type="object" />
@@ -65,9 +65,9 @@
       <option key="dimmer" value="line 'dimmer Up/Stop/Down'" />
       <option key="pourcent" value="line '%'" />
       <option key="area" value="area" />
-      <option key="areaspline" value="areaspline" />   
+      <option key="areaspline" value="areaspline" />
       <option key="spline" value="spline" />
-      <option key="temperature" value="spline 'temperature'" />       
+      <option key="temperature" value="spline 'temperature'" />
 		</setting>
     <setting label="" type="separator" />
     <setting id="id2" label="Object" type="object" />
@@ -77,9 +77,9 @@
       <option key="dimmer" value="line 'dimmer Up/Stop/Down'" />
       <option key="pourcent" value="line '%'" />
       <option key="area" value="area" />
-      <option key="areaspline" value="areaspline" />   
+      <option key="areaspline" value="areaspline" />
       <option key="spline" value="spline" />
-      <option key="temperature" value="spline 'temperature'" />       
+      <option key="temperature" value="spline 'temperature'" />
 		</setting>
     <setting label="" type="separator" />
     <setting id="id3" label="Object" type="object" />
@@ -89,9 +89,9 @@
       <option key="dimmer" value="line 'dimmer Up/Stop/Down'" />
       <option key="pourcent" value="line '%'" />
       <option key="area" value="area" />
-      <option key="areaspline" value="areaspline" />   
+      <option key="areaspline" value="areaspline" />
       <option key="spline" value="spline" />
-      <option key="temperature" value="spline 'temperature'" />       
+      <option key="temperature" value="spline 'temperature'" />
 		</setting>
     <setting label="" type="separator" />
     <setting id="id4" label="Object" type="object" />
@@ -101,14 +101,14 @@
       <option key="dimmer" value="line 'dimmer Up/Stop/Down'" />
       <option key="pourcent" value="line '%'" />
       <option key="area" value="area" />
-      <option key="areaspline" value="areaspline" />   
+      <option key="areaspline" value="areaspline" />
       <option key="spline" value="spline" />
-      <option key="temperature" value="spline 'temperature'" />       
+      <option key="temperature" value="spline 'temperature'" />
 		</setting>
 
   </settings>
   <feedbacks>
-		<feedback id="id" />
+		<feedback id="id0" />
 		<feedback id="id1" />
 		<feedback id="id2" />
 		<feedback id="id3" />

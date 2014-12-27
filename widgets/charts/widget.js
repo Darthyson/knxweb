@@ -87,58 +87,7 @@ CCharts.prototype.refreshHTML = function() {
 
   // récupération des attributs de conf (= "control") pour la 1ere courbe
   var curve = {};
-  curve.id = this.conf.getAttribute("id");
-
-  curve.libel = this.conf.getAttribute("libel");
-  if (_editMode) {
-    var libel = "";
-    var id = curve.id.replace(" ", "_");
-    $('object[id=' + id + ']', _objects).each(function() {
-      if (id == this.getAttribute('id')) libel = ((this.textContent!="")?this.textContent:this.getAttribute('id'));
-    });
-    this.conf.setAttribute('libel', libel );
-    curve.libel = libel;
-  }
-  if (!curve.libel) curve.libel = curve.id;
-
-/*
-  curve.nbenreg=this.conf.getAttribute("nbenreg");
-  if (!curve.nbenreg)
-    curve.nbenreg=1000;
-
-  curve.type_curve=this.conf.getAttribute("typeid"); // type de graph "temperature" / "swicth" / "blind" ...
-*/
-  curve.type_curve=this.conf.getAttribute("typecurve"); // type de graph "temperature" / "swicth" / "blind" ...
-
-  if (!curve.type_curve) curve.type_curve = 'temperature';
-  curve.type=curve.type_curve;
-/*
-  if ( curve.type == 'temperature' || curve.type == '') { // si température (default) alors c'est une courbe sinon c'est une ligne "hachée"
-    curve.type = 'spline';
-    curve.step = false;
-  } else {
-    curve.type = 'line';
-    curve.step = true; // si type on/off fait un graph "carré"
-  }
-
-  var nbenreg = curve.nbenreg; // par défaut même nbenreg pour toutes les "curve"
-*/
-  curve.step = false;
-  if ( curve.type_curve == 'switch' || curve.type_curve == 'dimmer' || curve.type_curve == 'pourcent') { // fait un graph "carré"
-    curve.type = 'line';
-    curve.step = true;
-  }
- if ( curve.type_curve == 'temperature') curve.type = 'spline';
-
-
-  var type_curve = curve.type_curve; // par défaut même type_curve pour toutes les "curve"
-
-  if (curve.id != '') {
-    this.curves.push(curve);
-  }
-
-  var i = 1;
-  for( i = 1; i < 5; i++) {
+  for( var i = 0; i < 5; i++) {
     var curveData = {};
     curveData.id = this.conf.getAttribute("id" + i);
 
@@ -153,26 +102,11 @@ CCharts.prototype.refreshHTML = function() {
       curveData.libel = libel;
     }
     if (!curveData.libel) curveData.libel = curveData.id;
-/*
-    curveData.nbenreg=this.conf.getAttribute("nbenreg" + i);
-    if (!curveData.nbenreg)
-      curveData.nbenreg=nbenreg;
-*/
-    //curveData.type_curve=this.conf.getAttribute("typeid" + i); // type de graph "temperature" / "swicth" / "blind" ...
+
     curveData.type_curve=this.conf.getAttribute("typecurve" + i); // type de graph "temperature" / "swicth" / "blind" ...
-
     curveData.type=curveData.type_curve;
 
-/*
-    if ( curveData.type_curve == '') curveData.type_curve=type_curve;
-    curveData.type=curveData.type_curve;
-    if ( curveData.type == 'temperature' || curveData.type == '') { // si température (default) alors c'est une courbe sinon c'est une ligne "hachée"
-      curveData.type = 'spline';
-    } else {
-      curveData.type = 'line';
-      curveData.step = true; // si type on/off fait un graph "carré"
-    }
-*/
+    curve.step = false;
     if ( curveData.type_curve == 'switch' || curveData.type_curve == 'dimmer' || curveData.type_curve == 'pourcent') { // fait un graph "carré"
       curveData.type = 'line';
       curveData.step = true;
