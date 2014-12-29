@@ -30,7 +30,7 @@ var afterSetExtremesDummy = function(e) { };
 var afterSetExtremes = function(e, widget)
 {
   var c = widget.chart;
-  if (c.series.last_extremes !== undefined && e.min == c.series.last_extremes.min && e.max == c.series.last_extremes.max)
+  if (c.series == undefined || c.series.last_extremes !== undefined && e.min == c.series.last_extremes.min && e.max == c.series.last_extremes.max)
       return;
   c.showLoading('Loading detail data...');
   afterSetExtremesDummy = function(e) { };
@@ -412,7 +412,7 @@ function creategraph(widget) {
   if (widget.navigator) {
     graph = new Highcharts.StockChart( options_chart,
       function(c) {
-        c.showLoading('loading navigator data...');
+//         c.showLoading('loading navigator data...');
 
         for(var i=1; i<widget.curves.length; i++) {
           c.addSeries(createSeries(widget, i, options_chart));
