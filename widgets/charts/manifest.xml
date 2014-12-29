@@ -3,7 +3,7 @@
   <name>charts</name>
   <label>Charts</label>
   <description>Charts with Highcharts</description>
-  <version>1.1</version>
+  <version>1.2</version>
   <category>Various widgets</category>
   <settings>
     <setting id="picture" label="Picture" type="picture" default="32x32_graph.png" />
@@ -56,7 +56,9 @@
       <option key="scatter" value="scatter" />
       <option key="candlestick" value="candlestick" />
       <option key="ohlc" value="ohlc" /> -->
-		</setting>
+    </setting>
+    <setting id="libel0" label="Label" type="text" />
+    <setting id="color0" label="Color" type="color" default="#7cb5ec" />
     <setting label="" type="separator" />
     <setting id="id1" label="Object" type="object" />
     <setting id="typecurve1" label="Type of the object" type="list" default="spline">
@@ -68,7 +70,9 @@
       <option key="areaspline" value="areaspline" />
       <option key="spline" value="spline" />
       <option key="temperature" value="spline 'temperature'" />
-		</setting>
+    </setting>
+    <setting id="libel1" label="Label" type="text" />
+    <setting id="color1" label="Color" type="color" default="#434348" />
     <setting label="" type="separator" />
     <setting id="id2" label="Object" type="object" />
     <setting id="typecurve2" label="Type of the object" type="list" default="spline">
@@ -80,7 +84,9 @@
       <option key="areaspline" value="areaspline" />
       <option key="spline" value="spline" />
       <option key="temperature" value="spline 'temperature'" />
-		</setting>
+    </setting>
+    <setting id="libel2" label="Label" type="text" />
+    <setting id="color2" label="Color" type="color" default="#90ed7d" />
     <setting label="" type="separator" />
     <setting id="id3" label="Object" type="object" />
     <setting id="typecurve3" label="Type of the object" type="list" default="spline">
@@ -92,7 +98,9 @@
       <option key="areaspline" value="areaspline" />
       <option key="spline" value="spline" />
       <option key="temperature" value="spline 'temperature'" />
-		</setting>
+    </setting>
+    <setting id="libel3" label="Label" type="text" />
+    <setting id="color3" label="Color" type="color" default="#f7a35c" />
     <setting label="" type="separator" />
     <setting id="id4" label="Object" type="object" />
     <setting id="typecurve4" label="Type of the object" type="list" default="spline">
@@ -104,7 +112,10 @@
       <option key="areaspline" value="areaspline" />
       <option key="spline" value="spline" />
       <option key="temperature" value="spline 'temperature'" />
-		</setting>
+    </setting>
+    <setting id="libel4" label="Label" type="text" />
+    <setting id="color4" label="Color" type="color" default="#8085e9"  />
+    <setting label="" type="separator" />
 
   </settings>
   <feedbacks>

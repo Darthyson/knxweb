@@ -468,6 +468,8 @@ function createSeries(widget, i, options_chart, async) {
 
     if (series2.type == 'line')
       series2.step = curve.step;
+    if (curve.color)
+      series2.color = curve.color;
 
   var type_curve = curve.type_curve; // type de la première courbe
   var yAxis_tab = [];

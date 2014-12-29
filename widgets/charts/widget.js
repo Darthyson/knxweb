@@ -113,6 +113,7 @@ CCharts.prototype.refreshHTML = function() {
     }
     if ( curveData.type_curve == 'temperature') curveData.type = 'spline';
 
+    curveData.color = this.conf.getAttribute("color" + i);
     if (curveData.id != '') {
       this.curves.push(curveData);
     }
