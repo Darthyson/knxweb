@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<plugin>
+  <name>domogeek</name>
+  <label>API Domogeek</label>
+  <description>API Domogeek</description>
+  <version>0.1</version>
+  <category>various plugin</category>
+  <settings>
+    <!-- pour les type cf : http://www.w3schools.com/tags/att_input_type.asp -->
+    <setting id="emailgoogle" label="Email Google" type="email" default="toto@gmail.com" />
+    <setting id="passgoogle" label="Mot de Passe" type="password" default="pass" />
+    <setting id="feedxml" label="Feed xml calendrier" type="url" default="https://www.google.com/calendar/feeds/" />
+    <setting id="delai" label="Nombre entre min 0 et max 100" type="number" min="0" max="100" default="50" />
+  </settings>
+  <blocks>
+    <block type="action_domogeek"></block>
+  </blocks>
+  <controls>
+    <control type="object" id="object_date" label="Object Date" default="" />
+    <control type="object" id="object1" label="Object n°1" default="" />
+    <control type="object" id="object2" label="Object n°2" default="" />
+  </controls>
+</plugin>

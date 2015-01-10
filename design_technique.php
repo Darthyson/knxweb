@@ -258,6 +258,22 @@ if (isset($_GET['action'])) {
       echo "</subpagesdl>\n";
       break;
       
+    case 'plugindl':
+      $plugin = $_GET['plugin'];
+      $opts = array(
+        'http'=>array(
+          'method'=>"GET",
+          'header'=>"Content-Type: application/xml; charset=utf-8", 
+          'timeout' => 20
+        )
+      );
+      $context = stream_context_create($opts);
+      $pluginxml = simplexml_load_string(file_get_contents('http://linknx.cvs.sourceforge.net/viewvc/linknx/knxweb/plugins_knxweb2/' . $plugin . '/plugin.xml', false, $context));
+      echo "<plugindl status='success'>";
+      // TODO à compléter ...
+      echo "</plugindl>\n";
+      break;
+
     case 'updateknxweb':
       exec('wget -O /tmp/knxweb2.tar "http://linknx.cvs.sourceforge.net/viewvc/linknx/knxweb/knxweb2/?view=tar"');
       $path_knxweb2 = explode(DIRECTORY_SEPARATOR, dirname(__FILE__));
@@ -266,6 +282,16 @@ if (isset($_GET['action'])) {
       exec('tar xvf /tmp/knxweb2.tar --directory='.$path_knxweb2);
       exec('rm /tmp/knxweb2.tar');
       echo "<updateknxweb status='success' />\n"; 
+      break;
+
+    case 'saveplugins':
+      if (file_put_contents("design/plugins.xml", file_get_contents("php://input")))
+        echo "<saveplugins status='success'>";
+      elseif (!is_writable("design/plugins.xml"))
+        echo "<saveplugins status='error'>design/plugins.xml directory has no write permission on server";
+      else
+        echo "<saveplugins status='error'>Unable to write plugins to file";
+      echo "</saveplugins>\n";
       break;
 
 		default:

@@ -1,0 +1,6 @@
+
+weather :
+
+http://www.worldweatheronline.com/Paris-weather/Ile-de-France/FR.aspx
+http://french.wunderground.com/weather/api/
+

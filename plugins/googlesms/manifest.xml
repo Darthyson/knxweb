@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<widget>
+  <name>googlesms</name>
+  <label>SMS via Google Calendar</label>
+  <description>Envoi SMS via Google Calendar</description>
+  <version>0.1</version>
+  <category>Various plugins</category>
+  <settings>
+    <setting id="emailgoogle" label="Email Google" type="text" default="toto@gmail.com" />
+    <setting id="passgoogle" label="Mot de Passe" type="text" default="pass" />
+    <setting id="feedxml" label="Feed xml calendrier" type="text" default="" />
+  </settings>
+</widget>

@@ -127,6 +127,15 @@ tpl()->addCss('css/setup.css');
 
 tpl()->addJs('js/setup.js');
 
+$plugins = false;
+if (file_exists("plugins.php")) {
+  $plugins = true;
+}
+tpl()->assignByRef("plugins",$plugins);
+
+$_path_knxweb = str_replace('\\', '/', dirname(__FILE__)); //dirname(__FILE__);
+tpl()->assignByRef("_path_knxweb", $_path_knxweb); 
+
 tpl()->display('setup.tpl');
 
 ?>

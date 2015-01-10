@@ -1,4 +1,6 @@
 <?php
+error_reporting(0);
+header('Content-Type: text/html; charset=UTF-8');
 require_once("include/linknx.php");
 require_once("lang/lang.php");
 
@@ -240,7 +242,7 @@ if (isset($_GET["ajax"])) {
 			</tr> 
       <tr title="Use Event Source to update objects value on display design">
 				<td>Use Event Source if available on navigator</td>
-				<td><input type="checkbox" name="useEventSource" <?php echo ((_get('useEventSource',$useEventSource)==="on")?'checked="1"':""); ?>" > if supported by the navigator</td>
+				<td><input type="checkbox" name="useEventSource" <?php echo ((_get('useEventSource',$useEventSource)==="on")?'checked="1"':""); ?>" > if supported by the WebServer (apache2) </td>
 			</tr>  
       <tr>
 				<td>Language</td>

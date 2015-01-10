@@ -214,3 +214,8 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+include/config.xml
+template/template_c/*
+design/plugins.xml
+design/subpages.xml
+design/default/*
