@@ -1,18 +1,18 @@
 function saveConfigKnxWeb()
 {
   var string = '<?xml version="1.0" encoding="utf-8" standalone="yes"?>\n<param>\n';
-  for (var key in tab_config) 
+  for (var key in tab_config)
   {
     if ($("#config-"+key+"-id")[0].type == "checkbox" ) {
       if ($("#config-"+key+"-id").attr("checked")) tab_config[key] = "true"; else tab_config[key] = "false";
-    } else { 
+    } else {
       tab_config[key] = $("#config-"+key+"-id").val();
     }
     string = string+'  <'+key+'>'+tab_config[key]+'</'+key+'>\n';
   }
   string = string+'</param>';
-  
-  if (queryKnxweb('saveconfig', 'xml', string, false)) 
+
+  if (queryKnxweb('saveconfig', 'xml', string, false))
     messageBox(tr("Config saved successfully reload the web page for take effect in KnxWeb immediately"), tr('Info'), 'info');
 
 };
@@ -21,8 +21,8 @@ function readFile(pathlogfile, nbenreg, dest)
 {
 	if (pathlogfile !="") {
     var url = 'readfile.php?objectlog=' + pathlogfile + '&nbenreg=' + nbenreg + '&output=html';
-  	req = jQuery.ajax({ type: 'post', url: url, dataType: 'html', 
-  			success: function(responseHTML, status) 
+  	req = jQuery.ajax({ type: 'post', url: url, dataType: 'html',
+  			success: function(responseHTML, status)
   			{
   				$("#"+dest).html(responseHTML);
   			},
@@ -36,8 +36,8 @@ function readFile(pathlogfile, nbenreg, dest)
 function readLinknxLogFile(nbenreg, dest)
 {
   var url = 'readfile.php?LogLinknx=true&nbenreg=' + nbenreg + '&output=html';
-	req = jQuery.ajax({ type: 'post', url: url, dataType: 'html', 
-			success: function(responseHTML, status) 
+	req = jQuery.ajax({ type: 'post', url: url, dataType: 'html',
+			success: function(responseHTML, status)
 			{
 				$("#"+dest).html(responseHTML);
 			},
@@ -84,10 +84,10 @@ jQuery(document).ready(function(){
 	$("input[name=saveKnxWebConfig]").click( function() { saveConfigKnxWeb(); } );
 	$("#selectLogObject").change( function() { readFile(this.value, $('#selectLogObjectCount').val(), "divLogObject"); } );
 	$("#selectLogObjectCount").change( function() {$("#selectLogObject").change();})
-	
+
 	$("#selectLinknxLogFileCount").change( function() { readLinknxLogFile(this.value, "divLinknxLog"); } );
   $( "input:button, input:submit").button();
-  
-  $("input[name=updatewidgetscss]").click( function() { updateWidgetsCss($("#contentwidgetscss").val()); } );	 
+
+  $("input[name=updatewidgetscss]").click( function() { updateWidgetsCss($("#contentwidgetscss").val()); } );
 	loading.hide();
 });

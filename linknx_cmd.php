@@ -10,7 +10,7 @@ $address = "127.0.0.1";
 $port = 1028;
 /*
 $_config = (array)simplexml_load_file('include/config.xml'); // conversion en array du fichier xml de configuration
-unset($_config['comment']); 
+unset($_config['comment']);
 $linknx_host = $_config['linknx_host'];
 $linknx_port = $_config['linknx_port'];
 */
@@ -55,15 +55,15 @@ else {
             $result = knxsend($fp, $cmd);
         }
     }
-	print("<h2>Exec</h2>\n<table border=0>\n");	
-	print("<tr><td>Config: Read</td><td>\n"); 
+	print("<h2>Exec</h2>\n<table border=0>\n");
+	print("<tr><td>Config: Read</td><td>\n");
 	print("<input type='button' value='All' onclick=\"document.getElementById('cmd').value = '<read><config/></read>'\">\n");
 	print("<input type='button' value='Objects' onclick=\"document.getElementById('cmd').value = '<read><config><objects/></config></read>'\">\n");
 	print("<input type='button' value='Rules' onclick=\"document.getElementById('cmd').value = '<read><config><rules/></config></read>'\">\n");
 	print("<input type='button' value='Services' onclick=\"document.getElementById('cmd').value = '<read><config><services/></config></read>'\">\n");
 	print("<input type='button' value='Logging' onclick=\"document.getElementById('cmd').value = '<read><config><logging/></config></read>'\">\n");
 	print("</td></tr>\n");
-	print("<tr><td>Config: Write</td><td>\n"); 
+	print("<tr><td>Config: Write</td><td>\n");
 	print("<input type='button' value='All' onclick=\"document.getElementById('cmd').value = '<write><config></config></write>'\">\n");
 	print("<input type='button' value='Objects' onclick=\"document.getElementById('cmd').value = '<write><config><objects></objects></config></write>'\">\n");
 	print("<input type='button' value='Rules' onclick=\"document.getElementById('cmd').value = '<write><config><rules></rules></config></write>'\">\n");
@@ -78,16 +78,16 @@ else {
 	print("<tr><td>Write</td><td>\n");
 	print("<input type='button' value='Object' onclick=\"document.getElementById('cmd').value = '<write><object id=\'\' value=\'\'/></write>'\">\n");
 	print("</td></tr>\n");
-	print("<tr><td>Status: </td><td>\n"); 
+	print("<tr><td>Status: </td><td>\n");
 	print("<input type='button' value='All' onclick=\"document.getElementById('cmd').value = '<read><status/></read>'\">\n");
 	print("<input type='button' value='Timers' onclick=\"document.getElementById('cmd').value = '<read><status><timers/></status></read>'\">\n");
 	print("<input type='button' value='Rules' onclick=\"document.getElementById('cmd').value = '<read><status><rules/></status></read>'\">\n");
 	print("</td></tr>\n");
-	print("<tr><td>Execute</td><td>\n"); 
+	print("<tr><td>Execute</td><td>\n");
 	print("<input type='button' value='Action' onclick=\"document.getElementById('cmd').value = '<execute><action .../><action .../></execute>'\">\n");
 	print("<input type='button' value='Rule-Actions' onclick=\"document.getElementById('cmd').value = '<execute><rule-actions id=  list=true/false /></execute>'\">\n");
 	print("</td></tr>\n");
-	print("<tr><td>Admin: </td><td>\n"); 
+	print("<tr><td>Admin: </td><td>\n");
     $date = date('Y-m-d');
 	print("<input type='button' value='Save' onclick=\"document.getElementById('cmd').value = '<admin><save file=\'config-$date.xml\'/></admin>'\">\n");
 	print("<input type='button' value='Notification register' onclick=\"document.getElementById('cmd').value = '<admin><notification><register id=\'dim_value_salon\' /></notification></admin>'\">\n");
@@ -95,7 +95,7 @@ else {
 	print("<input type='button' value='Notification registerall' onclick=\"document.getElementById('cmd').value = '<admin><notification><registerall/></notification></admin>'\">\n");
 	print("<input type='button' value='Notification unregisterall' onclick=\"document.getElementById('cmd').value = '<admin><notification><unregisterall/></notification></admin>'\">\n");
 	print("</td></tr>\n");
-	print("<tr><td colspan='2'>\n"); 
+	print("<tr><td colspan='2'>\n");
 	print("<form action='' method='POST'>\n");
 	print("<textarea id='cmd' name='cmd' rows='20' wrap='off' style='width:100%;'>$cmd</textarea><br>\n");//cols='100'
 	print("<input type='hidden' name='action' value='send'>\n");
@@ -112,7 +112,7 @@ else {
         print("<textarea name='result' style='width:100%;' rows='30' wrap='off'>$result</textarea><br>\n");
         print("</table>\n");
     }
-    
+
 fclose($fp);
 }
 ?>

@@ -4,14 +4,14 @@
  *    => dans l' ancienne version de KnxWebMobile : data-role="list-divider", send (BP envoi une valeur), switch, dimmer, text, thermostat, shutters, goto, html
  *    =>  listview ( + data-role="list-divider") (action possible : "goto") , button ( nombre : alone 1 ou group de 2 à 3, avec text et/ou icone ) , slider (min = 0 , max à définir) ,
  *     radioswicth, select (typevalue = % et step/pas = 10 => 0 à 100 %),
- *     toogleswitch (label :on/off), text, (à voir pour html)  
- *      pour chacun : parmètre mini yes/no, label yes/no, actions (goto ou "actionlist")    
+ *     toogleswitch (label :on/off), text, (à voir pour html)
+ *      pour chacun : parmètre mini yes/no, label yes/no, actions (goto ou "actionlist")
  *  - pour chaque widget retourner un ID et une "position" pour gérer l'ordre dans la page (ex: ordonner les menus en drag&drop => sortable en jqueryui cf. http://jqueryui.com/demos/sortable/#placeholder ...)
- *    
+ *
  * ensuite cela stock dans design/+tab_config['defaultDesign']+/mobile.xml les infos
- * le découpage du xml est le suivant 
- * 
-<config> // width="320" height="480" sont automatiquement gérer par jquerymobile 
+ * le découpage du xml est le suivant
+ *
+<config> // width="320" height="480" sont automatiquement gérer par jquerymobile
   <pages>
     <page num_id="0" name="page0" title="">
       <header> (que 1 control de type ="button")
@@ -40,7 +40,7 @@
 var iframe = document.getElementById('my_iframe');
 if(iframe) iframe.src = "javascript:ma_fonction();";
 
-cf. http://www.developpez.net/forums/d271424/webmasters-developpement-web/contribuez/faq-transferer-informations-fenetre-parent-fenetre-enfant/ 
+cf. http://www.developpez.net/forums/d271424/webmasters-developpement-web/contribuez/faq-transferer-informations-fenetre-parent-fenetre-enfant/
 
 
 cf. doc pour les "events" : http://jquerymobile.com/demos/1.1.0/docs/api/events.html
@@ -66,10 +66,10 @@ var widgetmobile = {
   incPage: 0,
   tabPages: [],
   tabControls: [],
-  
+
 	// Set XML config of design
 	setConfig: function(doc, name) {
-		this.config = doc; // flux xml complet du "design" 
+		this.config = doc; // flux xml complet du "design"
 		this.version = name;
 	},
 	getVersion: function() {
@@ -94,8 +94,8 @@ var widgetmobile = {
 	  'radioswicth' : 'Radio swicth',
 	  'select' : 'Select',
 	  'text' : 'Text',
-	  'html' : 'Html', 
-    'fieldcontain' : 'Fieldcontain', 
+	  'html' : 'Html',
+    'fieldcontain' : 'Fieldcontain',
 	},
 	// Load design
   New: function(conf, parentId)  {
@@ -115,7 +115,7 @@ var widgetmobile = {
         break;
       case 'toggleswicth':
         div = widgetmobile.toggleswicth(conf);
-        break; 
+        break;
       case 'listview':
         div = widgetmobile.listview(conf);
         break;
@@ -147,7 +147,7 @@ var widgetmobile = {
         div = $('<div data-role="fieldcontain" />');
         div.click(function(){
           window.parent.editWidgetMobile(this);
-          return false; 
+          return false;
         })
         break;
     }
@@ -177,7 +177,7 @@ var widgetmobile = {
         break;
       case 'toggleswicth':
         div = widgetmobile.toggleswicth(conf, true);
-        break; 
+        break;
       case 'listview':
         //div = 'TODO ...' + conf.getAttribute('type');
         div.listview('refresh');
@@ -199,7 +199,7 @@ var widgetmobile = {
         break;
       case 'html':
         //div = 'TODO ...' + conf.getAttribute('type');
-        break; 
+        break;
     }
     //div.trigger('destroy').trigger('create');
     return div;
@@ -217,7 +217,7 @@ var widgetmobile = {
         break;
       case 'toggleswicth':
         //div = widgetmobile.toggleswicth(conf, true);
-        break; 
+        break;
       case 'listview':
         for (var i=0; i<items.length; i++)
         {
@@ -245,7 +245,7 @@ var widgetmobile = {
         break;
       case 'html':
         //div = 'TODO ...' + conf.getAttribute('type');
-        break; 
+        break;
     }
     //div.trigger('destroy').trigger('create');
     return div;
@@ -256,7 +256,7 @@ var widgetmobile = {
 /*
  * options : num_id, text, mini, value, highlight, max, min
  * obj : <input>
- * 
+ *
  */
     var html = '';
     if (!edit) {
@@ -274,7 +274,7 @@ var widgetmobile = {
       var slider = $('<div />');
       slider.append(input_slider);
       slider.click(function(){
-        window.parent.editWidgetMobile(this); 
+        window.parent.editWidgetMobile(this);
       })
       //conf.setAttribute('obj', input_slider); // $('input', slider);
 
@@ -306,7 +306,7 @@ var widgetmobile = {
 /*
  * options : num_id, text, mini, val1, val1_label, val2, val2_label
  * obj : <select>
- * 
+ *
  */
 /*
 <div class="containing-element">
@@ -322,7 +322,7 @@ quand les "labels" sont "grand" il faut modifier le css genre :
 ou de façon globale à tous :
 ui-field-contain div.ui-slider-switch { width: […]; }
 TODO : à voir comment gérer ça ...
- 
+
 */
     if (!conf.getAttribute('mini')) conf.setAttribute('mini', true);
     var id = "control_"+this.incControl;
@@ -339,7 +339,7 @@ TODO : à voir comment gérer ça ...
       if (!conf.getAttribute('text')) conf.setAttribute('text',"Select slider"); // TODO pour les tests à enlever !!
 
       html+= '<label for="' + id + '">' + conf.getAttribute('text') + '</label>';
-      html+= '<select name="' + id + '" id="' + id + '" data-role="slider" data-mini="' + conf.getAttribute('mini') + '" ><option value="' + conf.getAttribute('val1') + '">' + conf.getAttribute('val1_label') + '</option><option value="' + conf.getAttribute('val2') + '">' + conf.getAttribute('val1_label') + '</option></select>'; 
+      html+= '<select name="' + id + '" id="' + id + '" data-role="slider" data-mini="' + conf.getAttribute('mini') + '" ><option value="' + conf.getAttribute('val1') + '">' + conf.getAttribute('val1_label') + '</option><option value="' + conf.getAttribute('val2') + '">' + conf.getAttribute('val1_label') + '</option></select>';
 
       var select_toggleswicth = $(html);
 /*
@@ -356,7 +356,7 @@ TODO : à voir comment gérer ça ...
       toggleswicth.append(select_toggleswicth);
 
       toggleswicth.click(function(){
-        window.parent.editWidgetMobile(this); 
+        window.parent.editWidgetMobile(this);
       })
       //conf.setAttribute('obj', select_toggleswicth); // $('select', toggleswicth );
 
@@ -389,7 +389,7 @@ TODO : à voir comment gérer ça ...
 /*
  * options : num_id, text
  * obj : <div>
- * 
+ *
  */
 /*
 <ul data-role="listview" data-theme="g">
@@ -429,11 +429,11 @@ $('#mylist').listview('refresh');
 /*    var div = $('<div/>');
     div.append(listview);
     div.click(function(){
-      window.parent.editWidgetMobile(this); 
+      window.parent.editWidgetMobile(this);
     });
 */
     listview.click(function(){
-      window.parent.editWidgetMobile(this); 
+      window.parent.editWidgetMobile(this);
     });
     if (conf.getAttribute('prepend') == "true" ) {
       //div.prependTo( "#" + conf.getAttribute('parentId') ).trigger( "create" );
@@ -454,7 +454,7 @@ $('#mylist').listview('refresh');
 /*
  * options : num_id, text, mini, link, inline, icon, iconpos, theme (b=active), type (hrml tag : a, li), role (button, list-divider)  // TODO gérer type et role pour les listes notament
  * obj : button
- * 
+ *
  */
 /*
 $('a').buttonMarkup({ icon: "star" , iconpos: "right", iconshadow: "false", shadow: "false"});
@@ -462,7 +462,7 @@ $('[type='submit']').button('refresh');
 $( ".myButton" ).bind( "click", function(event, ui) {
   ...
 });
-icon list : 
+icon list :
 Left arrow - data-icon="arrow-l"
 Right arrow - data-icon="arrow-r"
 Up arrow - data-icon="arrow-u"
@@ -498,17 +498,17 @@ Search - data-icon="search"
     var button = $('<a href="' + conf.getAttribute('link') + '" data-role="button" id="' + id + '" ' + html + '>' + conf.getAttribute('text') + '</a>');
 
     //conf.setAttribute('obj', button);
-    
+
 /*    var div = $('<div class="ui-field-contain ui-body ui-br" data-role="fieldcontain" />');
     div.append(button);
     div.get(0).conf = conf;
     div.click(function(){
-      window.parent.editWidgetMobile(this); // appel fonction de la fenetre parent en mode "iframe" 
+      window.parent.editWidgetMobile(this); // appel fonction de la fenetre parent en mode "iframe"
     })
 */
     //button.get(0).conf = conf;
     button.click(function(){
-      window.parent.editWidgetMobile(this); 
+      window.parent.editWidgetMobile(this);
     })
     //button.button();
 //    return div;
@@ -524,11 +524,11 @@ Search - data-icon="search"
 
 
   // controlgroup
-  controlgroup: function(conf, edit)  { // ensemble de button 
+  controlgroup: function(conf, edit)  { // ensemble de button
 /*
  * options : num_id, text, type (''/horizontal)
  * obj : null
- * 
+ *
  */
 /*
 <div data-role="controlgroup">
@@ -544,10 +544,10 @@ Search - data-icon="search"
     if (conf.getAttribute('type')) html+= 'data-type="' + conf.getAttribute('type') + '" '; // horizontal
     var id = "control_"+this.incControl;
 
-    // TODO a supprimer pour test ajoute des "button" 
+    // TODO a supprimer pour test ajoute des "button"
     var html2 = '<a href="#" data-role="button">Yes</a><a href="#" data-role="button">No</a><a href="#" data-role="button">Maybe</a>';
 
-    
+
     var div = $('<div class="ui-field-contain ui-body ui-br" data-role="fieldcontain" ><div data-role="controlgroup" id="' + id + '" ' + html + '>' + html2 + '</div></div>');
     //div.get(0).conf = conf;
     if (conf.getAttribute('prepend') == "true" ) {
@@ -565,12 +565,12 @@ Search - data-icon="search"
 /*
  * options : num_id, text, val1, val1_label, val2, val2_label, type (''/horizontal)
  * obj : null
- * 
+ *
  */
 /*
  * options : num_id, text, type
  * obj : <select>
- * 
+ *
  */
 /*
 <div data-role="fieldcontain">
@@ -587,7 +587,7 @@ Search - data-icon="search"
     conf.setAttribute('id',id);
     var html = '';
 
-    // TODO a supprimer pour test ajoute des "button" 
+    // TODO a supprimer pour test ajoute des "button"
     var html2 = '<fieldset data-role="controlgroup" data-type="horizontal" >';
     html2 = html2 + '<input type="radio" name="radio-choice-1" id="radio-choice-1" value="choice-1"  />';
     html2 = html2 + '<label for="radio-choice-1">I</label>';
@@ -595,7 +595,7 @@ Search - data-icon="search"
     html2 = html2 + '<label for="radio-choice-2">O</label>';
     html2 = html2 + '</fieldset>';
 
-    
+
     var div = $('<div class="ui-field-contain ui-body ui-br" data-role="fieldcontain" ><div data-role="controlgroup" id="' + id + '" ' + html + '>' + html2 + '</div></div>');
     //div.get(0).conf = conf;
 
@@ -605,16 +605,16 @@ Search - data-icon="search"
     } else {
       div.appendTo( "#" + conf.getAttribute('parentId') ).trigger( "create" );
     }
-    
+
 		return div;
 	},
 
 	// text
-  text: function(conf, edit)  { 
+  text: function(conf, edit)  {
 /*
  * options : num_id, text, text2
  * obj : null
- * 
+ *
  */
 /*
 <div class="ui-field-contain ui-body ui-br" data-role="fieldcontain" >
@@ -629,7 +629,7 @@ Search - data-icon="search"
     conf.setAttribute('id',id);
     var html = '';
     html+= '<div class="ui-grid-a" id="' + id + '"><div class="ui-block-a newtextblockA" ><h3>' + conf.getAttribute('text') + '</h3></div><div class="ui-block-b newtextblockB" >' + conf.getAttribute('text2') + '</div></div>';
-    
+
     var div = $('<div class="ui-field-contain ui-body ui-br" data-role="fieldcontain" >' + html + '</div>');
 
     if (conf.getAttribute('prepend') == "true" ) {
@@ -643,12 +643,12 @@ Search - data-icon="search"
 	},
 
 	// Html
-  html: function(conf, edit)  { // TODO ... 
+  html: function(conf, edit)  { // TODO ...
 /*
  * options : num_id, text
  * obj : null
- * 
- */ 
+ *
+ */
     var id = "control_"+this.incControl;
     conf.setAttribute('id',id);
     if (!edit) {
@@ -662,7 +662,7 @@ Search - data-icon="search"
     $('input', slider).slider();
     //$('.selector').slider({ mini: "true", highlight: "true" }); // disabled: "true"
     //$('input', slider).slider('refresh');
-    
+
     $('input', slider).slider('refresh');
 
     var div = $('<div class="ui-field-contain ui-body ui-br" data-role="fieldcontain" />');
@@ -720,14 +720,14 @@ $(document).bind("mobileinit", function(){
   $.mobile.pageLoadErrorMessage="Erreur de Chargement de la Page";
   $.mobile.addBackBtn = true;
 });
-*/  
+*/
 
 $(document).ready(function() {
 
   //test loadDesign(_versionMobile); // TODO pour le moment en dur dans le code de la page !!
 
-  
-  
+
+
   //Démarrer data-icon="home" onlcick="$("#page0").show();$.mobile.changePage("#page0");"
 
   //test EIBCommunicator.periodicUpdate();

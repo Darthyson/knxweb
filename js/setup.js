@@ -11,9 +11,9 @@ jQuery(document).ready(function(){
 	$("#leftMenu").accordion({
 		autoHeight: false
 	});
-	
+
 	// Create image manager dialog
-	$("#images-manager-dialog").dialog( { 
+	$("#images-manager-dialog").dialog( {
 		title: 'Image manager',
 		width: 725,
 		height: 635,
@@ -22,7 +22,7 @@ jQuery(document).ready(function(){
 		buttons: [
 	    {
 	        text: tr("Set no image"),
-	        click: function() { 
+	        click: function() {
 						if (imagesInput!=null)
 						{
 	        		imagesInput.val('');
@@ -41,7 +41,7 @@ jQuery(document).ready(function(){
 	    }
 		]
 	});
-	
+
 	$("#images-manager-dialog-url-set").button();
 	$("#images-manager-dialog-url-set").click(function() {
 		if (imagesInput!=null)
@@ -53,7 +53,7 @@ jQuery(document).ready(function(){
 	});
 
 	// Create colorpicker dialog
-	$("#colorpicker-dialog").dialog( { 
+	$("#colorpicker-dialog").dialog( {
 		title: 'Color picker',
 		width: 215,
 		height: 320,
@@ -63,10 +63,10 @@ jQuery(document).ready(function(){
 		buttons: [
 	    {
 	        text: tr("Ok"),
-	        click: function() { 
+	        click: function() {
 	        	colorPickerInput.val($("#colorpicker-dialog-input").val());
 	        	colorPickerInput.trigger('change');
-	        	$( this ).dialog("close"); 
+	        	$( this ).dialog("close");
 	        }
 	    },
 	    {
@@ -102,7 +102,7 @@ jQuery(document).ready(function(){
       });
 			$("#propertiesContainer div").hide();
 			var property=$(ui.tab).attr('href') + '-property';
-			if ($(property).length)	
+			if ($(property).length)
 			{
 				$("#propertiesContainer div:first").show();
 				$("#propertiesContainer").show();
@@ -110,7 +110,7 @@ jQuery(document).ready(function(){
 			}
 			$("#OptionContainer div").hide();
 			var propertybottom=$(ui.tab).attr('href') + '-propertybottom';
-			if ($(propertybottom).length)	
+			if ($(propertybottom).length)
 			{
 				$("#OptionContainer div:first").show();
 				$("#OptionContainer").show();
@@ -143,13 +143,13 @@ jQuery(document).ready(function(){
 		},
 		"Invalid value"
 	);
-	
+
 	// Fill object table cache
   var responseXML = queryLinknx('<read><config><objects/></config></read>');
   if (responseXML) {
-    _objects = responseXML; 
+    _objects = responseXML;
 	}
-	
+
 	$('#colorpicker-dialog-picker').farbtastic(function(color) {
 		$("#colorpicker-dialog-input").css('background-color',color);
 		$("#colorpicker-dialog-input").val(color);
@@ -157,7 +157,7 @@ jQuery(document).ready(function(){
 	$("#colorpicker-dialog-input").keypress(function() {
 		$("#colorpicker-dialog-input").css('background-color', "");
 	});
-	
+
 	$("#colorpicker-dialog-none").button();
 	$("#colorpicker-dialog-none").click(function() {
 		$("#colorpicker-dialog-input").val('');
@@ -169,20 +169,20 @@ jQuery(document).ready(function(){
 			if (xmlResponse.getAttribute('status')!='success') messageBox("Error: " + xmlResponse.textContent, "Error", "alert"); else openImagesManager();
 		}, 'xmlDoc');
 	});
-  
+
 	$("#openOptionContainer").click(function() {
     if($('#OptionContainer').css('height') == '0px') {
        $('#OptionContainer div').show();
        $('#openOptionContainer span').removeClass('ui-icon-circle-triangle-n');
-       $('#openOptionContainer span').addClass('ui-icon-circle-triangle-s'); 
+       $('#openOptionContainer span').addClass('ui-icon-circle-triangle-s');
      } else {
        $('#OptionContainer div').hide();
        $('#openOptionContainer').show();
        $('#openOptionContainer span').removeClass('ui-icon-circle-triangle-s');
-       $('#openOptionContainer span').addClass('ui-icon-circle-triangle-n'); 
+       $('#openOptionContainer span').addClass('ui-icon-circle-triangle-n');
      }
   });
-  
+
 	loadSubPages();
   $("body").css("cursor", "auto");
 });
@@ -192,11 +192,11 @@ function switchTab(tab) {
 	var st = "#tab-"+tab.attr('tab_id');
 	if($(st).html() != null ) {
 		maintab.tabs('select',tab.attr('tab_id'));
-		
+
 		// Refresh design on tab switch
 		if (tab.attr('tab_id')=="designedit") design.draw($("#tab-design-zone-list").val());
 		else if (tab.attr('tab_id')=="subpageedit") subpages.draw($("#tab-subpages-list").val());
-		
+
 	} else
 	{
 		loading.show();
@@ -219,7 +219,7 @@ function readObjectValue(id)
 	var value;
   var responseXML = queryLinknx('<read><object id="' + id + '"/></read>');
   if (responseXML) {
-    value = responseXML; 
+    value = responseXML;
 	}
 	return value;
 }
@@ -236,14 +236,14 @@ function writeObjectValue(id, value)
 
 function deleteImage(filename) {
 	if (confirm(tr("Are you sure you want to delete") + " " + filename + "?")) {
-		req = jQuery.ajax({ 
+		req = jQuery.ajax({
 			type: 'post',
-			url: 'setup.php?ajax&deleteImage&filename=' + filename, 
-			dataType: 'xml', 
-			success: function(responseXML, status) 
+			url: 'setup.php?ajax&deleteImage&filename=' + filename,
+			dataType: 'xml',
+			success: function(responseXML, status)
 			{
 				var xmlResponse = responseXML.documentElement;
-				if (xmlResponse.getAttribute('status') != 'success') 
+				if (xmlResponse.getAttribute('status') != 'success')
 					messageBox(tr("An error has occured while deleting file"), tr("Error"), "alert");
 				else
 					openImagesManager();
@@ -254,14 +254,14 @@ function deleteImage(filename) {
 
 function deleteImageFolder(folder) {
 	if (confirm(tr("Are you sure you want to delete folder") + " " + folder + " (" + tr("folder must be empty") + ") ?")) {
-		req = jQuery.ajax({ 
+		req = jQuery.ajax({
 			type: 'post',
-			url: 'setup.php?ajax&deleteImageFolder&folder=' + folder, 
-			dataType: 'xml', 
-			success: function(responseXML, status) 
+			url: 'setup.php?ajax&deleteImageFolder&folder=' + folder,
+			dataType: 'xml',
+			success: function(responseXML, status)
 			{
 				var xmlResponse = responseXML.documentElement;
-				if (xmlResponse.getAttribute('status') != 'success') 
+				if (xmlResponse.getAttribute('status') != 'success')
 					messageBox("An error has occured while deleting folder", "Error", "alert");
 				else
 					openImagesManager();
@@ -273,14 +273,14 @@ function deleteImageFolder(folder) {
 function createImageFolder() {
 	var folder=prompt(tr("Please enter the new folder name"),"");
 	if (folder!="") {
-		req = jQuery.ajax({ 
+		req = jQuery.ajax({
 			type: 'post',
-			url: 'setup.php?ajax&createImageFolder&folder=' + imagesDir + folder, 
-			dataType: 'xml', 
-			success: function(responseXML, status) 
+			url: 'setup.php?ajax&createImageFolder&folder=' + imagesDir + folder,
+			dataType: 'xml',
+			success: function(responseXML, status)
 			{
 				var xmlResponse = responseXML.documentElement;
-				if (xmlResponse.getAttribute('status') != 'success') 
+				if (xmlResponse.getAttribute('status') != 'success')
 					messageBox(tr("An error has occured while creating folder"), tr("Error"), "alert");
 				else
 					openImagesManager();
@@ -295,8 +295,8 @@ function openImagesManager(input) {
 	if (typeof(input)!='undefined') imagesInput=input;
 
 	$("#images-manager-dialog").dialog("open");
-	
-	if (imagesInput.val().match(/^http:\/\//)) 
+
+	if (imagesInput.val().match(/^http:\/\//))
 		$("#images-manager-dialog-url").val(imagesInput.val());
 	else
 		$("#images-manager-dialog-url").val('');
@@ -304,7 +304,7 @@ function openImagesManager(input) {
 	$("#images-manager-dialog .info").html("Current path : <strong>" + ((imagesDir=="")?"root":imagesDir.replace(/\//g,' / ')) + "</strong>" );
 
 	$("#images-manager-dialog .images").empty().append($("<img src='images/loading.gif'/>"));
-	
+
   var xmlResponse = queryKnxweb('filelistdir&name=' + imagesDir, 'xml', '', false);
   if (xmlResponse != false ) {
 			$("#images-manager-dialog .images").empty();
@@ -319,7 +319,7 @@ function openImagesManager(input) {
 				});
 				$("#images-manager-dialog .images").append(div);
 			}
-			
+
 			if (xmlResponse.getAttribute('status') != 'error') {
 
 			$('directory', xmlResponse).each(function() {
@@ -356,13 +356,13 @@ function openImagesManager(input) {
 							label.html(label.html() + '<br />(' + this.width + 'x' + this.height + ')');
 							if ((this.width>120)||(this.height>120))
 								if (this.width>this.height) this.width=120; else this.height=120;
-							
+
 							$(this).css('padding-left', Math.round(60-(this.width/2)) + 'px');
 							$(this).css('padding-top', Math.round(60-(this.height/2)) + 'px');
-							
+
 							$(this).css('display','block');
 						});
-						
+
 						div.click( function () {
 								if (imagesInput!=null)
 								{

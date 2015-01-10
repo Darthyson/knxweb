@@ -22,30 +22,30 @@ var actionEditor = {
 //	    'cancel' : 'Cancel', // < type="" rule-id="" />
 	    'formula' : 'Formula', // id = a*x^m+b*y^n+c < type="" id="object" x="" y="" a="1" b="1" c="0" m="1" n="1" />
 	    'start-actionlist' : 'Start actionlist', // < type="" rule-id="" list="true/false" />
-      'set-rule-active' : 'Set rule active' // < type="" rule-id="" active="yes/no" /> 
+      'set-rule-active' : 'Set rule active' // < type="" rule-id="" active="yes/no" />
 	},
-	
+
 	new: function(type) {
-		
+
 		var conf=actionEditor.config.ownerDocument.createElement('action');
 		conf.setAttribute('type', type);
 		//$('actionlist', actionEditor.config).append(conf);
 		actionEditor.config.appendChild(conf);
 		return actionEditor.add(conf);
 	},
-	
+
 	add: function(conf) {
 		var tr=$("<tr>");
 
     tr[0].conf=conf;
-    
+
     tr.dblclick(function () {
       actionEditor.edit(this, false);
     });
 
     tr.append($("<td>" + conf.getAttribute('type') + "</td>"));
     tr.append($("<td class='description'>" + actionEditor.getActionDescription(conf) + "</td>"));
-    
+
     var td=$("<td align='center'></td>");
     var input=$("<input type='text' size='3'>");
     input.change(function() {
@@ -53,7 +53,7 @@ var actionEditor = {
     	tr.get(0).conf.setAttribute('delay', $(this).val());
     });
     td.append(input);
-    
+
     tr.append(td);
     tr.append($("<td><img src='images/remove.png' onclick='actionEditor.del($(this).parent().parent());'></td>"));
 
@@ -61,12 +61,12 @@ var actionEditor = {
 
     return tr;
 	},
-	
+
 	del: function(tr) {
 		tr.get(0).conf.parentNode.removeChild(tr.get(0).conf);
 		tr.remove();
 	},
-	
+
 	getActionDescription: function(conf) {
     switch (conf.getAttribute('type')) {
       case 'set-value':
@@ -101,18 +101,18 @@ var actionEditor = {
       	return "rule: " + conf.getAttribute('rule-id');
     }
 	},
-	
+
   edit: function(tr, isNew) {
 
     actionEditor.isNew=isNew;
-     
+
 		var dialog=$("#action-dialog-" + tr.conf.getAttribute('type') + "-dialog");
-		
+
 		dialog[0].editing=tr;
-		
+
 		actionEditor.fillObjectsSelect(dialog);
 		actionEditor.fillIOPortsSelect(dialog);
-		
+
     switch (tr.conf.getAttribute('type')) {
       case 'set-value' :
         $("[name=id]", dialog).val(tr.conf.getAttribute('id'));
@@ -157,20 +157,20 @@ var actionEditor = {
       case 'repeat' :
 //        $('#tab-rules-repeat-action-period').val(div.period);
 //        $('#tab-rules-repeat-action-count').val(div.count);
-  // TODO gérer Action 
+  // TODO gérer Action
         break;
       case 'conditional' : // TODO à compléter
         break;
       case 'send-sms' :
         $("[name=id]", dialog).val(tr.conf.getAttribute('id'));
-        if ( tr.conf.getAttribute('var') == "true") $("[name=var]", dialog).attr('checked','1').trigger('change'); 
+        if ( tr.conf.getAttribute('var') == "true") $("[name=var]", dialog).attr('checked','1').trigger('change');
         else $("[name=var]", dialog).removeAttr('checked').trigger('change');
         $("[name=value]", dialog).val(tr.conf.getAttribute('value'));
         break;
       case 'send-email' :
         $("[name=to]", dialog).val(tr.conf.getAttribute('to'));
         $("[name=subject]", dialog).val(tr.conf.getAttribute('subject'));
-        if ( tr.conf.getAttribute('var') == "true") $("[name=var]", dialog).attr('checked','1').trigger('change'); 
+        if ( tr.conf.getAttribute('var') == "true") $("[name=var]", dialog).attr('checked','1').trigger('change');
         else $("[name=var]", dialog).removeAttr('checked').trigger('change');
         $("[name=message]", dialog).val(tr.conf.textContent);
         break;
@@ -181,15 +181,15 @@ var actionEditor = {
         $("[name=duration]", dialog).val(tr.conf.getAttribute('duration'));
         break;
       case 'shell-cmd' :
-        if ( tr.conf.getAttribute('var') == "true") $("[name=var]", dialog).attr('checked','1').trigger('change'); 
+        if ( tr.conf.getAttribute('var') == "true") $("[name=var]", dialog).attr('checked','1').trigger('change');
         else $("[name=var]", dialog).removeAttr('checked').trigger('change');
         $("[name=cmd]", dialog).val(tr.conf.getAttribute('cmd'));
         break;
       case 'ioport-tx' :
         $("[name=ioport]", dialog).val(tr.conf.getAttribute('ioport'));
-        if ( tr.conf.getAttribute('hex') == "true") $("[name=hex]", dialog).attr('checked','1').trigger('change'); 
+        if ( tr.conf.getAttribute('hex') == "true") $("[name=hex]", dialog).attr('checked','1').trigger('change');
         else $("[name=hex]", dialog).removeAttr('checked').trigger('change');
-        if ( tr.conf.getAttribute('var') == "true") $("[name=var]", dialog).attr('checked','1').trigger('change'); 
+        if ( tr.conf.getAttribute('var') == "true") $("[name=var]", dialog).attr('checked','1').trigger('change');
         else $("[name=var]", dialog).removeAttr('checked').trigger('change');
         $("[name=data]", dialog).val(tr.conf.getAttribute('data'));
         break;
@@ -218,13 +218,13 @@ var actionEditor = {
 				if (tr.conf.getAttribute('active')=="yes") $("[name=active]", dialog).attr('checked', '1'); else $("[name=active]", dialog).removeAttr('checked');
         break;
     };
-    
+
     dialog.dialog('open');
   },
-  
+
   processCloseDialog: function(dialog) {
     var conf=dialog[0].editing.conf;
-    
+
     switch (conf.getAttribute('type')) {
 	    case 'set-value':
 	    	conf.setAttribute('id', $("[name=id]", dialog).val());
@@ -304,25 +304,25 @@ var actionEditor = {
 	    	conf.setAttribute('active', (($("[name=active]", dialog).is(':checked'))?'yes':'no') );
 	    	break;
 		}
-		
+
 		$(".description", dialog[0].editing).html(actionEditor.getActionDescription(conf));
   },
-  
+
 	open: function(conf, subPageObjects) {
 		actionEditor.subPageObjects = typeof subPageObjects === "undefined" ? [ ] : subPageObjects;
-		
+
 		actionEditor.config=conf;
-		
+
 		$("#"+this.prefix+"action-dialog-list tbody").empty();
-	
+
 		$('action', actionEditor.config).each(function() {
 			actionEditor.add(this);
 		});
-		
+
 		if (this.prefix === '')
 		  $("#action-dialog").dialog('open');
 	},
-	
+
 	fillObjectsSelect: function(div) {
 		$('.object-select', div).each(function() {
 			var select=$(this);
@@ -356,20 +356,20 @@ var actionEditor = {
 				select.append(optgroup);
 		});
 	},
-	
+
 	fillIOPortsSelect: function(div) {
-		
+
 		if ($('.ioport-select', div).length>0) {
 			var body = '<read><config><services><ioports /></services></config></read>';
 			var req = jQuery.ajax({ type: 'post', url: 'linknx.php?action=cmd', data: body, processData: false, dataType: 'xml',
 				success: function(responseXML, status) {
 					var xmlResponse = responseXML.documentElement;
 					if (xmlResponse.getAttribute('status') != 'error') {
-						
+
 						$('ioport', responseXML).each(function() {
-							
+
 							var ioport=this.getAttribute('id');
-	
+
 							$('.ioport-select', div).each(function() {
 								var select=$(this);
 								var option=($('<option value="' + ioport + '">' + ioport + '</option>'));
@@ -390,7 +390,7 @@ jQuery(function($) {
   var actionsSelect=$('#action-dialog-select').get(0);
   actionsSelect.options[actionsSelect.options.length] = new Option(tr("Add an action"), "")
   for(key in actionEditor.actionsList) actionsSelect.options[actionsSelect.options.length] = new Option(tr(actionEditor.actionsList[key]), key);
-  
+
   $('#action-dialog-select').change(function(e){
   	if (this.value!="")
   	{
@@ -414,7 +414,7 @@ jQuery(function($) {
 		close: function() {
 		}
 	});
-	
+
 	$.each(actionEditor.actionsList, function(key, value) {
 		$("#action-dialog-" + key + "-dialog").dialog({
 			buttons: [
@@ -423,7 +423,7 @@ jQuery(function($) {
 					actionEditor.subPageObjects= [ ];
 					$( this ).dialog( "close" );
           } },
-          { text: tr("Cancel"), click: function() { 
+          { text: tr("Cancel"), click: function() {
 					if (actionEditor.isNew) actionEditor.del($(this.editing));
 					$( this ).dialog( "close" );
           } }

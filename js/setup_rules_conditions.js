@@ -14,11 +14,11 @@ var rulesCondition = {
     'ioport-connect':'Ioport Connect',
     'script':'Script' // si linknx gère lua
   */
-  
+
   addConditionRule: function(type, condition, numcondition) {
     numcondition++;
     nbrCondition++; // unique par condition
-    
+
     if (type != "and" && type != "or" && type != "not" ) {
       var div=$('<div>');
       div.addClass('condition');
@@ -27,12 +27,12 @@ var rulesCondition = {
       div[0].type=type;
       div[0].condition=true;
       $('#tab-rules-container').append(div);
-      
+
       div.dblclick(function () {
         rulesCondition.editCondition(this.type, this, false, true);
       });
     }
-    
+
     switch (type) {
       case "object":
         div[0].object_id=condition.getAttribute('id');
@@ -83,19 +83,19 @@ var rulesCondition = {
           div[0].timer_atevery='at'; // 'at' ou 'every'
           div[0].timer_at_type='other'; // 'other' 'sunrise' 'sunset' 'noon'
           if (this.getAttribute('type')) div[0].timer_at_type=this.getAttribute('type');
-          if (!this.getAttribute('time')) 
-            div[0].timer_at_time_constantvariable='constant'; 
-          else 
-            div[0].timer_at_time_constantvariable='variable'; 
+          if (!this.getAttribute('time'))
+            div[0].timer_at_time_constantvariable='constant';
+          else
+            div[0].timer_at_time_constantvariable='variable';
           div[0].timer_at_hour=this.getAttribute('hour');
           div[0].timer_at_min=this.getAttribute('min');
           div[0].timer_at_day=this.getAttribute('day');
           div[0].timer_at_month=this.getAttribute('month');
           div[0].timer_at_year=this.getAttribute('year');
-          div[0].timer_at_timeobject=this.getAttribute('time'); 
-          if (!this.getAttribute('date')) 
-            div[0].timer_at_date_constantvariable='constant'; 
-          else 
+          div[0].timer_at_timeobject=this.getAttribute('time');
+          if (!this.getAttribute('date'))
+            div[0].timer_at_date_constantvariable='constant';
+          else
             div[0].timer_at_date_constantvariable='variable';
           if (this.getAttribute('wdays'))
             div[0].timer_at_dow=this.getAttribute('wdays'); //'1234567'
@@ -103,7 +103,7 @@ var rulesCondition = {
             div[0].timer_at_dow='1234567'; //'1234567'
           div[0].timer_at_dateobject=this.getAttribute('date');
           div[0].timer_at_exception='';
-          if (this.getAttribute('exception')) 
+          if (this.getAttribute('exception'))
             div[0].timer_at_exception=(this.getAttribute('exception') == 'yes')?"yes":"no";
           div[0].timer_at_offset=this.getAttribute('offset');
           div[0].timer_every='';
@@ -111,7 +111,7 @@ var rulesCondition = {
         $(condition).children("every").each(function () {
           div[0].timer_atevery='every'; // 'at' ou 'every'
           div[0].timer_at_type='other'; // 'other' 'sunrise' 'sunset' 'noon'
-          div[0].timer_at_time_constantvariable='constant'; // 'constant' 'variable' 
+          div[0].timer_at_time_constantvariable='constant'; // 'constant' 'variable'
           div[0].timer_at_hour='';
           div[0].timer_at_min='';
           div[0].timer_at_day='';
@@ -124,8 +124,8 @@ var rulesCondition = {
           div[0].timer_at_exception='';
           div[0].timer_at_offset='0';
           div[0].timer_every=this.textContent;
-        }); 
-    
+        });
+
         div[0].timer_untilduring='none'; // 'none' 'until' 'during'
         div[0].timer_until_type='other'; // 'other' 'sunrise' 'sunset' 'noon'
         div[0].timer_until_time_constantvariable='constant'; // 'constant' 'variable'
@@ -145,19 +145,19 @@ var rulesCondition = {
           div[0].timer_untilduring='until';
           div[0].timer_until_type='other';
           if (this.getAttribute('type')) div[0].timer_until_type=this.getAttribute('type');
-          if (!this.getAttribute('time')) 
-            div[0].timer_until_time_constantvariable='constant'; 
-          else 
-            div[0].timer_until_time_constantvariable='variable'; 
+          if (!this.getAttribute('time'))
+            div[0].timer_until_time_constantvariable='constant';
+          else
+            div[0].timer_until_time_constantvariable='variable';
           div[0].timer_until_hour=this.getAttribute('hour');
           div[0].timer_until_min=this.getAttribute('min');
           div[0].timer_until_day=this.getAttribute('day');
           div[0].timer_until_month=this.getAttribute('month');
           div[0].timer_until_year=this.getAttribute('year');
           div[0].timer_until_timeobject=this.getAttribute('time');
-          if (!this.getAttribute('date')) 
-            div[0].timer_until_date_constantvariable='constant'; 
-          else 
+          if (!this.getAttribute('date'))
+            div[0].timer_until_date_constantvariable='constant';
+          else
             div[0].timer_until_date_constantvariable= 'variable';
           if (this.getAttribute('wdays'))
             div[0].timer_until_dow=this.getAttribute('wdays'); //'1234567'
@@ -165,7 +165,7 @@ var rulesCondition = {
             div[0].timer_until_dow='1234567'; //'1234567'
           div[0].timer_until_dateobject=this.getAttribute('date');
           div[0].timer_until_exception='';
-          if (this.getAttribute('exception')) 
+          if (this.getAttribute('exception'))
             div[0].timer_until_exception=(this.getAttribute('exception') == 'yes')?"yes":"no";
           div[0].timer_until_offset=this.getAttribute('offset');
           div[0].timer_during='';
@@ -174,9 +174,9 @@ var rulesCondition = {
           div[0].timer_untilduring='during';
           div[0].timer_during=this.textContent;
         });
-        
+
         div[0].timer_trigger=condition.getAttribute('trigger');
-        
+
         rulestab=$("#tab-rules-timer-condition-tabs").tabs();
         rulestab.tabs('select', '#tab-rules-timer-condition-start');
         break;
@@ -192,7 +192,7 @@ var rulesCondition = {
         div[0].ioport_regex=condition.getAttribute('regex');
         div[0].ioport_hex=condition.getAttribute('hex');
         break;
-      case "ioport-connect": // <condition type="" ioport="" trigger="true" />  /* new in Linknx 0.0.1.31 */ 
+      case "ioport-connect": // <condition type="" ioport="" trigger="true" />  /* new in Linknx 0.0.1.31 */
         div[0].ioport_ioport=condition.getAttribute('ioport');
         div[0].ioport_trigger=condition.getAttribute('trigger');
         break;
@@ -255,27 +255,27 @@ var rulesCondition = {
         break;
     };
 
-     
+
     if (type != "and" && type != "or" && type != "not" ) {
       rulesCondition.positionCondition(type, condition, numcondition, div);
       jsPlumb.draggable(div);
-  
+
       div[0].endpointout = jsPlumb.addEndpoint(div.attr("id"),$.extend({ anchor:[1, 0.5, 0, 0], uuid: "endpoint"+div.attr("id") }, outputEndpoint));
-          
+
       this.editCondition(type, div[0], false, false);
       this.saveCondition(type);
     }
-    
+
     rules.addconditionCurrent(div);
     return div;
   },
 
   positionCondition: function(type, condition, numcondition, div) {
 
-    if (!pos_right_condition[collonne_condition]) 
-      pos_right_condition[collonne_condition] = pos_right_condition[collonne_condition-1]; 
+    if (!pos_right_condition[collonne_condition])
+      pos_right_condition[collonne_condition] = pos_right_condition[collonne_condition-1];
 
-    
+
     if (numcondition == 1) { // première condition centrée
       div.css("top",pos_top-div.height()/2);
       div.css("right",pos_right+70);
@@ -290,11 +290,11 @@ var rulesCondition = {
     }
   },
   // ******************** / Condition Rule ************************
-  
+
   // ******************** addCondition ************************
   addCondition: function(type) {
-  
-    if (type != "and" && type != "or" && type != "not" ) { 
+
+    if (type != "and" && type != "or" && type != "not" ) {
       var div=$('<div>');
       div.addClass('condition');
       div.addClass(type);
@@ -302,11 +302,11 @@ var rulesCondition = {
       div[0].type=type;
       div[0].condition=true;
       $('#tab-rules-container').append(div);
-      
+
       div.dblclick(function () {
         rulesCondition.editCondition(this.type, this, false, true);
       });
-      
+
       div[0].endpointout = jsPlumb.addEndpoint(div, $.extend({ anchor:[1, 0.5, 0, 0], uuid: "endpoint"+div.attr("id") }, outputEndpoint));
     }
     switch (type) {
@@ -350,7 +350,7 @@ var rulesCondition = {
         div[0].timer_at_exception='';
         div[0].timer_at_offset='0';
         div[0].timer_every='';
-    
+
         div[0].timer_untilduring='none';
         div[0].timer_until_type='other';
         div[0].timer_until_time_constantvariable='constant';
@@ -366,9 +366,9 @@ var rulesCondition = {
         div[0].timer_until_exception='';
         div[0].timer_until_offset='0';
         div[0].timer_during='';
-        
+
         div[0].timer_trigger=false;
-        
+
         rulestab=$("#tab-rules-timer-condition-tabs").tabs();
         rulestab.tabs('select', '#tab-rules-timer-condition-start');
         break;
@@ -393,7 +393,7 @@ var rulesCondition = {
         div[0].ioport_regex=false;
         div[0].ioport_hex=false;
         break;
-      case "ioport-connect": // <condition type="" ioport="" trigger="true" />  /* new in Linknx 0.0.1.31 */ 
+      case "ioport-connect": // <condition type="" ioport="" trigger="true" />  /* new in Linknx 0.0.1.31 */
         div[0].ioport_ioport='';
         div[0].ioport_trigger=false;
         break;
@@ -416,7 +416,7 @@ var rulesCondition = {
     if (type == "timer") { widthdialog = "750px"; }
     rulesCondition.createDialogCondition('tab-rules-'+type+'-condition-dialog', tr("Edit") + " " +type, widthdialog , false, type);
     if (isNew!='')
-      $('#tab-rules-'+type+'-condition-dialog')[0].isNew=isNew; 
+      $('#tab-rules-'+type+'-condition-dialog')[0].isNew=isNew;
     else
       $('#tab-rules-'+type+'-condition-dialog')[0].isNew=false;
 
@@ -431,62 +431,62 @@ var rulesCondition = {
         $('#tab-rules-object-condition-value').val(div.object_value);
         $("#tab-rules-object-condition-object").trigger('change');
         $('#tab-rules-object-condition-values').trigger('change');
-        if (div.object_trigger) $('#tab-rules-object-condition-trigger').attr('checked','1').trigger('change'); 
+        if (div.object_trigger) $('#tab-rules-object-condition-trigger').attr('checked','1').trigger('change');
         else $('#tab-rules-object-condition-trigger').removeAttr('checked').trigger('change');
         break;
       case "object-src":
         $('#tab-rules-objectsrc-condition-operation').val(div.objectsrc_operation);
         $('#tab-rules-objectsrc-condition-value').val(div.objectsrc_value);
         $('#tab-rules-objectsrc-condition-src').val(div.objectsrc_src);
-        if (div.objectsrc_trigger) $('#tab-rules-objectsrc-condition-trigger').attr('checked','1').trigger('change'); 
+        if (div.objectsrc_trigger) $('#tab-rules-objectsrc-condition-trigger').attr('checked','1').trigger('change');
         else $('#tab-rules-objectsrc-condition-trigger').removeAttr('checked').trigger('change');
         break;
       case "object-compare":
         $('#tab-rules-objectcompare-condition-object').val(div.object_id);
         $('#tab-rules-objectcompare-condition-operation').val(div.object_operation);
         $('#tab-rules-objectcompare-condition-object2').val(div.object_id2);
-        if (div.object_trigger) $('#tab-rules-objectcompare-condition-trigger').attr('checked','1').trigger('change'); 
+        if (div.object_trigger) $('#tab-rules-objectcompare-condition-trigger').attr('checked','1').trigger('change');
         else $('#tab-rules-objectcompare-condition-trigger').removeAttr('checked').trigger('change');
         break;
       case "time-counter":
         $('#tab-rules-time-counter-condition-threshold').val(div.timecounter_threshold);
-        $('#tab-rules-time-counter-condition-reset-delay').val(div.timecounter_resetdelay);    
+        $('#tab-rules-time-counter-condition-reset-delay').val(div.timecounter_resetdelay);
         break;
       case "timer":
         // Clear input
         $('#tab-rules-timer-condition-dialog input').val('');
         $('#tab-rules-timer-condition-dialog select').val('');
-    
+
         if (div.timer_atevery=='at')
         {
           $("#timer-condition-at").attr('checked','1');
           $("#timer-condition-at-type-" + div.timer_at_type).attr('checked','1');
-          
-          if (div.timer_until_time_constantvariable=='constant') 
+
+          if (div.timer_until_time_constantvariable=='constant')
             $("timer-condition-at-constanttime").attr('checked','1');
           else
             $("timer-condition-at-variabletime").attr('checked','1');
-            
+
           $("#timer-condition-at-constanttime-hour").val(div.timer_at_hour);
           $("#timer-condition-at-constanttime-minute").val(div.timer_at_min);
-    
+
           $("#timer-condition-at-variabletime-time").val(div.timer_at_timeobject);
-          
+
           $("#timer-condition-at-constantdate-day").val(div.timer_at_day);
           $("#timer-condition-at-constantdate-month").val(div.timer_at_month);
           $("#timer-condition-at-constantdate-year").val(div.timer_at_year);
-    
+
           $("input[id^='timer-condition-at-constantdate-dow']").removeAttr('checked');
           for(var i=0;i<div.timer_at_dow.length;i++) $("#timer-condition-at-constantdate-dow" + div.timer_at_dow[i]).attr('checked','1');
-          
+
           $("#timer-condition-at-variabledate-date").val(div.timer_at_dateobject);
-          
-          $('#timer-condition-at-exception-dontcare').attr('checked','1'); 
+
+          $('#timer-condition-at-exception-dontcare').attr('checked','1');
           if (div.timer_at_exception == "yes" ) $('#timer-condition-at-exception-yes').attr('checked','1');
           if (div.timer_at_exception == "no" ) $('#timer-condition-at-exception-no').attr('checked','1');
-            
+
           $("#timer-condition-at-offset").val(div.timer_at_offset);
-          
+
           $("#timer-condition-at-constanttime").trigger('change');
           $("#timer-condition-at-constantdate").trigger('change');
           $("#timer-condition-at-type-other").trigger('change');
@@ -495,38 +495,38 @@ var rulesCondition = {
           $("#timer-condition-every-text").val(div.timer_every);
         }
         $("#timer-condition-at").trigger('change');
-        
-    
+
+
         if (div.timer_untilduring=='until')
         {
           $("#timer-condition-until").attr('checked','1');
           $("#timer-condition-until-type-" + div.timer_until_type).attr('checked','1');
-          
-          if (div.timer_until_time_constantvariable=='constant') 
+
+          if (div.timer_until_time_constantvariable=='constant')
             $("timer-condition-until-constanttime").attr('checked','1');
           else
             $("timer-condition-until-variabletime").attr('checked','1');
-            
+
           $("#timer-condition-until-constanttime-hour").val(div.timer_until_hour);
           $("#timer-condition-until-constanttime-minute").val(div.timer_until_min);
-    
+
           $("#timer-condition-until-variabletime-time").val(div.timer_until_timeobject);
-    
+
           $("#timer-condition-until-constantdate-day").val(div.timer_until_day);
           $("#timer-condition-until-constantdate-month").val(div.timer_until_month);
           $("#timer-condition-until-constantdate-year").val(div.timer_until_year);
-          
+
           $("input[id^='timer-condition-until-constantdate-dow']").removeAttr('checked');
           for(var i=0;i<div.timer_until_dow.length;i++) $("#timer-condition-until-constantdate-dow" + div.timer_until_dow[i]).attr('checked','1');
-          
+
           $("#timer-condition-until-variabledate-date").val(div.timer_until_dateobject);
-          
-          $('#timer-condition-until-exception-dontcare').attr('checked','1'); 
+
+          $('#timer-condition-until-exception-dontcare').attr('checked','1');
           if (div.timer_until_exception == "yes" ) $('#timer-condition-until-exception-yes').attr('checked','1');
           if (div.timer_until_exception == "no" ) $('#timer-condition-until-exception-no').attr('checked','1');
-    
+
           $("#timer-condition-until-offset").val(div.timer_until_offset);
-          
+
           $("#timer-condition-until-constanttime").trigger('change');
           $("#timer-condition-until-constantdate").trigger('change');
           $("#timer-condition-until-type-other").trigger('change');
@@ -538,30 +538,30 @@ var rulesCondition = {
           $("#timer-condition-none").attr('checked','1');
         }
         $("#timer-condition-during").trigger('change');
-    
+
         if (div.timer_trigger) $('#tab-rules-timer-condition-trigger').attr('checked','1').trigger('change'); else $('#tab-rules-timer-condition-trigger').removeAttr('checked').trigger('change');
-        
+
         $('#tab-rules-timer-condition-threshold').val(div.timecounter_threshold);
         $('#tab-rules-timer-condition-reset-delay').val(div.timecounter_resetdelay);
         break;
       case "ioport-rx":
         $('#tab-rules-ioport-rx-condition-expected').val(div.ioport_expected);
         $('#tab-rules-ioport-rx-condition-ioport').val(div.ioport_ioport);
-        if (div.ioport_trigger) $('#tab-rules-ioport-rx-condition-trigger').attr('checked','1').trigger('change'); 
+        if (div.ioport_trigger) $('#tab-rules-ioport-rx-condition-trigger').attr('checked','1').trigger('change');
         else $('#tab-rules-ioport-rx-condition-trigger').removeAttr('checked').trigger('change');
 /* new in Linknx 0.0.1.31 ajout des attributs : regex="(true/)false" hex="(true/)false"  object="" */
         $('#tab-rules-ioport-rx-condition-object0').val(div.ioport_object0);
         $('#tab-rules-ioport-rx-condition-object1').val(div.ioport_object1);
         $('#tab-rules-ioport-rx-condition-object2').val(div.ioport_object2);
         $('#tab-rules-ioport-rx-condition-object3').val(div.ioport_object3);
-        if (div.ioport_regex) $('#tab-rules-ioport-rx-condition-regex').attr('checked','1').trigger('change'); 
+        if (div.ioport_regex) $('#tab-rules-ioport-rx-condition-regex').attr('checked','1').trigger('change');
         else $('#tab-rules-ioport-rx-condition-regex').removeAttr('checked').trigger('change');
-        if (div.ioport_hex) $('#tab-rules-ioport-rx-condition-hex').attr('checked','1').trigger('change'); 
+        if (div.ioport_hex) $('#tab-rules-ioport-rx-condition-hex').attr('checked','1').trigger('change');
         else $('#tab-rules-ioport-rx-condition-hex').removeAttr('checked').trigger('change');
         break;
       case "ioport-connect": /* new in Linknx 0.0.1.31 */
         $('#tab-rules-ioport-connect-condition-ioport').val(div.ioport_ioport);
-        if (div.ioport_trigger) $('#tab-rules-ioport-connect-condition-trigger').attr('checked','1').trigger('change'); 
+        if (div.ioport_trigger) $('#tab-rules-ioport-connect-condition-trigger').attr('checked','1').trigger('change');
         else $('#tab-rules-ioport-connect-condition-trigger').removeAttr('checked').trigger('change');
         break;
       case "script":
@@ -571,13 +571,13 @@ var rulesCondition = {
 
     if (openDialog)
       $('#tab-rules-'+type+'-condition-dialog').dialog('open');
- 
+
   },
   // ******************** /editCondition ************************
   // ******************** saveCondition ************************
   saveCondition: function(type) {
     var div=$('#tab-rules-'+type+'-condition-dialog')[0].editing;
-    
+
     var html = '';
     switch (type) {
       case "object":
@@ -616,79 +616,79 @@ var rulesCondition = {
         else if ($('#timer-condition-at-type-sunrise').attr('checked')) div.timer_at_type='sunrise';
         else if ($('#timer-condition-at-type-sunset').attr('checked')) div.timer_at_type='sunset';
         else div.timer_at_type='noon';
-          
-        if ($('#timer-condition-at-constanttime').attr('checked')) 
-          div.timer_at_time_constantvariable='constant'; 
-        else 
+
+        if ($('#timer-condition-at-constanttime').attr('checked'))
+          div.timer_at_time_constantvariable='constant';
+        else
           div.timer_at_time_constantvariable='variable';
-  
+
         div.timer_at_hour=$('#timer-condition-at-constanttime-hour').val();
         div.timer_at_min=$('#timer-condition-at-constanttime-minute').val();
         div.timer_at_timeobject=$('#timer-condition-at-variabletime-time').val();
-  
-        if ($('#timer-condition-at-constantdate').attr('checked')) 
-          div.timer_at_date_constantvariable='constant'; 
-        else 
+
+        if ($('#timer-condition-at-constantdate').attr('checked'))
+          div.timer_at_date_constantvariable='constant';
+        else
           div.timer_at_date_constantvariable='variable';
-  
+
         div.timer_at_day=$('#timer-condition-at-constantdate-day').val();
         div.timer_at_month=$('#timer-condition-at-constantdate-month').val();
         div.timer_at_year=$('#timer-condition-at-constantdate-year').val();
-  
+
         div.timer_at_dow='';
         for(var i=1;i<=7;i++) if ($('#timer-condition-at-constantdate-dow' + i).attr('checked')) div.timer_at_dow+=i;
-  
+
         div.timer_at_dateobject=$('#timer-condition-at-variabledate-date').val();
-  
+
         if ($('#timer-condition-at-exception-yes').attr('checked')) div.timer_at_exception='yes';
         else if ($('#timer-condition-at-exception-no').attr('checked')) div.timer_at_exception='no';
         else div.timer_at_exception='';
-  
+
         div.timer_at_offset=$('#timer-condition-at-offset').val();
-  
+
         div.timer_every=$('#timer-condition-every-text').val();
-  
-  
+
+
         if ($('#timer-condition-until').attr('checked')) div.timer_untilduring='until';
         else if ($('#timer-condition-during').attr('checked')) div.timer_untilduring='during';
         else div.timer_untilduring='none';
-  
+
         if ($('#timer-condition-until-type-other').attr('checked')) div.timer_until_type='other';
         else if ($('#timer-condition-until-type-sunrise').attr('checked')) div.timer_until_type='sunrise';
         else if ($('#timer-condition-until-type-sunset').attr('checked')) div.timer_until_type='sunset';
         else div.timer_until_type='noon';
-  
-        if ($('#timer-condition-until-constanttime').attr('checked')) 
-          div.timer_until_time_constantvariable='constant'; 
-        else 
+
+        if ($('#timer-condition-until-constanttime').attr('checked'))
+          div.timer_until_time_constantvariable='constant';
+        else
           div.timer_until_time_constantvariable='variable';
-  
+
         div.timer_until_hour=$('#timer-condition-until-constanttime-hour').val();
         div.timer_until_min=$('#timer-condition-until-constanttime-minute').val();
         div.timer_until_timeobject=$('#timer-condition-until-variabletime-time').val();
-  
-        if ($('#timer-condition-until-constantdate').attr('checked')) 
-          div.timer_until_date_constantvariable='constant'; 
-        else 
+
+        if ($('#timer-condition-until-constantdate').attr('checked'))
+          div.timer_until_date_constantvariable='constant';
+        else
           div.timer_until_date_constantvariable='variable';
-  
+
         div.timer_until_day=$('#timer-condition-until-constantdate-day').val();
         div.timer_until_month=$('#timer-condition-until-constantdate-month').val();
         div.timer_until_year=$('#timer-condition-until-constantdate-year').val();
-  
+
         div.timer_until_dow='';
         for(var i=1;i<=7;i++) if ($('#timer-condition-until-constantdate-dow' + i).attr('checked')) div.timer_until_dow+=i;
-  
+
         div.timer_until_dateobject=$('#timer-condition-until-variabledate-date').val();
-  
+
         if ($('#timer-condition-until-exception-yes').attr('checked')) div.timer_until_exception='yes';
         else if ($('#timer-condition-until-exception-no').attr('checked')) div.timer_until_exception='no';
         else div.timer_until_exception='';
-  
+
         div.timer_until_offset=$('#timer-condition-until-offset').val();
-  
+
         div.timer_during=$('#timer-condition-during-text').val();
-  
+
         div.timer_trigger=$('#tab-rules-timer-condition-trigger').is(':checked');
         html = '';
         break;
@@ -705,7 +705,7 @@ var rulesCondition = {
         div.ioport_regex=$('#tab-rules-ioport-rx-condition-regex').is(':checked');
         div.ioport_hex=$('#tab-rules-ioport-rx-condition-hex').is(':checked');
         break;
-      case "ioport-connect": /* new in Linknx 0.0.1.31 */ 
+      case "ioport-connect": /* new in Linknx 0.0.1.31 */
         div.ioport_ioport=$('#tab-rules-ioport-connect-condition-ioport').val();
         div.ioport_trigger=$('#tab-rules-ioport-connect-condition-trigger').is(':checked');
         html = '<br />' + div.ioport_ioport;
@@ -717,10 +717,10 @@ var rulesCondition = {
     };
 
     $(div).html('<strong>'+conditionsList[type]+'</strong>'+html);
-    
+
     return true;
   },
-  
+
   // ******************** /saveCondition ************************
   generateNodeXMLCondition: function(condition) {
     if (condition[0].stopcondition) {
@@ -754,16 +754,16 @@ var rulesCondition = {
         break;
       case 'timer':
         if (condition[0].timer_trigger) xml.attr('trigger','true');
-        
+
         if (condition[0].timer_atevery=='at')
         {
           var at=$('<at>');
           xml.append(at);
-          
+
           if (condition[0].timer_at_type=='other')
           {
             if ((condition[0].timer_at_time_constantvariable=='variable')||(condition[0].timer_at_date_constantvariable=='variable')) at.attr('type','variable');
-            
+
             if (condition[0].timer_at_time_constantvariable=='constant')
             {
               if (condition[0].timer_at_hour!='') at.attr('hour',condition[0].timer_at_hour);
@@ -798,11 +798,11 @@ var rulesCondition = {
         {
           var until=$('<until>');
           xml.append(until);
-          
+
           if (condition[0].timer_until_type=='other')
           {
             if ((condition[0].timer_until_time_constantvariable=='variable')||(condition[0].timer_until_date_constantvariable=='variable')) until.attr('type','variable');
-            
+
             if (condition[0].timer_until_time_constantvariable=='constant')
             {
               if (condition[0].timer_until_hour!='') until.attr('hour',condition[0].timer_until_hour);
@@ -817,7 +817,7 @@ var rulesCondition = {
               if (condition[0].timer_until_dow!='') until.attr('wdays',condition[0].timer_until_dow);
             } else until.attr('date',condition[0].timer_until_dateobject);
 
-            if (condition[0].timer_until_exception == "yes" ) until.attr('exception','yes'); 
+            if (condition[0].timer_until_exception == "yes" ) until.attr('exception','yes');
             else if (condition[0].timer_until_exception == "no" ) until.attr('exception','no');
           } else {
             until.attr('type',condition[0].timer_until_type);
@@ -845,7 +845,7 @@ var rulesCondition = {
         if (condition[0].ioport_regex) xml.attr('regex','true');
         if (condition[0].ioport_hex) xml.attr('hex','true');
         break;
-      case "ioport-connect": // <condition type="" ioport="" trigger="true" />  /* new in Linknx 0.0.1.31 */ 
+      case "ioport-connect": // <condition type="" ioport="" trigger="true" />  /* new in Linknx 0.0.1.31 */
         xml.attr('ioport',condition[0].ioport_ioport);
         if (condition[0].ioport_trigger) xml.attr('trigger','true');
         break;
@@ -856,7 +856,7 @@ var rulesCondition = {
 
     if (condition[0].endpoint) {
       var c = jsPlumb.getConnections({target:condition[0].endpoint[1]});
-      
+
       for (var i in c) {
         var l = c[i];
         if (l && l.length > 0) {
@@ -886,7 +886,7 @@ var rulesCondition = {
               {
                 values=_objectTypesValues[$("#tab-rules-object-condition-object option:selected")[0].type];
                 $("#tab-rules-object-condition-values").empty();
-                $(values).each(function() { 
+                $(values).each(function() {
                   //$("#tab-rules-object-condition-values").append('<option value="' + this + '">' + this + '</option>');
                   $("#tab-rules-object-condition-values").append('<option value="' + this + '" '+(($("#tab-rules-object-condition-value").val() == this )?'selected ':'') +'>' + tr(this) + '</option>');
                 });
@@ -916,7 +916,7 @@ var rulesCondition = {
             $("#tab-rules-timer-condition-form")[0].validator.resetForm();
             // Handle at/every radio
             $("input[name='timer-condition-atevery']").change(function() {
-              if ($('#timer-condition-at').attr('checked')) 
+              if ($('#timer-condition-at').attr('checked'))
               {
                 $('input[id^="timer-condition-at-"]').removeAttr('disabled');
                 $('select[id^="timer-condition-at-"]').removeAttr('disabled');
@@ -932,10 +932,10 @@ var rulesCondition = {
               }
             });
             $("input[name='timer-condition-atevery']").trigger('change');
-            
+
             // Handle "at" constant/variable time radio
             $("#timer-condition-at-constanttime,#timer-condition-at-variabletime").change(function() {
-              if ($('#timer-condition-at-constanttime').attr('checked')) 
+              if ($('#timer-condition-at-constanttime').attr('checked'))
               {
                 $('select[id^="timer-condition-at-variabletime-"]').attr('disabled','1');
                 $('input[id^="timer-condition-at-constanttime-"]').removeAttr('disabled');
@@ -946,10 +946,10 @@ var rulesCondition = {
               }
             });
             $("#timer-condition-at-constanttime").trigger('change');
-          
+
             // Handle "at" constant/variable date radio
             $("#timer-condition-at-constantdate,#timer-condition-at-variabledate").change(function() {
-              if ($('#timer-condition-at-constantdate').attr('checked')) 
+              if ($('#timer-condition-at-constantdate').attr('checked'))
               {
                 $('select[id^="timer-condition-at-variabledate-"]').attr('disabled','1');
                 $('input[id^="timer-condition-at-constantdate-"]').removeAttr('disabled');
@@ -960,10 +960,10 @@ var rulesCondition = {
               }
             });
             $("#timer-condition-at-constantdate").trigger('change');
-          
+
             // Handle other, sunrise, sunset and noon radio
             $("input[name='timer-condition-at-type']").change(function () {
-              if ($('#timer-condition-at-type-other').attr('checked')) 
+              if ($('#timer-condition-at-type-other').attr('checked'))
               {
                 $("input[name='timer-condition-at-constanttime']").removeAttr('disabled');
                 $("input[name='timer-condition-at-constantdate']").removeAttr('disabled');
@@ -982,10 +982,10 @@ var rulesCondition = {
               }
             });
             $("#timer-condition-at-type-other").trigger('change');
-            
+
             // Handle until/during radio
             $("input[name='timer-condition-untilduring']").change(function() {
-              if ($('#timer-condition-until').attr('checked')) 
+              if ($('#timer-condition-until').attr('checked'))
               {
                 $('input[id^="timer-condition-until-"]').removeAttr('disabled');
                 $('select[id^="timer-condition-until-"]').removeAttr('disabled');
@@ -993,7 +993,7 @@ var rulesCondition = {
                 $("#timer-condition-until-constantdate").trigger('change');
                 $("#timer-condition-until-type-other").trigger('change');
                 $("#timer-condition-during-text").attr('disabled','1');
-              } else if ($('#timer-condition-during').attr('checked')) 
+              } else if ($('#timer-condition-during').attr('checked'))
               {
                 $('input[id^="timer-condition-until-"]').attr('disabled','1');
                 $('select[id^="timer-condition-until-"]').attr('disabled','1');
@@ -1006,10 +1006,10 @@ var rulesCondition = {
               }
             });
             $("input[name='timer-condition-untilduring']").trigger('change');
-          
+
             // Handle "until" constant/variable time radio
             $("#timer-condition-until-constanttime,#timer-condition-until-variabletime").change(function() {
-              if ($('#timer-condition-until-constanttime').attr('checked')) 
+              if ($('#timer-condition-until-constanttime').attr('checked'))
               {
                 $('select[id^="timer-condition-until-variabletime-"]').attr('disabled','1');
                 $('input[id^="timer-condition-until-constanttime-"]').removeAttr('disabled');
@@ -1020,10 +1020,10 @@ var rulesCondition = {
               }
             });
             $("#timer-condition-until-constanttime").trigger('change');
-          
+
             // Handle "until" constant/variable date radio
             $("#timer-condition-until-constantdate,#timer-condition-until-variabledate").change(function() {
-              if ($('#timer-condition-until-constantdate').attr('checked')) 
+              if ($('#timer-condition-until-constantdate').attr('checked'))
               {
                 $('select[id^="timer-condition-until-variabledate-"]').attr('disabled','1');
                 $('input[id^="timer-condition-until-constantdate-"]').removeAttr('disabled');
@@ -1034,10 +1034,10 @@ var rulesCondition = {
               }
             });
             $("#timer-condition-until-constantdate").trigger('change');
-          
+
             // Handle other, sunrise, sunset and noon radio
             $("input[name='timer-condition-until-type']").change(function () {
-              if ($('#timer-condition-until-type-other').attr('checked')) 
+              if ($('#timer-condition-until-type-other').attr('checked'))
               {
                 $("input[name='timer-condition-until-constanttime']").removeAttr('disabled');
                 $("input[name='timer-condition-until-constantdate']").removeAttr('disabled');
@@ -1061,17 +1061,17 @@ var rulesCondition = {
             $("#tab-rules-ioport-rx-condition-form")[0].validator=$("#tab-rules-ioport-rx-condition-form").validate();
             $("#tab-rules-ioport-rx-condition-form")[0].validator.resetForm();
             break;
-          case "ioport-connect":                                              
+          case "ioport-connect":
             $("#tab-rules-ioport-connect-condition-form")[0].validator=$("#tab-rules-ioport-connect-condition-form").validate();
             $("#tab-rules-ioport-connect-condition-form")[0].validator.resetForm();
             break;
           case "script":
             break;
         };
-    }    
+    }
     $('#'+id).dialog({
       autoOpen: false,
-      buttons: [ 
+      buttons: [
           { text: tr("Cancel"), click: function() { rules.handleDialogCancel(this); } },
           { text: tr("Remove"), click: function() { rules.handleDialogDelete(this); } },
           { text: tr("Save"), click: function() { if (rules.handleDialogSave(this)) $(this).dialog("close"); } }

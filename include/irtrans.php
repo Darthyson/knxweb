@@ -2,27 +2,27 @@
 
 class IRTrans {
 	private $_hostname;
-	
+
 	function __construct($hostname)
 	{
 		$this->_hostname=$hostname;
 	}
-	
+
 	function connect()
 	{
 		$this->_socket = fsockopen("tcp://".$this->_hostname, 21000, $errno, $errstr, 30);
-		if (!$this->_socket) throw new Exception("Cannot connect to irtrans: ".$errstr);	
-		
+		if (!$this->_socket) throw new Exception("Cannot connect to irtrans: ".$errstr);
+
 		fwrite($this->_socket,"ASCI");
-		
+
 	}
-	
+
 	function isConnected()
 	{
 		return $this->_socket!=false;
 	}
 
-	function sendCommand($command) 
+	function sendCommand($command)
 	{
 		if (!$this->isConnected()) $this->connect();
 		fwrite($this->_socket, $command . "\n");
@@ -30,14 +30,14 @@ class IRTrans {
 		if (preg_match('~\*\*[0-9]{5} (.*)~',$res,$r))
 		{
 			return $r[1];
-		} throw new Exception("Unknow reply from irtrans: ".$res);	
+		} throw new Exception("Unknow reply from irtrans: ".$res);
 	}
-	
+
 	function getRemotes()
 	{
 		$offset=0;
 		$remotes=array();
-		do 
+		do
 		{
 			$res=$this->sendCommand('Agetremotes ' . $offset);
 			preg_match('~REMOTELIST ([0-9]*),([0-9]*),([0-9]*),(.*)~',$res,$r);
@@ -51,7 +51,7 @@ class IRTrans {
 	{
 		$offset=0;
 		$commands=array();
-		do 
+		do
 		{
 			$res=$this->sendCommand('Agetcommands ' . $remote . ',' . $offset);
 			preg_match('~COMMANDLIST ([0-9]*),([0-9]*),([0-9]*),(.*)~',$res,$r);
@@ -61,7 +61,7 @@ class IRTrans {
 		asort($commands);
 		return $commands;
 	}
-	
+
 }
 
 ?>

@@ -17,16 +17,16 @@ var emailserver = {
 			$('#emailserver-enable').trigger('change');
 		}
 	},
-	
+
 	saveData: function() {
-		if ($('#emailserver-pass').val() == $('#emailserver-pass-confirm').val() 
-			|| $('#emailserver-pass').val() == "" ) 
+		if ($('#emailserver-pass').val() == $('#emailserver-pass-confirm').val()
+			|| $('#emailserver-pass').val() == "" )
 		{
 			if ($("#emailserver-form").valid())
 			{
 				if ($('#emailserver-enable').attr("checked"))
 				{
-						var body = '<write><config><services><emailserver ' + 
+						var body = '<write><config><services><emailserver ' +
 												'type="' + $('#emailserver-type').val() + '" ' +
 												'host="' + $('#emailserver-host').val() + '" ' +
 												( ($('#emailserver-login').val()!='')?'login="' + $('#emailserver-login').val() + '" ':'') +
@@ -34,7 +34,7 @@ var emailserver = {
 												'from="' + $('#emailserver-from').val() + '" ' +
 												'/></services></config></write>';
 				} else var body = '<write><config><services><emailserver/></services></config></write><admin><save/></admin>';
-					
+
 				loading.show();
 				var responseXML=queryLinknx(body);
 				saveConfig();
@@ -53,7 +53,7 @@ jQuery(document).ready(function(){
 		sortable: false,
 		selectable: false
 	});
-	
+
 	$("#emailserver-enable").change(function() {
 		if ($(this).attr('checked') == "checked" && tab_config['haveEmail'] != "true")
       messageBox("We can't use this fonction your compiled version of linknx does not support Email", 'Error', 'alert');
@@ -66,14 +66,14 @@ jQuery(document).ready(function(){
 			$('.error').hide();
 		} else {
 			$('.error').show();
-		} 
+		}
 	})
-	
+
 	$("#emailserver-button-save").button();
 	$("#emailserver-button-save").click(emailserver.saveData);
 
 	$("#emailserver-form")[0].validator=$("#emailserver-form").validate();
-	
+
 	emailserver.refreshData();
 	loading.hide();
 });

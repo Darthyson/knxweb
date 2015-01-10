@@ -15,9 +15,9 @@ tpl()->addJs('js/setup_objects.js');
 * 2-To export data, select "File" in the menu then Save as "CSV/XML" in submenu, then select "Export"
 * and the "XML" format in the popup displayed. Confirm by clicking "OK". Select the destination
 * directory and file name, and terminate by clicking the Save button.
-* 
+*
 * 3- enregistrer le fichier à la racine du dossier knxweb2 il doit se nommer "ETS.xml"
-* 
+*
 */
 $pathETSxml = 'ETS.xml';
 $fileETSexist = file_exists($pathETSxml);
@@ -38,7 +38,7 @@ if ($fileETSexist) {
       $value3_sv = "";
       $add_ligne = true;
       $nbligne = 0;
-      
+
       foreach($value as $key => $value2){
         $colonne = 0;
         foreach($value2 as $key2 => $value3){
@@ -53,10 +53,10 @@ if ($fileETSexist) {
           $colonne++;
           if ($colonne == 6 and $value3 == "") $add_ligne = false;
         }
-  
+
         if ($add_ligne) { // si pas de GA colonne 6 à blanc on écrit pas la ligne
           $nbligne++;
-        } 
+        }
         $add_ligne = true;
       }
     }
@@ -64,7 +64,7 @@ if ($fileETSexist) {
 }
 tpl()->assignByRef("xmletstabhead",$xmletstabhead);
 tpl()->assignByRef("xmletstablines",$xmletstablines);
-tpl()->assignByRef('nbligne', $nbligne);   
+tpl()->assignByRef('nbligne', $nbligne);
 tpl()->assignByRef('fileETSexist', $fileETSexist);
 
 tpl()->display('setup_objects.tpl');
