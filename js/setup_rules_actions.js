@@ -10,9 +10,9 @@ function cdataTextcontent(data, cdata) {
     if (pos != "-1") {
       var pos2 = data.lastIndexOf(']]&gt;');
       data = data.substring(pos + 12 ,pos2);
-  } 
   }
-  if (cdata) 
+  }
+  if (cdata)
     return '<![CDATA[' + data + ']]>';
   else
     return data;
@@ -48,15 +48,15 @@ var rulesAction = {
     div.attr("id", type+((new Date().getTime())));
     div[0].type=type;
     div[0].condition=false;
-    
+
     div.dblclick(function () {
       rulesAction.editAction(this.type, this, false, true);
     });
 
     div[0].delay=action.getAttribute('delay');
-    
-    $('#tab-rules-container').append(div); 
-    
+
+    $('#tab-rules-container').append(div);
+
     switch (type) {
       case 'set-value' :
         div[0].objid=action.getAttribute('id');
@@ -87,7 +87,7 @@ var rulesAction = {
         div[0].off=action.getAttribute('off');
         div[0].count=action.getAttribute('count');
         div.css("width","140px");
-        
+
         var inputPoint = {
           endpoint:["Rectangle", {width:10, height:10} ],
           paintStyle:{ fillStyle:'#D0D' },  // rouge + bleu => violet ?
@@ -108,7 +108,7 @@ var rulesAction = {
           if (k > 1) messageBox(tr("Maximum number of condition for reaching this cycle-on-off"),tr("Action cycle-on-off"),"alert");
           k++;
         });
-        
+
         break;
       case 'repeat' :
         div[0].period=action.getAttribute('period');
@@ -134,9 +134,9 @@ var rulesAction = {
         });
         break;
       case 'conditional' :
-        
+
         div[0].endpoint = [];
-        
+
         var inputPoint = {
           endpoint:["Rectangle", {width:10, height:10} ],
           paintStyle:{ fillStyle:'#D0D' },  // rouge + bleu => violet ?
@@ -150,7 +150,7 @@ var rulesAction = {
           dropOptions : myDropOptions
         };
         div[0].endpoint[0]= jsPlumb.addEndpoint(div.attr("id"), $.extend({ anchor:[0.5, 0, 0, 0], uuid: "endpoint2"+div.attr("id") }, inputPoint));
-        
+
         div[0].endpoint[1] = jsPlumb.addEndpoint(div, $.extend({ anchor:[1, 0, 0, 0] }, outputEndpoint));
         div[0].endpoint[2] = jsPlumb.addEndpoint(div, $.extend({ anchor:[1, 0.1, 0, 0] }, outputEndpoint));
         div[0].endpoint[3] = jsPlumb.addEndpoint(div, $.extend({ anchor:[1, 0.2, 0, 0] }, outputEndpoint));
@@ -236,22 +236,22 @@ var rulesAction = {
           div[0].active=action.getAttribute('active');
           div.css("width","160px");
           break;
-    }; 
+    };
 
     if (actionlist)
     div.css("top",20+numaction*50);
     else
-      div.css("top",pos_top + 20+numaction*50); 
-    
+      div.css("top",pos_top + 20+numaction*50);
+
     div.css("right",pos_right-div.width()-90);
-   
+
     jsPlumb.draggable(div);
 
-    div[0].endpointin = jsPlumb.addEndpoint(div.attr("id"),$.extend({ anchor:[0, 0.5, 0, 0], uuid: "endpoint"+div.attr("id") }, inputEndpoint));  
+    div[0].endpointin = jsPlumb.addEndpoint(div.attr("id"),$.extend({ anchor:[0, 0.5, 0, 0], uuid: "endpoint"+div.attr("id") }, inputEndpoint));
 
     this.editAction(type, div[0], false, false);
     this.saveAction(type);
-    
+
     rules.addactionCurrent(div);
     return div;
   },
@@ -263,15 +263,15 @@ var rulesAction = {
     div[0].type=type;
     div[0].condition=false;
     $('#tab-rules-container').append(div);
-    
+
     div.dblclick(function () {
       rulesAction.editAction(this.type, this, false, true);
     });
-    
+
     div[0].endpointin = jsPlumb.addEndpoint(div.attr("id"),$.extend({ anchor:[0, 0.5, 0, 0], uuid: "endpoint"+div.attr("id") }, inputEndpoint));
 
     div[0].delay='';
-    
+
     switch (type) {
       case 'set-value' :
         div[0].objid='';
@@ -303,7 +303,7 @@ var rulesAction = {
         div[0].count='';
         div.css("width","140px");
         div[0].endpoint = [];
-        
+
         var inputPoint = {
           endpoint:["Rectangle", {width:10, height:10} ],
           paintStyle:{ fillStyle:'#D0D' },  // rouge + bleu => violet ?
@@ -336,7 +336,7 @@ var rulesAction = {
         break;
       case 'conditional' :
         div[0].endpoint = [];
-        
+
         var inputPoint = {
           endpoint:["Rectangle", {width:10, height:10} ],
           paintStyle:{ fillStyle:'#D0D' },  // rouge + bleu => violet ?
@@ -350,7 +350,7 @@ var rulesAction = {
           dropOptions : myDropOptions
         };
         div[0].endpoint[0]= jsPlumb.addEndpoint(div.attr("id"), $.extend({ anchor:[0.5, 0, 0, 0], uuid: "endpoint2"+div.attr("id") }, inputPoint));
-        
+
         div[0].endpoint[1] = jsPlumb.addEndpoint(div, $.extend({ anchor:[1, 0, 0, 0] }, outputEndpoint));
         div[0].endpoint[2] = jsPlumb.addEndpoint(div, $.extend({ anchor:[1, 0.1, 0, 0] }, outputEndpoint));
         div[0].endpoint[3] = jsPlumb.addEndpoint(div, $.extend({ anchor:[1, 0.2, 0, 0] }, outputEndpoint));
@@ -362,7 +362,7 @@ var rulesAction = {
         div[0].endpoint[9] = jsPlumb.addEndpoint(div, $.extend({ anchor:[1, 0.8, 0, 0] }, outputEndpoint));
         div[0].endpoint[10] = jsPlumb.addEndpoint(div, $.extend({ anchor:[1, 0.9, 0, 0] }, outputEndpoint));
         div[0].endpoint[11] = jsPlumb.addEndpoint(div, $.extend({ anchor:[1, 1, 0, 0] }, outputEndpoint));
-        
+
         break;
       case 'send-sms' :
         div[0].objid='';
@@ -403,7 +403,7 @@ var rulesAction = {
         div[0].cancel_rule='';
         div.css("width","140px");
         break;
-      case 'formula' : 
+      case 'formula' :
         div[0].formula_id='';
         div[0].formula_x='';
         div[0].formula_y='';
@@ -424,27 +424,27 @@ var rulesAction = {
           div[0].active=false;
           div.css("width","160px");
           break;
-    }; 
+    };
 
     jsPlumb.draggable(div);
-    
+
     this.editAction(type, div[0], true, true);
     rules.addactionCurrent(div);
   },
-  
+
   editAction: function(type, div, isNew, openDialog) {
     if (!document.getElementById('tab-rules-'+type+'-action-dialog')) {
       rulesAction.createDialogAction('tab-rules-'+type+'-action-dialog', tr("Edit") + " "+type, "540px" , true, type);
     }
     if (isNew!='')
-      $('#tab-rules-'+type+'-action-dialog')[0].isNew=isNew; 
+      $('#tab-rules-'+type+'-action-dialog')[0].isNew=isNew;
     else
       $('#tab-rules-'+type+'-action-dialog')[0].isNew=false;
 
     $('#tab-rules-'+type+'-action-dialog')[0].editing=div;
 
     $('#tab-rules-action-delay').val(div.delay);
-    
+
     switch (type) {
       case 'set-value' :
         $('#tab-rules-set-value-action-object').val(div.objid);
@@ -482,13 +482,13 @@ var rulesAction = {
       case 'send-sms' :
         $('#tab-rules-send-sms-action-id').val(div.objid);
         $('#tab-rules-send-sms-action-value').val(div.objvalue);
-        if (div.smsvar) $('#tab-rules-send-sms-action-var').attr('checked','1').trigger('change'); 
+        if (div.smsvar) $('#tab-rules-send-sms-action-var').attr('checked','1').trigger('change');
         else $('#tab-rules-send-sms-action-var').removeAttr('checked').trigger('change');
         break;
       case 'send-email' :
         $('#tab-rules-send-email-action-to').val(div.objto);
         $('#tab-rules-send-email-action-subject').val(div.subject);
-        if (div.emailvar) $('#tab-rules-send-email-action-var').attr('checked','1').trigger('change'); 
+        if (div.emailvar) $('#tab-rules-send-email-action-var').attr('checked','1').trigger('change');
         else $('#tab-rules-send-email-action-var').removeAttr('checked').trigger('change');
         $('#tab-rules-send-email-action-text').val(div.objtext);
         break;
@@ -500,15 +500,15 @@ var rulesAction = {
         break;
       case 'shell-cmd' :
         $('#tab-rules-shell-cmd-action-value').val(div.cmd);
-        if (div.cmdvar) $('#tab-rules-shell-cmd-action-var').attr('checked','1').trigger('change'); 
+        if (div.cmdvar) $('#tab-rules-shell-cmd-action-var').attr('checked','1').trigger('change');
         else $('#tab-rules-shell-cmd-action-var').removeAttr('checked').trigger('change');
         break;
       case 'ioport-tx' :
-        if (div.hex) $('#tab-rules-send-ioport-tx-hex').attr('checked','1').trigger('change'); 
+        if (div.hex) $('#tab-rules-send-ioport-tx-hex').attr('checked','1').trigger('change');
         else $('#tab-rules-send-ioport-tx-hex').removeAttr('checked').trigger('change');
         $('#tab-rules-send-ioport-tx-data').val(div.data);
         $('#tab-rules-ioport-tx-action-ioport').val(div.ioport);
-        if (div.ioportvar) $('#tab-rules-ioport-tx-action-var').attr('checked','1').trigger('change'); 
+        if (div.ioportvar) $('#tab-rules-ioport-tx-action-var').attr('checked','1').trigger('change');
         else $('#tab-rules-ioport-tx-action-var').removeAttr('checked').trigger('change');
         break;
       case 'script' :
@@ -539,14 +539,14 @@ var rulesAction = {
 
     if (openDialog)
       $('#tab-rules-'+type+'-action-dialog').dialog('open');
- 
+
   },
-  
+
   saveAction: function(type) {
     var div=$('#tab-rules-'+type+'-action-dialog')[0].editing;
-    
+
     div.delay=$('#tab-rules-action-delay').val();
-    
+
     var html = '';
     switch (type) {
       case 'set-value' :
@@ -629,7 +629,7 @@ var rulesAction = {
         div.cancel_rule = $('#tab-rules-cancel-action-value').val();
         html = '<br />'+div.cancel_rule;
         break;
-      case 'formula' : 
+      case 'formula' :
         div.formula_id = $('#tab-rules-formula-id-action-value').val();
         div.formula_x = $('#tab-rules-formula-x-action-value').val();
         div.formula_y = $('#tab-rules-formula-y-action-value').val();
@@ -653,19 +653,19 @@ var rulesAction = {
     };
 
     $(div).html('<strong>'+actionsList[type]+'</strong>'+html);
-    
+
     return true;
   },
   // ******************** /Action ************************
 
 
-  
+
   generateNodeXMLAction: function(action) {
     var xml=$('<action/>');
     xml.attr('type',action[0].type);
-    
+
     if (action[0].delay) xml.attr('delay',action[0].delay);
-          
+
     switch (action[0].type) {  // TODO complete xml action
       case 'set-value' : // < type="" id="" value="" />
         xml.attr('id',action[0].objid);
@@ -740,11 +740,11 @@ var rulesAction = {
         xml.attr('m',action[0].formula_m);
         xml.attr('n',action[0].formula_n);
         break;
-      case 'start-actionlist' : // < type="" rule-id="" list="true/false" /> 
+      case 'start-actionlist' : // < type="" rule-id="" list="true/false" />
         xml.attr('rule-id',action[0].rule_id);
         xml.attr('list',((action[0].list)?"true":"false"));
         break;
-      case 'set-rule-active' : // < type="" rule-id="" active="yes/no" /> 
+      case 'set-rule-active' : // < type="" rule-id="" active="yes/no" />
           xml.attr('rule-id',action[0].rule_id);
           xml.attr('active',((action[0].active)?"yes":"no"));
           break;
@@ -777,14 +777,14 @@ var rulesAction = {
           if (condition2[0].condition && l.targetId == action.attr("id") && l.sourceId != "actionlistOnTrue" && l.sourceId != "actionlistOnFalse") {
             // gére le spécifique "stopcondition" de l'action "cycle-on-off"
             if ( action[0].type == 'cycle-on-off') {
-              condition2[0].stopcondition = true;              
+              condition2[0].stopcondition = true;
             }
             xml.append(rules.generateNodeXML($('#'+l.sourceId)));
           }
         }
       }
     }
-   
+
     return xml;
   },
 
@@ -979,15 +979,15 @@ var rulesAction = {
             break;
           case 'formula' :
             tbody.append($('<tr>').append('<td width="300" colspan="2" style="font-weight: bold; color: #F00; line-height: 25px;">'+tr('Formula')+' : '+tr('Object')+'=a*x^m+b*y^n+c </td>'));
-            var listobjectset_id = listobject.clone();                   
+            var listobjectset_id = listobject.clone();
             listobjectset_id.attr("id","tab-rules-formula-id-action-value");
             tbody.append($('<tr>').append('<th width="50">'+tr('Object')+'</th>').append($('<td>').append(listobjectset_id)));
             var listobjectset_x = listobject.clone();
-            listobjectset_x.prepend('<option value="">'+tr('No Object')+'</option>');                   
+            listobjectset_x.prepend('<option value="">'+tr('No Object')+'</option>');
             listobjectset_x.attr("id","tab-rules-formula-x-action-value");
             tbody.append($('<tr>').append('<th width="50">x</th>').append($('<td>').append(listobjectset_x)));
             var listobjectset_y = listobject.clone();
-            listobjectset_y.prepend('<option value="">'+tr('No Object')+'</option>');                   
+            listobjectset_y.prepend('<option value="">'+tr('No Object')+'</option>');
             listobjectset_y.attr("id","tab-rules-formula-y-action-value");
             tbody.append($('<tr>').append('<th width="50">y</th>').append($('<td>').append(listobjectset_y)));
             tbody.append($('<tr>').append('<th width="50">a</th>').append($('<td>').append('<input type="text" id="tab-rules-formula-a-action-value" size="2">')));
@@ -1028,10 +1028,10 @@ var rulesAction = {
         $('#'+id).append($('<form id="tab-rules-'+type+'-action-form" />').append($('<table class="form" />').append(tbody)));
       }
     }
-    
+
     $('#'+id).dialog({
       autoOpen: false,
-      buttons: [ 
+      buttons: [
           { text: tr("Cancel"), click: function() { rules.handleDialogCancel(this); } },
           { text: tr("Remove"), click: function() { rules.handleDialogDelete(this); } },
           { text: tr("Save"), click: function() { if (rules.handleDialogSave(this)) $(this).dialog("close"); } }

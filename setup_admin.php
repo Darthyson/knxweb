@@ -9,7 +9,7 @@ tpl()->addJs('js/setup_admin.js');
 
 tpl()->assignByRef("lang",$lang);
 
-tpl()->assign('progstatus', (isset($_GET['progstatus']))); 
+tpl()->assign('progstatus', (isset($_GET['progstatus'])));
 tpl()->assign('configknxweb', (isset($_GET['configknxweb'])));
 tpl()->assign('logobjects', (isset($_GET['logobjects'])));
 tpl()->assign('loglinknx', (isset($_GET['loglinknx'])));
@@ -39,10 +39,10 @@ if (isset($_GET['logobjects']) || isset($_GET['loglinknx']))
   $logfile = glob($pathLog.'*.log');
   $order = array( $pathLog , '.log' );
   foreach ($logfile as $value) {
-    $id = str_replace($order, '', $value); 
+    $id = str_replace($order, '', $value);
     $type = $objects[$id]["type"];
     $listobjectlog[$id] = $value . '_type_' . $type;
-  } 
+  }
   }
   if ($logType == 'mysql') {
   // requete sur la base mysql $info['persistence'][] host/user/pass/db/table/logtable
@@ -50,14 +50,14 @@ if (isset($_GET['logobjects']) || isset($_GET['loglinknx']))
   $serveur       = $info['persistence']['host'];
   $login          = $info['persistence']['user'];
   $password       = $info['persistence']['pass'];
-  $base  = $info['persistence']['db']; //"linknx"; 
+  $base  = $info['persistence']['db']; //"linknx";
   $table = $info['persistence']['logtable']; //"log";
   // structure de la table logtable
   $ts = "ts";
   $object = "object";
   $value = "value";
   // On ouvre la connexion à Mysql
-  $db = mysql_connect($serveur, $login, $password) or die('<h1>Connexion au serveur impossible !</h1>'); 
+  $db = mysql_connect($serveur, $login, $password) or die('<h1>Connexion au serveur impossible !</h1>');
   mysql_select_db($base,$db) or die('<h1>Connexion impossible à la base</h1>');
   $sql = "SELECT DISTINCT ".$object." AS obj FROM ".$table;
   $req = mysql_query($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysql_error());
@@ -133,7 +133,7 @@ if (file_exists("include/pgmrunning.php") && isset($_GET['progstatus'])) {
   $pgmrunning_param = array();
 }
 tpl()->assignByRef("pgmrunning",$pgmrunning);
-tpl()->assignByRef("pgmrunning_param",$pgmrunning_param); 
+tpl()->assignByRef("pgmrunning_param",$pgmrunning_param);
 
 $uitheme = getUiThemes();
 tpl()->assignByRef('uitheme', $uitheme);

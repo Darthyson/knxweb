@@ -16,13 +16,13 @@ var designmobile = {
 	load: function(designName, version)	{
 		if ((designName!="")&&(designName!=null)) {
 			var url = 'design/' + designName + '/' + version + '.xml';
-		
+
 			designmobile.currentDesign=designName;
 			designmobile.currentVersion=version;
 			designmobile.currentPage="home"; // null
-			
+
 			$('#tab-design-mobile-design-list').val(designName);
-		
+
 			req = jQuery.ajax({ url: url, dataType: 'xml', async:false, cache: false,
 				success: function(responseXML, status) {
 					designmobile.config=responseXML;
@@ -43,7 +43,7 @@ var designmobile = {
     $("#tab-design-mobile-widgets-list tbody").empty();
 		//designmobile.currentPage=null;
 	},
-	// Refresh page select	
+	// Refresh page select
 	refreshPageList: function() {
 		$('#tab-design-mobile-page-list').empty();
     $('#tab-design-mobile-page-list tbody').empty();
@@ -66,7 +66,7 @@ var designmobile = {
       designmobile.pageList[page]["load"] = true;
 			var page = $('page[id=' + page + ']', designmobile.config);
 
-      // on récupère width et height en paramètre si existe mais ne sert que pour le mode edit car sinon géré automatiquement par jqm 
+      // on récupère width et height en paramètre si existe mais ne sert que pour le mode edit car sinon géré automatiquement par jqm
 			var width=$("config",designmobile.config)[0].getAttribute('width');
 			var height=$("config",designmobile.config)[0].getAttribute('height');
 
@@ -106,7 +106,7 @@ var designmobile = {
       designmobile.addWidgetsList(obj, globalcontrol);
       obj.globalcontrol = globalcontrol;
 
-      // If the widget had Children 
+      // If the widget had Children
     	$('control', conf).each(function() {
   			designmobile.addWidgetChildren(this, obj.content, globalcontrol);
 		});
@@ -136,31 +136,31 @@ var designmobile = {
     //var desc=o.conf.getAttribute('desc');
 
     //w_current = o;
-    
+
     var tr=$('<tr/>');
     tr.get(0).obj = o;
     if (globalcontrol) tr.css("color", "#FF0000"); // si globalcontrol == "true" c'est que le control/widget est lié au design et pas a la page elle même
     if (child) tr.css("color", "#0000FF"); // si child == "true" c'est que le control/widget est lié a un widget "content"
-  
+
     var th=$('<th>' + type + '</th>');
     tr.append(th);
     tr.click(function() {
       //editWidgetMobile(this.obj.w, this.obj);
       editWidgetMobile(this.obj);
 		});
-  
+
     var td=$('<td><span>' + o.conf.getAttribute('text') + '</span></td>');
     tr.append(td);
-  
+
     var bpviewxml =$('<td><button>Xml</button></td>');
 
     //if (_superuser) tr.append(bpviewxml);
     tr.append(bpviewxml);
-  
+
     bpviewxml.click(function() {
       console.log("XML", this.parentNode.obj.conf);
       $('#tab-design-mobile-fluxxml').html("<textarea rows=30 cols=125>" + serializeXmlToString(this.parentNode.obj.conf) + "</textarea>");
-      $('#tab-design-mobile-fluxxml').dialog({ 
+      $('#tab-design-mobile-fluxxml').dialog({
         width: 812,
         modal: true,
         buttons: [
@@ -178,7 +178,7 @@ var designmobile = {
 	addDesign: function()
 	{
 		var name=prompt(tr('Enter name for new design'),'default');
-    var version = 'mobile'; // TODO tab_config[defaultVersionMobile'] = 'mobile' ?? TODO a gérer aussi dans setup_design.js et design_technique.php ... 
+    var version = 'mobile'; // TODO tab_config[defaultVersionMobile'] = 'mobile' ?? TODO a gérer aussi dans setup_design.js et design_technique.php ...
 		if (name!=null) {
 			req = jQuery.ajax({ type: 'post', url: 'design_technique.php?action=createdesign&name=' + name + '&ver=' + version + '&mobile=true', dataType: 'xml',
 				success: function(responseXML, status) {
@@ -244,7 +244,7 @@ var designmobile = {
 	// Display design XML in a window
 	displayXML: function() {
 	  $('#tab-design-mobile-fluxxml').html("<textarea rows=30 cols=125>" + serializeXmlToString(designmobile.config) + "</textarea>");
-	  $('#tab-design-mobile-fluxxml').dialog({ 
+	  $('#tab-design-mobile-fluxxml').dialog({
 	  	width: 812,
 			modal: true,
 			buttons: [
@@ -301,7 +301,7 @@ function newWidgetMobile(type) {
   bpviewxml.click(function() {
     console.log("XML", this.parentNode.obj.conf);
     $('#tab-design-mobile-fluxxml').html("<textarea rows=30 cols=125>" + serializeXmlToString(this.parentNode.obj.conf) + "</textarea>");
-    $('#tab-design-mobile-fluxxml').dialog({ 
+    $('#tab-design-mobile-fluxxml').dialog({
       width: 812,
       modal: true,
       buttons: [
@@ -347,7 +347,7 @@ function updateWidgetMobile(conf) {
       conf.setAttribute('theme', $('.themes', '#widget-mobile-' + type + '-dialog').val());
 
       //conf.setAttribute('track-theme', $('.track-theme', '#widget-mobile-' + type + '-dialog').val());
-      break; 
+      break;
     case 'listview':
       break;
     case 'controlgroup':
@@ -404,7 +404,7 @@ function editWidgetMobile(obj) {
 
   $('.show', '#rightContent_mobile').removeClass('show').hide();
   $('#widget-mobile-' + type + '-dialog').addClass('show').show();
-  
+
   switch (type) {
     case 'slider':
       $("#widget-mobile-slider-num_id").text(conf.getAttribute('num_id'));
@@ -417,12 +417,12 @@ function editWidgetMobile(obj) {
       $('.themes', '#widget-mobile-' + type + '-dialog').val(conf.getAttribute('theme'));
       break;
     case 'toggleswicth':
-      $("#widget-mobile-toggleswicth-text").val(conf.getAttribute('text')); 
+      $("#widget-mobile-toggleswicth-text").val(conf.getAttribute('text'));
       $('.mini', '#widget-mobile-' + type + '-dialog').val(conf.getAttribute('mini'))
       $("#widget-mobile-toggleswicth-textOff").val(conf.getAttribute('textOff'));
       $("#widget-mobile-toggleswicth-textOn").val(conf.getAttribute('textOn'));
       $('.themes', '#widget-mobile-' + type + '-dialog').val(conf.getAttribute('theme'));
-      break; 
+      break;
     case 'listview':
       break;
     case 'controlgroup':
@@ -438,7 +438,7 @@ function editWidgetMobile(obj) {
 
       $('.transitions', '#widget-mobile-' + type + '-dialog').val(conf.getAttribute('transitions'));
       $('.inline', '#widget-mobile-' + type + '-dialog').val(conf.getAttribute('inline'));
-    
+
       $('.themes', '#widget-mobile-' + type + '-dialog').val(conf.getAttribute('theme'));
       $("#widget-mobile-slider-type").val(conf.getAttribute('type'));
       break;
@@ -458,12 +458,12 @@ function editWidgetMobile(obj) {
 }
 
 function applyModifcationCurrentWidgetMobile() {
-    
+
   var widget = $("#framemobile")[0].contentWindow.widgetmobile.Edit(w_current);
 
   var conf = w_current.get(0).conf;
   var obj = w_current; // w_current.get(0).conf.getAttribute('obj');
-  
+
   var type = conf.getAttribute('type') ;
 
   switch (type) {
@@ -484,7 +484,7 @@ function applyModifcationCurrentWidgetMobile() {
       conf.setAttribute('textOn', $("#widget-mobile-toggleswicth-textOn").val());
       conf.setAttribute('theme', $('.themes', '#widget-mobile-' + type + '-dialog').val());
       //conf.setAttribute('track-theme', $('.track-theme', '#widget-mobile-' + type + '-dialog').val());
-        break; 
+        break;
       case 'listview':
       break;
     case 'controlgroup':
@@ -515,14 +515,14 @@ function applyModifcationCurrentWidgetMobile() {
 
 
       var icon = ($('.icon', '#widget-mobile-button-dialog').val())?$('.icon', '#widget-mobile-button-dialog').val():"";
-  
+
       obj.buttonMarkup({
         icon: icon,
         iconpos: $('.iconpos', '#widget-mobile-button-dialog').val(),
-        inline: ($('.inline', '#widget-mobile-button-dialog').val() == "true"), 
+        inline: ($('.inline', '#widget-mobile-button-dialog').val() == "true"),
         mini: ($('.mini', '#widget-mobile-button-dialog').val() == "true"),
         theme: $('.themes', '#widget-mobile-button-dialog').val(),
-        //text : $("#widget-mobile-button-text").val() 
+        //text : $("#widget-mobile-button-text").val()
       });//.button('refresh');
       $(".ui-btn-text", obj).text($("#widget-mobile-button-text").val());
 
@@ -555,8 +555,8 @@ jQuery(function($) {
   //iframemobile_window.$( ".ui-page" ).trigger( "pagecreate" );
 
   $("button", "#tab-design-properties").button();
-  $(".displayXML").button(); 
-  
+  $(".displayXML").button();
+
 	$("#button-add-new-page-mobile").click(function() {
 		designmobile.addPage();
 	});
@@ -572,7 +572,7 @@ jQuery(function($) {
     $("#tab-design-mobile-screen-orientation").val("portrait");
     var resol = $(this).val();
     resol = resol.split("_");
-    $("#framemobile").css("width", resol[0]).css("height", resol[1]);    
+    $("#framemobile").css("width", resol[0]).css("height", resol[1]);
   });
   $("#tab-design-mobile-screen-orientation").change(function() {
     var resol = $("#tab-design-mobile-screen-resolution").val();
@@ -580,7 +580,7 @@ jQuery(function($) {
     if ($(this).val() == "landscape")
       $("#framemobile").css("width", resol[1]).css("height", resol[0]);
     else
-      $("#framemobile").css("width", resol[0]).css("height", resol[1]);    
+      $("#framemobile").css("width", resol[0]).css("height", resol[1]);
   });
   /* Widgets List */
   $("#show-list-widgets-design-mobile-checkbox").change(function() {
@@ -605,25 +605,25 @@ jQuery(function($) {
     this.value = '';
   });
 
-  $("#tab-design-mobile-properties").draggable({ 
+  $("#tab-design-mobile-properties").draggable({
   	containment: "parent" ,
   	scroll: false
   });
 
-	$("#tab-design-mobile-list-widgets").draggable({ 
+	$("#tab-design-mobile-list-widgets").draggable({
   	containment: "parent" ,
   	scroll: false
   });
-  
+
   $("#button-delete-widget-mobile").button({
 		icons: {
 			primary: "ui-icon-closethick"
 		}
 	});
 	/*$("#button-delete-widget-mobile").click(function() {
-		if ($("#widgetdivmobile .selected").length>0)	
+		if ($("#widgetdivmobile .selected").length>0)
 		{
-			designmobile.deleteWidget($("#widgetdivmobile .selected").get(0).owner); 
+			designmobile.deleteWidget($("#widgetdivmobile .selected").get(0).owner);
 			// Show design properties
 			$("#widgetdivmobile").trigger("click");
 		}
@@ -645,21 +645,21 @@ jQuery(function($) {
 	$("#widget-mobile-apply").click(function() {
 /*
     var icon = ($('.icon', '#widget-mobile-button-dialog').val())?$('.icon', '#widget-mobile-button-dialog').val():"";
-    var obj = w_current; // w_current.get(0).conf.getAttribute('obj'); 
+    var obj = w_current; // w_current.get(0).conf.getAttribute('obj');
     obj.buttonMarkup({
       icon: icon,
       iconpos: $('.iconpos', '#widget-mobile-button-dialog').val(),
-      inline: ($('.inline', '#widget-mobile-button-dialog').val() == "true"), 
+      inline: ($('.inline', '#widget-mobile-button-dialog').val() == "true"),
       mini: ($('.mini', '#widget-mobile-button-dialog').val() == "true"),
       theme: $('.themes', '#widget-mobile-button-dialog').val(),
-      //text : $("#widget-mobile-button-text").val() 
+      //text : $("#widget-mobile-button-text").val()
     });//.button('refresh');
     $(".ui-btn-text", obj).text($("#widget-mobile-button-text").val());
 */
     applyModifcationCurrentWidgetMobile();
-    
+
 	});
-  
+
 	$("#widget-mobile-delete").button({
 		icons: {
 			primary: "ui-icon-closethick"
@@ -715,7 +715,7 @@ jQuery(function($) {
 		//designmobile.removeCurrentZone();
     alert("TODO...");
 	});
-	
+
 	$("#button-save-design-mobile").click(function() {
 		designmobile.save();
 	});
@@ -732,7 +732,7 @@ jQuery(function($) {
     var div = $("div:first", accordion).clone();
     accordion.append(div);
     $(".del", div).show();
-    var active = div.accordion('option', 'active'); //pour garder celle active 
+    var active = div.accordion('option', 'active'); //pour garder celle active
     accordion.accordion('destroy').accordion({
       icons: {
   			header: "ui-icon-circle-plus",
@@ -746,8 +746,8 @@ jQuery(function($) {
     $(".del", div).get(0).obj = obj;
     $(".del", div).get(0).h3 = h3;
     $(".del", div).get(0).div = div;
-    $(".val", div).get(0).obj = obj; 
-    items[0] = obj; 
+    $(".val", div).get(0).obj = obj;
+    items[0] = obj;
     $("#framemobile")[0].contentWindow.widgetmobile.addTo(w_current, items); // appel d'une fonction dans une iframe
 
     $(".val", div).click(function() {
@@ -765,7 +765,7 @@ jQuery(function($) {
       this.div.remove();
     });
 
-    return false;    
+    return false;
 	});
 	$(".addbutton", "#widget-mobile-listview-dialog").click(function() {
 		var accordion = $(".accordion", "#widget-mobile-listview-dialog");
@@ -774,7 +774,7 @@ jQuery(function($) {
     var div = $("div:eq(1)", accordion).clone();
     accordion.append(div);
     $(".del", div).show();
-    var active = div.accordion('option', 'active'); //pour garder celle active 
+    var active = div.accordion('option', 'active'); //pour garder celle active
     accordion.accordion('destroy').accordion({
       icons: {
   			header: "ui-icon-circle-plus",
@@ -789,7 +789,7 @@ jQuery(function($) {
     $(".del", div).get(0).h3 = h3;
     $(".del", div).get(0).div = div;
     $(".val", div).get(0).obj = obj;
-    items[0] = obj; 
+    items[0] = obj;
     $("#framemobile")[0].contentWindow.widgetmobile.addTo(w_current, items); // appel d'une fonction dans une iframe
 
     $(".val", div).click(function() {

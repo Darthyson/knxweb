@@ -30,7 +30,7 @@ var _tab_effects = new Array("blind","bounce","clip","drop","explode","fold","hi
 // runAfter
 var runAfter = {
 	functions: new Array(),
-	
+
 	init: function() {
 		runAfter.timer();
 	},
@@ -80,7 +80,7 @@ function tr(msg)
 }
 
 function saveConfig()
-{	
+{
 	var ret = queryLinknx('<admin><save/></admin>');
   if (ret != "false" ) messageBox(tr("Configuration saved under linknx file param"), tr("Info"), "check");
 }
@@ -138,7 +138,7 @@ function isIOportUsed(id)
 function getObjectsList()
 {
 	var objectsList={};
-	
+
 	var responseXML=queryLinknx('<read><config><objects/></config></read>');
 	if (responseXML!=false)
 	{
@@ -165,7 +165,7 @@ jQuery.fn.tableize = function(option) {
 	if (!option) option=[];
   if (!option.id) option.id = "objects-tab-table";
 	this[0].tableizeOption=option;
-	
+
 	this.addClass("tableize");
 	$('thead',this).addClass('ui-state-active');
 
@@ -177,7 +177,7 @@ jQuery.fn.tableize = function(option) {
 				if (!checked) $(this).addClass('row_selected');
 		});
 	}
-	
+
 	if (option.sortable!=false) {
     if (!option.tablesorterOption) {
       this.tablesorter({
@@ -190,8 +190,8 @@ jQuery.fn.tableize = function(option) {
     if (option.pager) {
       this.tablesorterPager({
         size: option.pagersize,
-        container: $("#" + option.pager), 
-        positionFixed: false 
+        container: $("#" + option.pager),
+        positionFixed: false
       });
     }
   } else
@@ -199,13 +199,13 @@ jQuery.fn.tableize = function(option) {
 		$('tbody tr:odd', this).addClass('odd');
 	  $('tbody tr:even', this).addClass('even');
 	}
-	
+
 	this.bind('refresh', function() {
 		if ($('tbody td',$(this)).length>0)
 		{
 			$(this).addClass("tableize");
 			$('thead',$(this)).addClass('ui-state-active');
-	
+
 			if (this.tableizeOption.selectable)
 			{
 				$('tbody tr', this).click( function() {
@@ -214,10 +214,10 @@ jQuery.fn.tableize = function(option) {
 						if (!checked) $(this).addClass('row_selected');
 				});
 			}
-	
-			$(this).trigger("update"); 
-			$(this).trigger("applyWidgets"); 
-	
+
+			$(this).trigger("update");
+			$(this).trigger("applyWidgets");
+
 			if (this.tableizeOption.disableTextSelect) $(this).disableTextSelect();
 		}
 	});
@@ -229,10 +229,10 @@ var loading = {
         show: function()
         {
                 var loaderContent = $("#loaderContent");
-       
+
                 loaderContent.css("top", (parseInt($(window).height()) - parseInt(loaderContent.height())) / 2);
                 loaderContent.css("left", (parseInt($(window).width()) - parseInt(loaderContent.width())) / 2);
-        
+
                 if (($.browser.msie) && ($.browser.version<7)) $("select").hide();
                 $("body").css("cursor", "progress");
 								$("#loaderModal").fadeIn();
@@ -242,13 +242,13 @@ var loading = {
 								$("#loaderModal").fadeOut();
                 if (($.browser.msie) && ($.browser.version<7)) $("select").show();
                 $("body").css("cursor", "auto");
-        }                                                                 
-                
+        }
+
 };
 
 function messageBox(message,title,icon) {
 	// icon : alert, info, notice, help, mail-open, mail-closed, comment, person, trash, locked, unlocked, home, star, link, cancel, newwin, refresh
-  // voir pour ajouter la class ui-state-highlight ou ui-state-error en fonction si "bon ou mauvais" 
+  // voir pour ajouter la class ui-state-highlight ou ui-state-error en fonction si "bon ou mauvais"
 	a=$('<div id="dialog-message" title="' + title + '">');
 	if (icon != '') {
 		a.html('<p><span class="ui-icon ui-icon-' + icon + '" style="float:left; margin:0 7px 50px 0;"></span>' + message + '</p>');
@@ -279,7 +279,7 @@ function queryLinknx(message) {
       if (xmlResponse.getAttribute('status') != 'error') { // le status peut valoir "success", "error" et "ongoing"
 				data=xmlResponse;
 			}
-			else 
+			else
 			{
 				messageBox(tr("Error: ")+xmlResponse.textContent, tr('Error'), 'alert');
 				data=false;
@@ -336,7 +336,7 @@ function getImageUrl(image)
 
 
 $.fn.widgetMovable = function(method) {
-	
+
 	function select(widget) {
 		var options= $(widget).data('widgetMovable');
 
@@ -347,7 +347,7 @@ $.fn.widgetMovable = function(method) {
   			}
       }
 		}
-    
+
 		if (!$(widget).hasClass("selected"))
 		{
 			$("div.widget.selected").each( function() {
@@ -356,11 +356,11 @@ $.fn.widgetMovable = function(method) {
 				if (opt.onDeSelect!=null) opt.onDeSelect($(this).get(0));
 			});
 			$(widget).addClass("selected");
-			
+
 			$(".resizeSE").hide();
 			$(widget).children(".resizeSE").show();
-		
-			if (options.onSelect!=null) 
+
+			if (options.onSelect!=null)
 			{
 				options.onSelect(widget);
 			}
@@ -368,8 +368,8 @@ $.fn.widgetMovable = function(method) {
 	}
 
   var methods = {
-    init : function( options ) { 
-    	
+    init : function( options ) {
+
     	return this.each(function() {
 
 				options = $.extend({
@@ -385,14 +385,14 @@ $.fn.widgetMovable = function(method) {
 				}, options);
 
 				var $this = $(this);
-		
+
 				$this.data('widgetMovable', options);
-				
+
 				var widgetContainer=$this.parent();
-			
+
 				var left=Math.round($this.css('left').replace(/px$/,"")) + widgetContainer.offset().left;
 				var top=Math.round($this.css('top').replace(/px$/,"")) + widgetContainer.offset().top;
-			
+
 				if (options.resizable) {
 					var div=$('<div class="resizeSE"></div>');
 					div.hide();
@@ -419,7 +419,7 @@ $.fn.widgetMovable = function(method) {
 
 				if (options.draggable) {
   				var grid = [1,1];
-  				if (_editMode) { if (_designeditview) {if (design.grid) grid = [design.gridWidth, design.gridWidth]; }}  
+  				if (_editMode) { if (_designeditview) {if (design.grid) grid = [design.gridWidth, design.gridWidth]; }}
   				$this.draggable({
   					containment: 'parent',
   					cursor: 'move',
@@ -443,10 +443,10 @@ $.fn.widgetMovable = function(method) {
                 }
           		}
   						var left2=left;
-  						var top2=top;                                                        
+  						var top2=top;
               left+= widgetContainer.offset().left;
   						top+= widgetContainer.offset().top;
-              
+
   						$('.resizeSE', this).draggable( "option", "containment", [left,top,9999,9999] );
   						//if (options.onMoveStop!=null) options.onMoveStop(this, ui.position.left, ui.position.top);
   						if (options.onMoveStop!=null) options.onMoveStop(this, left2, top2);
@@ -462,7 +462,7 @@ $.fn.widgetMovable = function(method) {
   					}
   				});
 				}
-				
+
 				$this.click(function() {
 						select(this);
 						return false;
@@ -475,9 +475,9 @@ $.fn.widgetMovable = function(method) {
     refreshHelperPosition : function( ) {
     	$(".resizeSE",this).css('top','');
     	$(".resizeSE",this).css('left','');
-    }    
+    }
   };
-  
+
 	if ( methods[method] ) {
 		return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
 	} else if ( typeof method === 'object' || ! method ) {
@@ -486,11 +486,11 @@ $.fn.widgetMovable = function(method) {
 		//$.error( 'Method ' +  method + ' does not exists.' );
     //$.error( tr('Method') + ' ' +  tr(method) + ' ' +  tr('does not exists.') );
     $.error( tr('Method') + ' ' +  method + ' ' +  tr('does not exists.') );
-	}    
+	}
 
 };
 
-function isMobile() { // TODO à gérer mieux ?? peut-être à passer via les template php qui peuvent aussi le détecter ... 
+function isMobile() { // TODO à gérer mieux ?? peut-être à passer via les template php qui peuvent aussi le détecter ...
  if( navigator.userAgent.match(/Android/i) ||
      navigator.userAgent.match(/webOS/i) ||
      navigator.userAgent.match(/iPad/i) ||

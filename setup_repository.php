@@ -15,7 +15,7 @@ exec('rm /tmp/widgetslist_cvs');
 $opts = array(
   'http'=>array(
     'method'=>"GET",
-    'header'=>"Content-Type: text/html; charset=utf-8", 
+    'header'=>"Content-Type: text/html; charset=utf-8",
     'timeout' => 60
   )
 );
@@ -30,15 +30,15 @@ if ($file) {
   $replace = '<br />';
   echo str_replace($order, $replace, $file);
   */
-  
+
   $result_tab = explode("\n",$file);
-  
+
   $first_ligne = false;
   foreach ($result_tab as $k => $v) {
     $tab = explode("|",$v);
     if (!isset($tab[3])) $tab[3] = '';
     if ($first_ligne) $tab_widgetsdllist[] = $tab;
-    $first_ligne = true; 
+    $first_ligne = true;
   }
 }
 tpl()->assignByRef('tab_widgetsdllist', $tab_widgetsdllist);
@@ -50,11 +50,11 @@ tpl()->assignByRef("widgets", $_widgets);
 $file = @file_get_contents('http://linknx.cvs.sourceforge.net/viewvc/linknx/knxweb/subpages_knxweb2/subpageslist', false, $context);
 if ($file) {
   $result_tab = explode("\n",$file);
-  
+
   $first_ligne = false;
   foreach ($result_tab as $k => $v) {
     if ($first_ligne) $tab_subpageslist[] = explode("|",$v);
-    $first_ligne = true; 
+    $first_ligne = true;
   }
 }
 tpl()->assignByRef('tab_subpagesdllist', $tab_subpageslist);

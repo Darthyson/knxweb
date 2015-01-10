@@ -6,13 +6,13 @@ CWidget.prototype = {
   isDraggable: true, // TODO : put this variable in plugin's manifest.xml
 	editMode: false, // TODO remplacé par _editMode variable globale
 	enabled: true,		// enabled = false => no commands are send to the bus (during setup)
-	
+
 	// Return needed feedback object
 	getListeningObject: function() {
 		var a=[];
-		
+
 		var widget = eval( "_widgets." + this.conf.getAttribute("type"));
-		
+
 		var w=this;
 		if (widget.feedbacks!=undefined)
 		{
@@ -23,15 +23,15 @@ CWidget.prototype = {
 		}
 		return a;
 	},
-	
+
 	// Called by eibcommunicator when a feedback object value has changed
 	updateObject: function(obj,value) {
 	},
-  
-	// Called utiliser dans le clear dans setup_design et design_view 
+
+	// Called utiliser dans le clear dans setup_design et design_view
 	deleteWidget: function() {
 	},
-	
+
 	// Initialize a widget
 	init: function(conf) {
 		this.conf=conf;
@@ -46,15 +46,15 @@ CWidget.prototype = {
       if (_designeditview) {
 			if (design.grid) {
 			  defaultGridWidth = design.gridWidth;
-        if (defaultGridWidth < 20) defaultGridWidth = Math.round(Math.round( 20 / design.gridWidth) *  design.gridWidth); 
+        if (defaultGridWidth < 20) defaultGridWidth = Math.round(Math.round( 20 / design.gridWidth) *  design.gridWidth);
 			}
 			if (design.gridwidgetsize) {
-        defaultWidgetGridWidth = design.gridWidth; 
-        if (defaultWidgetGridWidth < 32) defaultWidgetGridWidth = Math.round(Math.round( 20 / design.gridWidth) *  design.gridWidth); 
+        defaultWidgetGridWidth = design.gridWidth;
+        if (defaultWidgetGridWidth < 32) defaultWidgetGridWidth = Math.round(Math.round( 20 / design.gridWidth) *  design.gridWidth);
 			}
       }
 		}
-  	if (!x) 
+  	if (!x)
   	{
   		//x = 20;
   		x = defaultGridWidth;
@@ -66,27 +66,27 @@ CWidget.prototype = {
   		y = defaultGridWidth;
   		conf.setAttribute("y", y);
   	}
-		
+
 		if (UIController.leftOffset)
 		    x = parseInt(x) + UIController.leftOffset;
 		if (UIController.topOffset)
 		    y = parseInt(y) + UIController.topOffset;
 
 		this.div=$("#widgetsTemplate ." + this.conf.getAttribute("type")).clone()
-		
+
 		var a=this.div.get(0);
 		a.owner=this;
-		
+
     //console.log('widget', this.div, this.div.parent(), (this.div.parent())[0].conf.getAttribute("type"));
 	//if (!design.floating) {	// TODO en mode "subpage" et "view" design n'est pas définit
-  if (!_floating_zone) {	
+  if (!_floating_zone) {
 		this.div.css('left', x+"px");
 		this.div.css('top', y+"px");
   } else { // _floating_zone_margin
 		this.div.css('float', "left");
-    this.div.css('position', "relative");  
+    this.div.css('position', "relative");
   }
-		
+
 		var width = conf.getAttribute("width");
 		var height = conf.getAttribute("height");
 
@@ -105,10 +105,10 @@ CWidget.prototype = {
   		conf.setAttribute("height", defaultWidgetGridWidth);
 			this.div.css('height', defaultWidgetGridWidth);
 		} else if (this.isResizable) this.div.css('height', height);
-		
+
 		this.div.css('display', 'block');
 	},
-	
+
 	// Refresh HTML from config
 	refreshHTML: function() {
   },
@@ -128,12 +128,12 @@ CWidget.prototype = {
   },
   onResizeStop: function(width, height) {
   },
-  
+
   // Switch to edit mode
   edit: function(selectCallBack, moveCallBack, resizeCallBack) {
 
 		this.editMode=true;
-	
+
 		$(this.div).widgetMovable({
 			resizable: this.isResizable,
 			draggable: this.isDraggable,
@@ -170,11 +170,11 @@ CWidget.prototype = {
 			}
 		});
   },
-  
+
   // Set a config value
   setSetting: function(key,value) {
 		this.conf.setAttribute(key, value);
-		
+
 		if (key=='x') this.div.css('left', value + "px");
 		if (key=='y') this.div.css('top', value + "px");
 		if (key=='width') {
@@ -185,7 +185,7 @@ CWidget.prototype = {
 			this.div.css('height', value);
 			this.div.widgetMovable("refreshHelperPosition");
 		}
-		
+
 		this.refreshHTML();
 		if (!_editMode) EIBCommunicator.refreshListeningObject(this);
 	}

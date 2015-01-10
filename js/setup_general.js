@@ -14,7 +14,7 @@ var setupgeneral = {
 					$('#setupgeneral-knxconnection-value').val(matches[2]);
 				}
 			} else $('#setupgeneral-knxconnection-value').val('');
-			
+
 			var data=$('xmlserver',responseXML)[0];
 			if (data) {
 					$('#setupgeneral-xmlserver-type').val(data.getAttribute('type'));
@@ -37,7 +37,7 @@ var setupgeneral = {
 					$('#setupgeneral-persistence-logtable').val(data.getAttribute('logtable'));
 			}
 			$('#setupgeneral-persistence-type').trigger('change');
-			
+
 			var data=$('location',responseXML)[0];
 			if (data) {
 					$('#setupgeneral-location-lat').val(data.getAttribute('lat'));
@@ -45,33 +45,33 @@ var setupgeneral = {
 			}
 
 			$('exceptiondays date', responseXML).each(function() {
-				var date=lz(this.getAttribute('day')) + '/' + lz(this.getAttribute('month')) + ((this.getAttribute('year'))?'/' + this.getAttribute('year'):''); 
+				var date=lz(this.getAttribute('day')) + '/' + lz(this.getAttribute('month')) + ((this.getAttribute('year'))?'/' + this.getAttribute('year'):'');
 				var option=$('<option value="' + date + '">' + date + '</option>');
 				$("#setupgeneral-exceptiondays").append(option);
 			});
 		}
 	},
-	
+
 	saveData: function() {
 
 		if ($("#setupgeneral-form").valid())
 		{
-			var body = '<write><config><services>' + 
+			var body = '<write><config><services>' +
 									'<knxconnection url="' + $('#setupgeneral-knxconnection-type').val() + ':' + $('#setupgeneral-knxconnection-value').val() + '" /> ' +
 									'<xmlserver type="' + $('#setupgeneral-xmlserver-type').val() + '" port="' + $('#setupgeneral-xmlserver-port').val() + '" /> ';
-									
+
 			if ($('#setupgeneral-persistence-type').val()=='file')
 				body += '<persistence type="' + $('#setupgeneral-persistence-type').val() + '" path="' + $('#setupgeneral-persistence-path').val() + '" ' +
 										(($('#setupgeneral-persistence-logpath').val()!='')?'logpath="' + $('#setupgeneral-persistence-logpath').val() + '"':'') + '/> ';
 			else
 				if ($('#setupgeneral-persistence-type').val()=='mysql')
-					body += '<persistence type="' + $('#setupgeneral-persistence-type').val() + '" host="' + $('#setupgeneral-persistence-host').val() + 
-										'" user="' + $('#setupgeneral-persistence-user').val() + '" pass="' + $('#setupgeneral-persistence-password').val() + 
-										'" db="' + $('#setupgeneral-persistence-db').val() + '" table="' + $('#setupgeneral-persistence-table').val() + 
+					body += '<persistence type="' + $('#setupgeneral-persistence-type').val() + '" host="' + $('#setupgeneral-persistence-host').val() +
+										'" user="' + $('#setupgeneral-persistence-user').val() + '" pass="' + $('#setupgeneral-persistence-password').val() +
+										'" db="' + $('#setupgeneral-persistence-db').val() + '" table="' + $('#setupgeneral-persistence-table').val() +
 										'" logtable="' + $('#setupgeneral-persistence-logtable').val() +  '"/> ';
 				else
 					body += '<persistence />';
-			
+
 			body += '<exceptiondays clear="true">';
 			$("#setupgeneral-exceptiondays option").each(function () {
 				//var matches=$(this).val().match('^([0-9]){1,2}\/([0-9]){1,2}(\/([0-9]{4})){0,1}$');
@@ -82,20 +82,20 @@ var setupgeneral = {
 						body += '<date day="' + matches[0] + '" month="' + matches[1] + '" year="' + matches[2] + '" />';
 					else
 						body += '<date day="' + matches[0] + '" month="' + matches[1] + '" />';
-				}					
+				}
 			});
 			body += '</exceptiondays>';
 
 			if (($('#setupgeneral-location-lat').val()!='')&&($('#setupgeneral-location-lon').val()!=''))
 				body += '<location lon="' + $('#setupgeneral-location-lon').val() + '" lat="' + $('#setupgeneral-location-lat').val() + '"/>';
-				
+
 			body += '</services></config></write>';
 			loading.show();
 			var responseXML=queryLinknx(body);
 			saveConfig();
 			loading.hide();
 		  if (responseXML!=false) maintab.tabs('remove', '#tab-setupgeneral');
-		}	
+		}
 	}
 }
 
@@ -105,11 +105,11 @@ jQuery(document).ready(function(){
 		sortable: false,
 		selectable: false
 	});
-	
+
 	$("#setupgeneral-enable").change(function() {
 		$("#setupgeneral-tab-table input,select").attr('disabled',!($("#setupgeneral-enable").attr('checked')));
 	});
-	
+
 	$("#setupgeneral-button-save").button();
 	$("#setupgeneral-button-save").click(function() {
 		setupgeneral.saveData();
@@ -121,7 +121,7 @@ jQuery(document).ready(function(){
 		// Disable inputs for form validation
 		$("#setupgeneral-form .setupgeneral-persistence-file input").attr("disabled", "1");
 		$("#setupgeneral-form .setupgeneral-persistence-mysql input").attr("disabled", "1");
-		
+
 		if ($("#setupgeneral-persistence-type").val()=='mysql'){
 			$("#setupgeneral-form .setupgeneral-persistence-mysql").show();
 			$("#setupgeneral-form .setupgeneral-persistence-mysql input").removeAttr("disabled");
@@ -138,7 +138,7 @@ jQuery(document).ready(function(){
 		$('#exceptiondays-dialog').dialog('open');
 	});
 
-	
+
   $('#setupgeneral-exceptiondays-remove').button();
 	$('#setupgeneral-exceptiondays-remove').click(function() {
 		if ($("#setupgeneral-exceptiondays").val())
@@ -146,12 +146,12 @@ jQuery(document).ready(function(){
 		else
 			messageBox("Veuillez choisir une date dans la liste", "Attention", "alert");
 	});
-	
-	$('#exceptiondays-dialog').dialog({ 
+
+	$('#exceptiondays-dialog').dialog({
 		autoOpen: false,
 		buttons: [
       { text: tr("Cancel"), click: function() { $( this ).dialog("close"); } },
-      { text: tr("Add"), click: function() { 
+      { text: tr("Add"), click: function() {
 					if ($("#exceptiondays-form").valid())
 					{
 						var option=$('<option value="' + $("#exceptiondays-dialog-date").val() + '">' + $("#exceptiondays-dialog-date").val() + '</option>');
@@ -165,24 +165,24 @@ jQuery(document).ready(function(){
 		width: 400,
 		modal: true
 	});
-	
+
 	$('#setupgeneral-persistence-password-confirm').change(function() {
 		if($("#setupgeneral-persistence-password").val() == $(this).val()) {
 			$('.error').hide();
 		} else {
 			$('.error').show();
-		} 
+		}
 	});
 
-	
+
 	// Setup form validator
 	$("#setupgeneral-form").validate();
-	
+
 	$("#exceptiondays-form")[0].validator=$("#exceptiondays-form").validate();
 	$("#exceptiondays-dialog-date").rules("add", { regex: "^[0-9]{1,2}\/[0-9]{1,2}(\/[0-9]{4}){0,1}$" });
 
 	$("#setupgeneral-exceptiondays").empty();
-	
+
 	setupgeneral.refreshData();
 	loading.hide();
 });

@@ -3,21 +3,21 @@
 class Linknx {
 	private $_hostname;
 	private $_port;
-	
+
 	function __construct($hostname, $port)	{
 		$this->_hostname=$hostname;
 		$this->_port=$port;
 	}
-	
+
 	function connect()	{
 		$this->_socket = fsockopen($this->_hostname, $this->_port, $errno, $errstr, 30);
-		if (!$this->_socket) throw new Exception("Cannot connect to linknx: ".$errstr);	
+		if (!$this->_socket) throw new Exception("Cannot connect to linknx: ".$errstr);
 	}
 
 	function disconnect()	{
 		if ($this->_socket) fclose($this->_socket);
 	}
-	
+
 	function isConnected() {
 		return $this->_socket!=false;
 	}
@@ -25,7 +25,7 @@ class Linknx {
 	function query($xml, &$result) {
 		global $_config;
     if (!$this->_socket) $this->connect();
-		
+
 		fwrite($this->_socket, $xml . chr(4));
 		$max_result_lines = 1000;
     if ($_config['max_result_lines']) $max_result_lines = intval($_config['max_result_lines']);
@@ -45,10 +45,10 @@ class Linknx {
 		}
 		return (((string)$result->attributes()->status)=='success');
 	}
-	
+
 	function getObjects()	{
 		if ($this->query("<read><config><objects/></config></read>",$xml))
-		{		
+		{
 			$objects=array();
 			foreach($xml->config->objects->object as $object)
 			{
@@ -62,10 +62,10 @@ class Linknx {
 			return $objects;
 		} else return false;
 	}
-	
+
 	function getInfo() {
 		$info=array();
-		if ($this->query("<read><version/></read>", $xml)) 
+		if ($this->query("<read><version/></read>", $xml))
 		{
 			$info['version']=(string)$xml->version->value;
 			$info['haveSMS']=isset($xml->version->features->sms);
@@ -76,10 +76,10 @@ class Linknx {
 		} else return false;
 		return $info;
 	}
-	
+
 	function getServices() {
 		$info=array();
-		if ($this->query("<read><config><services></services></config></read>", $xml)) 
+		if ($this->query("<read><config><services></services></config></read>", $xml))
 		{
       foreach($xml->config->services->smsgateway->attributes() as $var => $value) { $info['smsgateway'][$var] = (string)$value; }
       //$info['ioports']=$xml->config->services->ioports->attributes(); // TODO a gérer dans une fonction à part ...
@@ -91,16 +91,16 @@ class Linknx {
 		} else return false;
 		return $info;
 	}
-	
+
 	function getLogging() {
 		$info=array();
-		if ($this->query("<read><config><logging /></config></read>", $xml)) 
+		if ($this->query("<read><config><logging /></config></read>", $xml))
 		{
       $info['logging']=$xml->config->logging->attributes();
 		} else return false;
 		return $info;
 	}
-		
+
 }
 
 ?>
