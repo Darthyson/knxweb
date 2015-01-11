@@ -1,5 +1,5 @@
 <?php
-  require_once("../include/common.php");
+  require_once("../include/objectstypes.php");
   $unitdict = [];
   foreach ($_objectTypes as $obj)
   {
@@ -9,7 +9,7 @@
       $unitdict[$ex[0]] = $ex[2];
     }
   }
-  echo json_encode($unitdict);
+  //echo json_encode($unitdict);
 ?>
 
 function getUnits() {

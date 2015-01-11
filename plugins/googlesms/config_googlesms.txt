@@ -1,4 +1,0 @@
-delai:=5
-emailgoogle:=a.penhard@gmail.com
-passgoogle:=energy01
-feedxml:=https://www.google.com/calendar/feeds/thf05ttfjkce3ppemmehll63ig@group.calendar.google.com/private-3734d5f5bdb8b677107fc3fb8a9f7156/basic

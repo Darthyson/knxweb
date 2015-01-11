@@ -242,13 +242,8 @@ if (isset($_GET["ajax"])) {
 			</tr>
       <tr title="Use Event Source to update objects value on display design">
 				<td>Use Event Source if available on navigator</td>
-<<<<<<< HEAD
 				<td><input type="checkbox" name="useEventSource" <?php echo ((_get('useEventSource',$useEventSource)==="on")?'checked="1"':""); ?>" > if supported by the WebServer (apache2) </td>
 			</tr>  
-=======
-				<td><input type="checkbox" name="useEventSource" <?php echo ((_get('useEventSource',$useEventSource)==="on")?'checked="1"':""); ?>" > if supported by the navigator</td>
-			</tr>
->>>>>>> origin/master
       <tr>
 				<td>Language</td>
 				<td>

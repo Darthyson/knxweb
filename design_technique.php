@@ -257,8 +257,7 @@ if (isset($_GET['action'])) {
       }
       echo "</subpagesdl>\n";
       break;
-<<<<<<< HEAD
-      
+
     case 'plugindl':
       $plugin = $_GET['plugin'];
       $opts = array(
@@ -274,8 +273,6 @@ if (isset($_GET['action'])) {
       // TODO à compléter ...
       echo "</plugindl>\n";
       break;
-=======
->>>>>>> origin/master
 
     case 'updateknxweb':
       exec('wget -O /tmp/knxweb2.tar "http://linknx.cvs.sourceforge.net/viewvc/linknx/knxweb/knxweb2/?view=tar"');
