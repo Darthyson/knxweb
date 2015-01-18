@@ -85,6 +85,8 @@ tpl()->assignByRef("lang",$lang);
   $MAJ_knxweb2_git = ( $version_git > $version );
   } else $MAJ_knxweb2_git = false;
 
+$MAJ_knxweb2_git = true; // TODO a enlever ...
+
 /* /version on cvs sourceforge */
 
 tpl()->assignByRef('json_config', $json_config); // utiliser les données $_config en javascript

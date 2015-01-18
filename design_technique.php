@@ -279,9 +279,23 @@ if (isset($_GET['action'])) {
       $path_knxweb2 = explode(DIRECTORY_SEPARATOR, dirname(__FILE__));
       array_splice($path_knxweb2, count($path_knxweb2)-1);
       $path_knxweb2 = implode( DIRECTORY_SEPARATOR , $path_knxweb2 ) . DIRECTORY_SEPARATOR;
-      exec('tar -xvf /tmp/knxweb2.tar --directory='.$path_knxweb2);
+      exec('tar -xf /tmp/knxweb2.tar --overwrite -C '.$path_knxweb2);
       exec('rm /tmp/knxweb2.tar');
       echo "<updateknxweb status='success' />\n";
+      break;
+
+    case 'updateknxwebgit':
+      exec('wget -O /tmp/knxweb2.tar.gz --no-check-certificate "https://github.com/energy01/knxweb/archive/master.tar.gz"');
+      $path_knxweb2 = explode(DIRECTORY_SEPARATOR, dirname(__FILE__));  // ex. /var/www/knxweb2
+      // tar -xzvf /tmp/knxweb2.tar.gz knxweb-master/ --overwrite -C /var/www/knxweb2.1.0/
+      // tar -tf /tmp/knxweb2.tar.gz knxweb2.1.0/ --overwrite -C /var/www/
+      exec('tar -xzf /tmp/knxweb2.tar.gz --overwrite -C /tmp/');
+      // copier le contenu complet el mettant à ajour: cp -f -R /tmp/knxweb-master/* /var/www/knxweb2.1.0
+      exec('cp -f -R /tmp/knxweb-master/* '.$path_knxweb2);
+      // Pour supprimer un répertoire non vide, la syntaxe est rm -Rf monrepertoire
+      exec('rm -Rf /tmp/knxweb-master/');
+      exec('rm /tmp/knxweb2.tar.gz ');
+      echo "<updateknxwebgit status='success' >'".$path_knxweb2."'</updateknxwebgit>\n";
       break;
 
     case 'saveplugins':
