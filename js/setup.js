@@ -150,13 +150,7 @@ jQuery(document).ready(function(){
     _objects = responseXML;
 	}
 
-	$('#colorpicker-dialog-picker').farbtastic(function(color) {
-		$("#colorpicker-dialog-input").css('background-color',color);
-		$("#colorpicker-dialog-input").val(color);
-	});
-	$("#colorpicker-dialog-input").keypress(function() {
-		$("#colorpicker-dialog-input").css('background-color', "");
-	});
+	$('#colorpicker-dialog-picker').farbtastic("#colorpicker-dialog-input");
 
 	$("#colorpicker-dialog-none").button();
 	$("#colorpicker-dialog-none").click(function() {
@@ -384,6 +378,7 @@ function openImagesManager(input) {
 // Open color picker
 function openColorPicker(input) {
 	colorPickerInput=input;
-	$("#colorpicker-dialog-input").val(input.val());
+  if (input.val() == '') input.val('#');
+	$("#colorpicker-dialog-input").val(input.val()).change();
 	$("#colorpicker-dialog").dialog("open");
 }

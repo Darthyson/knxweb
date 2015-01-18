@@ -120,11 +120,12 @@ var EIBCommunicator = {
       source.onmessage=function(event)
       {
         var xmlResponse = StringtoXML(event.data).documentElement; // Convert the data in xml
-        if (xmlResponse.getAttribute('status') == 'error') { // retour de l'enregistrement de "notification"
+        /*if (xmlResponse.getAttribute('status') == 'error') { // retour de l'enregistrement de "notification"
           UIController.setNotification(tr("Error: ")+xmlResponse.textContent);
         } else if (xmlResponse.getAttribute('status') == 'success') {  // retour de l'enregistrement de "notification"
           UIController.setNotification(tr("Success: ")+xmlResponse.textContent);
-        } else if (xmlResponse.getAttribute('id') && xmlResponse.nodeName == "notify") {
+        } else */
+        if (xmlResponse.getAttribute('id') && xmlResponse.nodeName == "notify") {
           //console.log("EventSource update object id=", xmlResponse.getAttribute('id'), "value=", xmlResponse.childNodes[0].nodeValue);
           EIBCommunicator.sendUpdate(xmlResponse.getAttribute('id'), xmlResponse.childNodes[0].nodeValue);
         }

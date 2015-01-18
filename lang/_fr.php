@@ -21,7 +21,7 @@ $_lang['IP address'] = 'Adresse IP';
 $_lang['Netmask'] = 'Masque réseau';
 $_lang['Gateway'] = 'Passerelle';
 $_lang['DNS1 / DNS2'] = 'DNS1 / DNS2';
-$_lang['New version on cvs'] = 'Nouvelle version disponible';
+$_lang['New version on cvs'] = 'Nouvelle version disponible sur le cvs';
 $_lang['(Empty = stdout)'] = '(Vide = stdout)';
 $_lang['(ex.: 0ms to 25.5s in steps of 100ms)'] = '(ex.: 0ms à 25.5s par pas de 100ms)';
 $_lang['(if specified, other parameters will be ignored)'] = '(si défini, les autres paramètres seront ignorés)';

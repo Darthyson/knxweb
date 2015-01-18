@@ -69,14 +69,21 @@ tpl()->assignByRef("lang",$lang);
   );
 
   $context = stream_context_create($opts);
-  $version_knxweb2_cvs = @file_get_contents('http://linknx.cvs.sourceforge.net/viewvc/linknx/knxweb/knxweb2/version', false, $context);
-  if ($version_knxweb2_cvs) {
   $tab_version = explode(".", $version_knxweb2);
   $version = $tab_version[0] * 100 + $tab_version[1] * 10 + $tab_version[2];
+  $version_knxweb2_cvs = @file_get_contents('http://linknx.cvs.sourceforge.net/viewvc/linknx/knxweb/knxweb2/version', false, $context);
+  if ($version_knxweb2_cvs) {
   $tab_version_cvs = explode(".", $version_knxweb2_cvs);
   $version_cvs = $tab_version_cvs[0] * 100 + $tab_version_cvs[1] * 10 + $tab_version_cvs[2];
   $MAJ_knxweb2 = ( $version_cvs > $version );
   } else $MAJ_knxweb2 = false;
+
+  $version_knxweb2_git = @file_get_contents('https://raw.githubusercontent.com/energy01/knxweb/master/version', false, $context);
+  if ($version_knxweb2_git) {
+  $tab_version_git = explode(".", $version_knxweb2_git);
+  $version_git = $tab_version_git[0] * 100 + $tab_version_git[1] * 10 + $tab_version_git[2];
+  $MAJ_knxweb2_git = ( $version_git > $version );
+  } else $MAJ_knxweb2_git = false;
 
 /* /version on cvs sourceforge */
 
@@ -122,6 +129,7 @@ if (file_exists('widgets/widgets.css')) {
 }
 tpl()->assignByRef("widgetscssexist",$widgetscssexist);
 tpl()->assignByRef("MAJ_knxweb2",$MAJ_knxweb2);
+tpl()->assignByRef("MAJ_knxweb2_git",$MAJ_knxweb2_git);
 
 tpl()->addCss('css/setup.css');
 

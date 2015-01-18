@@ -426,10 +426,9 @@ $subpages = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>
 ?>
 		Configuration file written.<br />
 		<br />
-		<!--You must now delete the file check_install.php (rm <?php echo $pwd;?>/check_install.php) to finish knxweb setup.<br />-->
     If you use an old version of knxweb (version <=0.7) you can convert the "old" design with <a href="recovery_design.php">this function</a> before.<br />
 		<br />
-		<!--When done, --><a href="setup.php">click here</a> to configure knxweb.
+		<a href="setup.php">click here</a> to configure knxweb.
 <?php
 		} else echo "Error while writing configuration to file include/config.xml";
 	}

@@ -14,6 +14,7 @@ var design = {
 	// Load design
 	load: function(designName, version)	{
 		if ((designName!="")&&(designName!=null)) {
+      if (!version) version = 'design';
 			var url = 'design/' + designName + '/' + version + '.xml';
 
 			design.currentDesign=designName;
@@ -32,6 +33,12 @@ var design = {
 		}
 	},
 
+  // refresh design
+	refreshDesign: function()	{
+    design.load(design.currentDesign, design.currentVersion);
+    design.draw($('#tab-design-zone-list').val());
+	},
+	
 	// Save design
 	save: function() {
 
@@ -186,8 +193,6 @@ var design = {
         design.addWidgetsList(obj, globalcontrol);
         obj.globalcontrol = globalcontrol;
         // If the widget had Children
-  	 		/*conf.children('control')*/
-        //$(conf).children('control').each(function() {... });
         $('control', conf).each(function() {
   				design.addWidgetChildren(this, obj.content, globalcontrol);
   			});
@@ -574,16 +579,16 @@ var design = {
           } else if (this.only_type) {
             only_type = this.only_type.split(',');
             exlude_type = [];
-//             if (array_search( "1.001", only_type )==-1) {
-//               only_type.push(['1.002','1.003','1.004','1.005','1.006','1.007','1.008','1.009','1.010','1.011','1.012','1.013','1.014']);
-//             }
+            if (array_search( "1.001", only_type )==-1) {
+              only_type.push(['1.002','1.003','1.004','1.005','1.006','1.007','1.008','1.009','1.010','1.011','1.012','1.013','1.014']);
+            }
           }
 
           if (this.exlude_type) {
             exlude_type = this.exlude_type.split(',');
-//             if (array_search( "1.001", exlude_type )==-1) {
-//               exlude_type.push(['1.002','1.003','1.004','1.005','1.006','1.007','1.008','1.009','1.010','1.011','1.012','1.013','1.014']);
-//             }
+            if (array_search( "1.001", exlude_type )==-1) {
+              exlude_type.push(['1.002','1.003','1.004','1.005','1.006','1.007','1.008','1.009','1.010','1.011','1.012','1.013','1.014']);
+            }
           }
 		if (this.eis_type == undefined)
 		{
@@ -759,11 +764,14 @@ var design = {
 		    // Color setting
 		    if (this.type=="color")
 		    {
-					var input=($('<input type="text" name="' + this.id + '" value="' + value + '">'));
-					input.click(function() {
-						openColorPicker($(this));
-					});
+					var input=($('<input type="text" style="width: 75%;" name="' + this.id + '" value="' + value + '">'));
 		    	td.append(input);
+          var opencolor=($('<div style="width: 20%;">'+tr('Open color picker')+'</div>'));
+          opencolor.button({ icons: {	primary: "ui-icon-pencil" }, text: false }).removeClass('ui-button-text-icon-primary');
+          opencolor.click(function() {
+						openColorPicker(input);
+					});
+		    	td.append(opencolor);
 		  	}
 
 		    // Action setting
@@ -801,12 +809,12 @@ var design = {
 		    	select=$('<select>');
 		    	select.attr('name', this.id);
 
-	    		var option=($('<option value="">'+tr('Execute action')+'</option>'));
+	    		var option=($('<option value="">'+tr('Go to zone')+'</option>'));
 	    		select.append(option);
 
 					$('zone', design.config).each(function() {
 		    		var option=($('<option value="' + this.getAttribute('id') + '">' + this.getAttribute('name') + '</option>'));
-		    		if (this.getAttribute('name')==value) option.attr('selected','1');
+		    		if (this.getAttribute('id')==value) option.attr('selected','1');
 		    		select.append(option);
 					});
 		    	td.append(select);
@@ -907,7 +915,7 @@ var design = {
       if (xmlResponse != false ) {
   			if (xmlResponse.getAttribute('status') != 'error') {
 					design.loadDesignList();
-					design.load(name, 'design');
+					design.load(name, tab_config['defaultVersion']);
 				}
 				else {
 					messageBox(tr("Unable to create design: ")+xmlResponse.textContent, "Error", "alert");
@@ -1055,6 +1063,7 @@ jQuery(function($) {
 
   $("#tab-design-floating").click(function() {
     $("#tab-design-margin").change();
+    design.draw($('#tab-design-zone-list').val());
   });
 
   $("#tab-design-margin").change(function() {

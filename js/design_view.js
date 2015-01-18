@@ -263,14 +263,34 @@ $(window).focus(function() {
     if (EIBCommunicator.stoppolling) {
       EIBCommunicator.stoppolling = false;
       var d = new Date();
-      console.log( "focus windows", d.getHours(), d.getMinutes(), d.getSeconds()); // d.getTime()
+      console.log( "focus windows Restart le Polling à ", d.getHours(),"h", d.getMinutes(),"min.", d.getSeconds(),"sec."); // d.getTime()
+      //console.log( "Soit une pause de", d.getHours() - EIBCommunicator.date_stop_polling.getHours() ,"h", d.getMinutes() - EIBCommunicator.date_stop_polling.getMinutes(),"min.", d.getSeconds() - EIBCommunicator.date_stop_polling.getSeconds(),"sec."); // d.getTime()
+      var diff = dateDiff(EIBCommunicator.date_stop_polling, d);
+      console.log( "Soit une pause de", diff.hour ,"h", diff.min,"min.", diff.sec,"sec."); // d.getTime()
       EIBCommunicator.periodicUpdate();
     }
   }
 });
+function dateDiff(date1, date2){
+  var diff = {}                           // Initialisation du retour
+  var tmp = date2 - date1;
 
+  tmp = Math.floor(tmp/1000);             // Nombre de secondes entre les 2 dates
+  diff.sec = tmp % 60;                    // Extraction du nombre de secondes
+
+  tmp = Math.floor((tmp-diff.sec)/60);    // Nombre de minutes (partie entière)
+  diff.min = tmp % 60;                    // Extraction du nombre de minutes
+
+  tmp = Math.floor((tmp-diff.min)/60);    // Nombre d'heures (entières)
+  diff.hour = tmp % 24;                   // Extraction du nombre d'heures
+  /*
+  tmp = Math.floor((tmp-diff.hour)/24);   // Nombre de jours restants
+  diff.day = tmp;
+  */
+  return diff;
+}
 $(window).blur(function() {
   EIBCommunicator.stoppolling = true;
   EIBCommunicator.date_stop_polling = new Date();
-  console.log( "blur windows", EIBCommunicator.date_stop_polling.getHours(), EIBCommunicator.date_stop_polling.getMinutes(), EIBCommunicator.date_stop_polling.getSeconds());
+  console.log( "blur windows Stop le Polling à ", EIBCommunicator.date_stop_polling.getHours(),"h", EIBCommunicator.date_stop_polling.getMinutes(),"min.", EIBCommunicator.date_stop_polling.getSeconds(),"sec.");
 });

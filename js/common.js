@@ -512,3 +512,9 @@ function StringtoXML(text){
   }
   return doc;
 }
+
+function UpdateKnxWeb(){
+  var xmlResponse = queryKnxweb('updateknxweb', '', '', false);
+  messageBox(tr("Error: ")+ tr("Reload KnxWeb") + xmlResponse.textContent, tr('Error'), 'alert');
+  return true;
+};

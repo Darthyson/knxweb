@@ -52,7 +52,7 @@ Credits : <br />
 </div>
 
 <div style="position: absolute; top: 0px; right: 0px;z-index: 1000;{if (!$MAJ_knxweb2) }display:none;{/if}">
-  <span class="green"><i>&nbsp;{l lang='en'}New version on cvs{/l}&nbsp;</i></span>
+  <span class="green" tiltle="{l lang='en'}Click to Update{/l}" onclick="UpdateKnxWeb()"><i>&nbsp;{l lang='en'}New version on cvs{/l}&nbsp;</i></span>
 </div>
 
 <div id="loaderModal">
@@ -159,6 +159,7 @@ Credits : <br />
         <div class="subItem" id="button-remove-design"><img src="images/remove.png" />{l lang='en'}Remove design{/l}</div>
         <div class="subItem" id="button-add-new-zone"><img src="images/add.png" />{l lang='en'}New zone{/l}</div>
         <div class="subItem" id="button-remove-zone"><img src="images/remove.png" />{l lang='en'}Remove zone{/l}</div>
+        <div class="subItem" id="button-refresh-zone" onclick="design.refreshDesign()" ><img src="images/refresh.gif" />{l lang='en'}Refresh design{/l}</div>
 
         <div class="subItem"><img src="images/add.png" />
         

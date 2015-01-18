@@ -279,7 +279,7 @@ if (isset($_GET['action'])) {
       $path_knxweb2 = explode(DIRECTORY_SEPARATOR, dirname(__FILE__));
       array_splice($path_knxweb2, count($path_knxweb2)-1);
       $path_knxweb2 = implode( DIRECTORY_SEPARATOR , $path_knxweb2 ) . DIRECTORY_SEPARATOR;
-      exec('tar xvf /tmp/knxweb2.tar --directory='.$path_knxweb2);
+      exec('tar -xvf /tmp/knxweb2.tar --directory='.$path_knxweb2);
       exec('rm /tmp/knxweb2.tar');
       echo "<updateknxweb status='success' />\n";
       break;
@@ -292,6 +292,13 @@ if (isset($_GET['action'])) {
       else
         echo "<saveplugins status='error'>Unable to write plugins to file";
       echo "</saveplugins>\n";
+      break;
+
+    case 'restart':
+      if (isset($_GET['pgm'])) {
+        exec('sudo service '.$_GET['pgm'].' restart'); // restart eibd or linknx with init.d service if exist
+        echo "<restart status='success' >Restart ".$_GET['pgm']."</restart>\n";
+      } else echo "<restart status='error' />\n";
       break;
 
 		default:

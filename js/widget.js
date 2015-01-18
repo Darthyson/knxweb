@@ -41,8 +41,6 @@ CWidget.prototype = {
     var defaultGridWidth = 20;
     var defaultWidgetGridWidth = 32;
 		if (_editMode) { // TODO en mode "subpage" design n'est pas définit et pas tenir compte de la grid ...
-      //if (design) {
-      // if(typeof design != "undefined") {
       if (_designeditview) {
 			if (design.grid) {
 			  defaultGridWidth = design.gridWidth;
@@ -92,16 +90,12 @@ CWidget.prototype = {
 
 		if ((!width) && (this.isResizable))
 		{
-  		//conf.setAttribute("width", 32);
-			//this.div.css('width', 32);
   		conf.setAttribute("width", defaultWidgetGridWidth);
 			this.div.css('width', defaultWidgetGridWidth);
 		} else if (this.isResizable) this.div.css('width', width);
 
 		if ((!height) && (this.isResizable))
 		{
-  		//conf.setAttribute("height", 32);
-			//this.div.css('height', 32);
   		conf.setAttribute("height", defaultWidgetGridWidth);
 			this.div.css('height', defaultWidgetGridWidth);
 		} else if (this.isResizable) this.div.css('height', height);
