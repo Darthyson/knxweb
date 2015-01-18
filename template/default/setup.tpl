@@ -51,9 +51,9 @@ Credits : <br />
  - Anthony P. (<a href="https://sourceforge.net/users/energy01">energy01</a>) <br />
 </div>
 
-<div style="position: absolute; top: 0px; right: 0px;z-index: 1000;{if (!$MAJ_knxweb2 || !$MAJ_knxweb2_git) }display:none;{/if}">
-  {if (!$MAJ_knxweb2) }<span class="green" tiltle="{l lang='en'}Click to Update{/l}" onclick="UpdateKnxWeb()"><i>&nbsp;{l lang='en'}New version on cvs{/l}&nbsp;</i></span>{/if}
-  {if (!$MAJ_knxweb2_git) }<span class="green" tiltle="{l lang='en'}Click to Update{/l}" onclick="UpdateKnxWebGit()"><i>&nbsp;{l lang='en'}New version on git{/l}&nbsp;</i></span>{/if}
+<div style="position: absolute; top: 0px; right: 0px;z-index: 1000;{if (!$MAJ_knxweb2 && !$MAJ_knxweb2_git) }display:none;{/if}">
+  {if ($MAJ_knxweb2) }<span class="green" tiltle="{l lang='en'}Click to Update{/l}" onclick="UpdateKnxWeb()"><i>&nbsp;{l lang='en'}New version on cvs{/l}&nbsp;</i></span>{/if}
+  {if ($MAJ_knxweb2_git) }<span class="green" tiltle="{l lang='en'}Click to Update{/l}" onclick="UpdateKnxWebGit()"><i>&nbsp;{l lang='en'}New version on git{/l}&nbsp;</i></span>{/if}
 </div>
 
 <div id="loaderModal">
