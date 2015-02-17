@@ -518,3 +518,9 @@ function UpdateKnxWeb(){
   messageBox(tr("Error: ")+ tr("Reload KnxWeb") + xmlResponse.textContent, tr('Error'), 'alert');
   return true;
 };
+
+function UpdateKnxWebGit(){
+  var xmlResponse = queryKnxweb('updateknxwebgit', '', '', false);
+  messageBox(tr("Error: ")+ tr("Reload KnxWeb") + xmlResponse.textContent, tr('Error'), 'alert');
+  return true;
+};
