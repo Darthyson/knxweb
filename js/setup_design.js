@@ -51,12 +51,12 @@ var design = {
       var xmlResponse = queryKnxweb('savedesign&name=' + design.currentDesign + '&ver=' + version, 'xml', string, false);
       if (xmlResponse != false ) {
         if (xmlResponse.getAttribute('status') == 'success') {
-					messageBox(tr("Design saved successfully"), "Info", "check");
+					messageBox(tr("Design saved successfully"), tr("Info"), "check");
 				}
 				else {
-					messageBox(tr("Error while saving design: ")+xmlResponse.textContent, "Error", "alert");
+					messageBox(tr("Error while saving design: ")+xmlResponse.textContent, tr("Error"), "alert");
 				}
-      } else messageBox(tr("Error while saving design: "), "Error", "alert");
+      } else messageBox(tr("Error while saving design: "), tr("Error"), "alert");
 		}
 	},
 
@@ -73,7 +73,7 @@ var design = {
 			}
 			else
 				$('#tab-design-design-list').text('Unable to load design list: '+xmlResponse.textContent);
-    } else messageBox(tr('Unable to load design list: '), "Error", "alert");
+    } else messageBox(tr('Unable to load design list: '), tr("Error"), "alert");
 	},
 
 	// Refresh zone select
@@ -119,26 +119,30 @@ var design = {
         $("#tab-design-effect").removeAttr('disabled');
       }
       if ($("config",design.config)[0].getAttribute('grid')) {
-        $("#tab-design-grid").attr('checked', true);
+        $("#tab-design-grid").prop('checked', true);
         $("#tab-design-grid-width").val($("config",design.config)[0].getAttribute('grid'));
+        this.gridWidth = parseInt($("config",design.config)[0].getAttribute('grid'));
+        this.grid = true;
       } else {
-        $("#tab-design-grid").attr('checked', false);
-        //$("#tab-design-grid-width").val(1);
+        $("#tab-design-grid").prop('checked', false);
+        this.gridWidth = 1;
+        this.grid = false;
       }
-      $("#tab-design-grid-width").change();
       if ($("config",design.config)[0].getAttribute('gridwidgetsize')) {
-        $("#tab-design-grid-widgetsize").attr('checked', true);
+        $("#tab-design-grid-widgetsize").prop('checked', true);
+        design.gridwidgetsize = true;
       } else {
-        $("#tab-design-grid-widgetsize").attr('checked', false);
+        $("#tab-design-grid-widgetsize").prop('checked', false);
+        design.gridwidgetsize = false;
       }
 
       if ($("config",design.config)[0].getAttribute('floating')) {
-        $("#tab-design-floating").attr('checked', true);
+        $("#tab-design-floating").prop('checked', true);
         $("#tab-design-margin").val($("config",design.config)[0].getAttribute('floating'));
         _floating_zone = true;
         _floating_zone_margin = $("config",design.config)[0].getAttribute('floating');
       } else {
-        $("#tab-design-floating").attr('checked', false);
+        $("#tab-design-floating").prop('checked', false);
         _floating_zone = false;
         _floating_zone_margin = 10;
       }
@@ -160,6 +164,7 @@ var design = {
           design.addWidget(this, true);
         });
       }
+      design.displayGrid();
 		}
 	},
 
@@ -213,6 +218,7 @@ var design = {
 			obj = new cls(conf);
 			if (obj!=null) {
         parent.append(obj.div);
+        obj.child = true;  // is a child of an other widget (window, area, ...)
 				obj.edit(design.onWidgetSelect, design.onWidgetMove, design.onWidgetResize);
         design.addWidgetsList(obj, globalcontrol, true);
         obj.globalcontrol = globalcontrol;
@@ -226,14 +232,13 @@ var design = {
 	deleteWidget: function(o) {
     var ow = o.get(0).owner;
     if (!ow) return false;
-    //$(o.conf).children('control').each(function() {
     $(".widget", o).each(function() {
       design.deleteWidget($(this));
     });
     design.removeWidgetsList(ow);
 		// Remove div
 		ow.div.remove();
-		ow.deleteWidget();
+		ow.deleteWidget(); // supprime les fonctions spécifique surdéfinie dans le widget.js correspondand
 		// Remove from xml
 		$(ow.conf).remove();
 	},
@@ -313,7 +318,7 @@ var design = {
 			if(this.owner) this.owner.deleteWidget();
 			$(this).remove();
 		});
-		$('#background').remove();
+		$('#background', "#widgetdiv").remove();
     design.refreshWidgetsList();
 		design.currentZone=null;
 	},
@@ -339,16 +344,18 @@ var design = {
 		var bg=$('zone[id=' + design.currentZone + ']', design.config).attr('img');
 		if (bg != null && bg != "")
 		{
+			$('#background', '#widgetdiv').remove();
 			var div=$("<div id='background'/>");
 			div.append("<img id='bgImage_" + design.currentZone + "' src='" + getImageUrl(bg) + "' usemap='#shapes_" + design.currentZone + "'/>");
 			div.append("<map id='shapes_" + design.currentZone + "' name='shapes_" + design.currentZone + "'/>");
-			$('#widgetdiv').append(div);
+			//$('#widgetdiv').append(div);
+      $('#widgetdiv').prepend(div);
 			$('#bgImage_' + design.currentZone).maphilight();
-		} else $('#background').remove();
+		} else $('#background', '#widgetdiv').remove();
 
 	},
 
-	// Display design XML in a window
+	// Display design XML in a dialog
 	displayXML: function() {
 	  $('#tab-design-fluxxml').html("<textarea rows=30 cols=125>" + serializeXmlToString(design.config) + "</textarea>");
 	  $('#tab-design-fluxxml').dialog({
@@ -375,7 +382,8 @@ var design = {
 				design.refreshZoneList();
 				design.draw(zoneID);
 
-				setTimeout('$("#tab-design-zone-list").val("' + zoneID + '")', 100); // workaround for IE bug
+        //setTimeout('$("#tab-design-zone-list").val("' + zoneID + '")', 100); // workaround for IE bug
+        $("#tab-design-zone-list").val(zoneID);
 			}
 		}
 	},
@@ -407,7 +415,9 @@ var design = {
 				design.refreshZoneList();
 				design.draw(zoneID);
 
-				setTimeout('$("#tab-design-zone-list").val("' + zoneID + '")', 100); // workaround for IE bug
+				//setTimeout('$("#tab-design-zone-list").val("' + zoneID + '")', 100); // workaround for IE bug
+        $("#tab-design-zone-list").val(zoneID);
+
 			}
 		}
 	},
@@ -532,7 +542,7 @@ var design = {
 	    	if (value=="undefined" || value==null) value="";
         if (o.conf.getAttribute('type')=="html" && o.conf.firstChild) {
           if (value!="") {
-            o.conf.removeAttribute("html"); //o.conf.setAttribute("html", "");
+            o.conf.removeAttribute("html");
             o.conf.firstChild.nodeValue = value;
           }
           value = o.conf.firstChild.nodeValue;
@@ -540,7 +550,6 @@ var design = {
 
 		    var td=$('<td>');
 		    // Text setting
-		    //if (this.type=="text") td.append($('<input type="text" name="' + this.id + '" value="' + value + '">'));
         if (this.type=="text") {
           var textproperties = $('<input type="text" name="' + this.id + '" value="">');
           textproperties.val(value);
@@ -656,7 +665,7 @@ var design = {
 		    		var option=($('<option value="' + this.getAttribute('id') + '">' + ((this.textContent=="")?this.getAttribute('id'):this.textContent) +' (' + this.getAttribute('type') + ')</option>'));
 		    		if (this.getAttribute('id')==value) option.attr('selected','1');
 		    		select.append(option);
-            }//if (exlude_type.length > 0){}
+            }
 					});
           }
 		    	td.append(select);
@@ -828,7 +837,6 @@ var design = {
 
 		$("#tab-design-properties input, #tab-design-properties select, #tab-design-properties textarea").change( function() {
 			// Update conf on selected object when a property change
-			//if ($("#widgetdiv .selected").length>0 && $(this).attr('name') != "undefined")
       if ($("#widgetdiv .selected").length>0 && $(this).attr('name'))
 			{
 				var selectedWidget=$("#widgetdiv .selected").get(0);
@@ -852,8 +860,8 @@ var design = {
 
     var table_tr=$('<tr/>');
     table_tr.get(0).obj = o;
-    if (globalcontrol) table_tr.css("color", "#FF0000"); // si globalcontrol == "true" c'est que le control/widget est lié au design et pas a la zone elle même
-    if (child) table_tr.css("color", "#0000FF"); // si child == "true" c'est que le control/widget est lié a un widget "content"
+    if (globalcontrol) table_tr.addClass( "global" );//table_tr.css("color", "#FF0000"); // si globalcontrol == "true" c'est que le control/widget est lié au design et pas a la zone elle même
+    if (child) table_tr.addClass( "child" );//table_tr.css("color", "#0000FF"); // si child == "true" c'est que le control/widget est lié a un widget "content"
 
     var th=$('<th>' + type + '</th>');
     table_tr.append(th);
@@ -893,8 +901,8 @@ var design = {
   updateglobalcontrolWidgetsList: function(o, globalcontrol) {
     $("tr", "#tab-design-widgets-list").each(function() {
       if (this.obj == o) {
-        if (globalcontrol) $(this).css("color", "#FF0000");
-        else $(this).css("color", "");
+        if (globalcontrol) $(this).addClass( "global" );//$(this).css("color", "#FF0000");
+        else $(this).removeClass( "global" );//$(this).css("color", "");
       }
     });
   },
@@ -918,9 +926,9 @@ var design = {
 					design.load(name, tab_config['defaultVersion']);
 				}
 				else {
-					messageBox(tr("Unable to create design: ")+xmlResponse.textContent, "Error", "alert");
+					messageBox(tr("Unable to create design: ")+xmlResponse.textContent, tr("Error"), "alert");
 				}
-      } else messageBox(tr("Unable to create design: "), "Error", "alert");
+      } else messageBox(tr("Unable to create design: "), tr("Error"), "alert");
 		}
 	},
 
@@ -931,12 +939,12 @@ var design = {
       var xmlResponse = queryKnxweb('removedesign&name=' + design.currentDesign, 'xml', '', false);
       if (xmlResponse != false ) {
   			if (xmlResponse.getAttribute('status') != 'error') {
-					messageBox(tr("Design removed successfully"), "Info", "check");
+					messageBox(tr("Design removed successfully"), tr("Info"), "check");
 				}
 				else {
-					messageBox(tr("Unable to remove design: ")+xmlResponse.textContent, "Error", "alert");
+					messageBox(tr("Unable to remove design: ")+xmlResponse.textContent, tr("Error"), "alert");
 				}
-      } else messageBox(tr("Unable to remove design: "), "Error", "alert");
+      } else messageBox(tr("Unable to remove design: "), tr("Error"), "alert");
 		}
 	},
 
@@ -958,6 +966,52 @@ var design = {
 		widget.refreshHTML();
 		$("#tab-design-properties-width").val(Math.round(widget.conf.getAttribute('width')));
 		$("#tab-design-properties-height").val(Math.round(widget.conf.getAttribute('height')));
+	},
+
+  // display grid
+	displayGrid: function()	{
+    var val = this.gridWidth;
+    $('.grid', '#widgetdiv').remove();
+    if (val < 1 ) val = 1;
+    if (val > 10) {
+      var designwidth = $("#tab-design-width").val();
+      var designheight = $("#tab-design-height").val();
+      for (i=val; i < designwidth; i = i + val) {
+        $('#widgetdiv').prepend('<div class="grid" style="border-left: 1px dashed Black;height:' + designheight + 'px;top:0;left: ' + i + 'px;"></div>');
+      }
+      for (i=val; i < designheight; i = i + val) {
+        $('#widgetdiv').prepend('<div class="grid" style="border-bottom: 1px dashed Black;width:' + designwidth + 'px;left:0;top: ' + i + 'px;"></div>');
+      }
+      this.displayGridInWidget('window', val);
+      this.displayGridInWidget('area', val);
+    }
+    if ($("#tab-design-grid").is(':checked') || $("#tab-design-grid").prop('checked')) {
+      $("config",design.config)[0].setAttribute('grid', val);
+      this.grid = true;
+      //$("#widgetdiv .selected").draggable('option', 'grid', [design.gridWidth, design.gridWidth]);
+      $("#widgetdiv .selected").draggable('option', 'grid', [val, val]);
+      $('.grid', '#widgetdiv').show();
+    } else {
+      $("config",design.config)[0].removeAttribute('grid');
+      this.grid = false;
+      $("#widgetdiv .selected").draggable('option', 'grid', [1, 1]);
+      $('.grid', '#widgetdiv').hide();
+    }
+  },
+
+  // display grid
+	displayGridInWidget: function(widgettype, val)	{
+    $('.'+widgettype , '#widgetdiv').each(function() {  // Affiche la grid dans chaque widget "window"  TODO pour area et autre ?
+      _this = $('.content', this);
+      var widgetwidth = _this.width();
+      var widgetheight = _this.height();
+      for (i=val; i < widgetwidth; i = i + val) {
+        _this.prepend('<div class="grid" style="border-left: 1px dotted Red;height:' + widgetheight + 'px;top:0;left: ' + i + 'px;"></div>');
+      }
+      for (i=val; i < widgetheight; i = i + val) {
+        _this.prepend('<div class="grid" style="border-bottom: 1px dotted Red;width:' + widgetwidth + 'px;left:0;top: ' + i + 'px;"></div>');
+      }
+    });
 	}
 
 }
@@ -1008,48 +1062,13 @@ jQuery(function($) {
 		$('#widgetdiv').height($(this).val());
 	});
 
-  $("#tab-design-grid").click(function() {
-    $("#tab-design-grid-width").change();
-    /*if ($(this).is(':checked')) {
-      $("config",design.config)[0].setAttribute('grid', $("#tab-design-grid-width").val());
-      design.grid = true;
-      $("#widgetdiv .selected").draggable('option', 'grid', [design.gridWidth, design.gridWidth]);
-      $("#tab-design-grid-width").change();
-      $('.grid', '#widgetdiv').show();
-    } else {
-      $("config",design.config)[0].removeAttribute('grid');
-      design.grid = false;
-      $("#widgetdiv .selected").draggable('option', 'grid', [1, 1]);
-      $('.grid', '#widgetdiv').hide();
-    }*/
+  $("#tab-design-grid").change(function() {
+    design.displayGrid();
   });
 
   $("#tab-design-grid-width").change(function() {
-    var val = parseInt($(this).val());
-    $('.grid', '#widgetdiv').remove();
-    if (val < 1 ) val = 1;
-    if (val > 10) {
-      var designwidth = $("#tab-design-width").val();
-      var designheight = $("#tab-design-height").val();
-      for (i=val; i < designwidth; i = i + val) { //z-index:1000;  &nbsp;
-        $('#widgetdiv').prepend('<div class="grid" style="border-left: 1px dashed Black;position:absolute;height:' + designheight + 'px;display: block;top:0;left: ' + i + 'px;"></div>');
-      }
-      for (i=val; i < designheight; i = i + val) { // z-index:1000;
-        $('#widgetdiv').prepend('<div class="grid" style="border-bottom: 1px dashed Black;position:absolute;width:' + designwidth + 'px;display: block;left:0;top: ' + i + 'px;"></div>');
-      }
-    }
-    design.gridWidth = val;
-    if ($("#tab-design-grid").is(':checked')) {
-      $("config",design.config)[0].setAttribute('grid', val);
-      design.grid = true;
-      $("#widgetdiv .selected").draggable('option', 'grid', [design.gridWidth, design.gridWidth]);
-      $('.grid', '#widgetdiv').show();
-    } else {
-      $("config",design.config)[0].removeAttribute('grid');
-      design.grid = false;
-      $("#widgetdiv .selected").draggable('option', 'grid', [1, 1]);
-      $('.grid', '#widgetdiv').hide();
-    }
+    design.gridWidth = parseInt($(this).val());
+    design.displayGrid();
   });
   $("#tab-design-grid-widgetsize").click(function() {
     if ($(this).is(':checked')) {
@@ -1062,20 +1081,27 @@ jQuery(function($) {
   });
 
   $("#tab-design-floating").click(function() {
-    $("#tab-design-margin").change();
-    design.draw($('#tab-design-zone-list').val());
+    if (!$("#tab-design-grid").is(':checked')) $("#tab-design-margin").change();
+    else {
+      messageBox(tr("You can't use 'grid' and 'floating widget'"), tr("Error"), "alert");
+      return false;
+    }
   });
 
   $("#tab-design-margin").change(function() {
-    var val = parseInt($(this).val());
+    var val = parseInt(this.value);//parseInt($(this).val());
     design.widgetMargin = val;
+    _floating_zone_margin = val;
     if ($("#tab-design-floating").is(':checked')) {
       $("config",design.config)[0].setAttribute('floating', val);
       design.floating = true;
+      _floating_zone = true;
     } else {
       $("config",design.config)[0].removeAttribute('floating');
       design.floating = false;
-    }
+      _floating_zone = false;
+    };
+    design.draw($('#tab-design-zone-list').val());
   });
 
   $("#tab-design-effect").change(function(e) {
@@ -1118,7 +1144,6 @@ jQuery(function($) {
 	$("#button-delete-widget").click(function() {
 		if ($("#widgetdiv .selected").length>0)
 		{
-			//design.deleteWidget($("#widgetdiv .selected").get(0).owner);
       design.deleteWidget($("#widgetdiv .selected"));
 			// Show design properties
 			$("#widgetdiv").trigger("click");
@@ -1153,7 +1178,6 @@ jQuery(function($) {
 		var obj = $("#widgetdiv .selected");
     if (obj.length>0)
 		{
-			//if (!obj.draggable( "option", "disabled")) {
       if (!obj.get(0).owner.disable) {
         $(this).button( "option", "icons", {primary:'ui-icon-locked'}).removeClass('ui-button-text-icon-primary').addClass("ui-state-highlight");
         $("#widgetdiv .selected").draggable( "disable" ).removeClass("ui-state-disabled");
@@ -1231,6 +1255,59 @@ jQuery(function($) {
 	});
   $("#tab-design-list-widgets .minus").click(function() {
 		$('#show-list-widgets-design-checkbox').change();
+	});
+  $("#tab-design-list-widgets .down").click(function() {
+    if ($(".active", "#tab-design-widgets-list").length > 0) {
+      var obj = $(".active", "#tab-design-widgets-list").get(0).obj;
+      if (obj.globalcontrol) {
+        messageBox(tr("TODO peut pas bouger les widgets globaux !!"), tr("Error"), "alert");
+        return false;
+      }
+      if (obj.child) {
+        messageBox(tr("TODO peut pas bouger POUR LE MOMENT ce widget est un 'child' soit donc dans un autre !!"), tr("Error"), "alert");
+        return false;
+      }
+      if (obj.conf.getAttribute("type") == "window" || "area" ) {
+        messageBox(tr("TODO POUR LE MOMENT les widgets  window et area marche as super en déplacement !!"), tr("Error"), "alert");
+        return false;
+      }
+      var next = false;
+      $("tbody tr", "#tab-design-widgets-list").each(function() {
+        if ( obj == this.obj) next = true;
+        else if (next) {
+          $(".active", "#tab-design-widgets-list").before($(this));
+          $(obj.div).before($(this.obj.div));
+          $(obj.conf).before($(this.obj.conf));
+          next = false;
+        }
+      });
+    }
+	});
+  $("#tab-design-list-widgets .up").click(function() {
+    if ($(".active", "#tab-design-widgets-list").length > 0) {
+      var obj = $(".active", "#tab-design-widgets-list").get(0).obj;
+      if (obj.globalcontrol) {
+        messageBox(tr("TODO peut pas bouger les widgets globaux !!"), tr("Error"), "alert");
+        return false;
+      }
+      if (obj.child) {
+        messageBox(tr("TODO peut pas bouger POUR LE MOMENT ce widget est un 'child' soit donc dans un autre !!"), tr("Error"), "alert");
+        return false;
+      }
+      if (obj.conf.getAttribute("type") == "window" || "area" ) {
+        messageBox(tr("TODO POUR LE MOMENT les widgets  window et area marche as super en déplacement !!"), tr("Error"), "alert");
+        return false;
+      }
+      var _this_prec;
+      $("tbody tr", "#tab-design-widgets-list").each(function() {
+        if ( obj == this.obj) {
+          $(".active", "#tab-design-widgets-list").after($(_this_prec));
+          $(obj.div).after($(_this_prec.obj.div));
+          $(obj.conf).after($(_this_prec.obj.conf));
+        }
+        _this_prec = this;
+      });
+    }
 	});
   /* Zones list */
 

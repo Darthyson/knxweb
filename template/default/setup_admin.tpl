@@ -13,7 +13,7 @@
   		{if ($eibd_running!="")}<span class="green">&nbsp;{l lang="en"}ACTIVE{/l}&nbsp;</span>{else}<span class="red">&nbsp;{l lang="en"}DESACTIVE{/l}&nbsp;</span>{/if}
     </td>
   	<td>
-  		{if ($eibd_initd)}<span onclick="queryKnxweb('restart?pgm=eibd','xml','','');"><img src="images/refresh.gif" />&nbsp;{l lang="en"}Restart{/l} EIBD&nbsp;</span>{/if}
+  		{if ($eibd_initd)}<span onclick="queryKnxweb('restart&pgm=eibd','xml','','');" style="cursor: pointer;"><img src="images/refresh.gif" />&nbsp;{l lang="en"}Restart{/l} EIBD&nbsp;</span>{/if}
     </td>
   	<td>
   		<div class="codeadmin" {if ($eibd_running=='')} style="display: none;" {/if}>
@@ -32,7 +32,7 @@
   		{if ($linknx_running!="")}<span class="green">&nbsp;{l lang="en"}ACTIVE{/l}&nbsp;</span>{else}<span class="red">&nbsp;{l lang="en"}DESACTIVE{/l}&nbsp;</span>{/if}
     </td>
   	<td>
-  		{if ($linknx_initd)}<span onclick="queryKnxweb('restart?pgm=linknx','xml','','');"><img src="images/refresh.gif" />&nbsp;{l lang="en"}Restart{/l} LinKnx&nbsp;</span>{/if}
+  		{if ($linknx_initd)}<span onclick="queryKnxweb('restart&pgm=linknx','xml','','');" style="cursor: pointer;"><img src="images/refresh.gif" />&nbsp;{l lang="en"}Restart{/l} LinKnx&nbsp;</span>{/if}
     </td>
   	<td>
   		<div class="codeadmin" {if ($linknx_running=='')} style="display: none;" {/if}>

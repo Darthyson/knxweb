@@ -363,10 +363,6 @@ if (isset($_GET["ajax"])) {
 					<li>Mysql : <?=(($info["haveMysql"])?'<span style="color: #00FF00">Yes</span>':'<span style="color: #FF0000">No</span>')?></li>
           <li>Linknx have parameter "-w" or "--write=..."	: <?=(($linknx_param_pos_w)?'<span style="color: #00FF00">Yes</span>':'<span style="color: #FF0000">No</span>')?></li>
 				</ul>
-				<!-- <br />
-				Please ensure that linknx is started with the --write parameter, for example:<br />
-				<br />
-				<i>linknx --config=/etc/linknx.xml --write=/etc/linknx.xml</i><br /><br /> -->
 				<input style="margin-top: 15px;" type="button" id="step2NextButton" onclick="$('#tabs').tabs('select',2);" value="Next">
 				<script>
 					$('#tabs').tabs('enable',2);
@@ -386,7 +382,7 @@ if (isset($_GET["ajax"])) {
     if (!$_config["defaultVersion"]) $_config["defaultVersion"] = "design";
     if (!$_config["imageDir"]) $_config["imageDir"] = "pictures/";
 
-		$config="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>
+		$config="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?".">
 <param>
   <linknx_host>" . $_SESSION['linknx_host'] . "</linknx_host> <!-- ip du serveur linknx -->
   <linknx_port>" . $_SESSION['linknx_port'] . "</linknx_port> <!-- port connexion avec serveur linknx -->
@@ -417,11 +413,14 @@ if (isset($_GET["ajax"])) {
   <max_result_lines>1000</max_result_lines> <!-- max result lines read when we check linknx reponse default 1000 -->
 </param>";
 		$res=file_put_contents('include/config.xml', $config);
-$subpages = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>
-<subpages></subpages>";
+$subpages = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?".">\n<subpages></subpages>";
     $res2 = true;
     if (!is_file('design/subpages.xml')) $res2=file_put_contents('design/subpages.xml', $subpages);
-		if ($res!==false && $res2!==false)
+$plugins = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?".">\n<plugins></plugins>";
+    $res3 = true;
+    if (file_exists('plugins/') && !is_file('plugins/plugins.xml')) $res3=file_put_contents('plugins/plugins.xml', $plugins);
+
+		if ($res!==false && $res2!==false && $res3!==false)
 		{
 ?>
 		Configuration file written.<br />
@@ -430,7 +429,7 @@ $subpages = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>
 		<br />
 		<a href="setup.php">click here</a> to configure knxweb.
 <?php
-		} else echo "Error while writing configuration to file include/config.xml";
+		} else echo "Error while writing configuration to the files include/config.xml, design/subpages.xml and plugins/plugins.xml";
 	}
 	die;
 }

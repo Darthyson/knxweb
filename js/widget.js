@@ -83,6 +83,7 @@ CWidget.prototype = {
   } else { // _floating_zone_margin
 		this.div.css('float', "left");
     this.div.css('position', "relative");
+    if (_floating_zone_margin) this.div.css('padding', _floating_zone_margin + "px");
   }
 
 		var width = conf.getAttribute("width");
