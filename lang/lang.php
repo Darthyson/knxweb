@@ -46,7 +46,7 @@
       if (isset($_config['translate']) && $_config['translate']=="true") {
         nottranslate($keyName, $_config['lang'], $params);
       } 
-      return "#$keyName#"; 
+      return "#$keyName#"; // TODO enlever les #
       //return $keyName;
     }
   }

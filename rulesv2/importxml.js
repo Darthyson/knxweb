@@ -22,7 +22,7 @@ util : https://x2js.googlecode.com/hg/demo.html
 */
 
 function RuleToXML(json) {
-  console.log("rule", json);
+  //console.log("rule", json);
 /*
 document.getElementsByName("id_rule")[0].value
 document.getElementsByName("description")[0].value
@@ -228,7 +228,7 @@ function actionToXml(action) {
 
 function conditionToXml(condition) {
   var xml = '';
-  console.log('condition',condition);
+  //console.log('condition',condition);
   var type = condition.type;
   switch (type) {
     case "value":

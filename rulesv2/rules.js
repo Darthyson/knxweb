@@ -11,7 +11,7 @@ var list_ioports = [['-:|Choose an IO-Port|:-', '']];
 var tab_rules_json = [];
 var json_data = {};
 function parseResponse ( data , xml) {
-  console.log("parseResponse", data, xml);
+  //console.log("parseResponse", data, xml);
   start1();
   json_data = data;
   init();
@@ -21,7 +21,7 @@ function parseResponse ( data , xml) {
 var xml_ = '<xml><block type="default_rule" id="" inline="false" deletable="false" movable="false" x="0" y="0"><field name="true_type">if-true</field><field name="false_type">if-false</field></block></xml>';
 var TextAreaBlock_ = null;
 var script;
-var ip_locale = 'http://192.168.0.40/knxweb_0_9_2/';
+var ip_locale = ''; //'http://192.168.0.40/knxweb_0_9_2/';
 
 
 function init() {

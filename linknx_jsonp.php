@@ -2,7 +2,8 @@
 header('cache-control: no-cache');
 header("Access-Control-Allow-Origin: http://www.knxweb.fr");
 header('Content-Type: application/javascript; charset=utf-8');
-$version = "0.2";
+error_reporting(0);
+$version = "0.3";
 
 $req_xml = "<read><objects/></read>";
 if (isset($_GET["xml"])) {
@@ -22,9 +23,8 @@ if (isset($_GET["xmlresponse"])) {
 $_config = (array)simplexml_load_file('include/config.xml'); // conversion en array du fichier xml de configuration
 unset($_config['comment']);
 
-error_reporting(0);
 $max_result_lines = 1000;
-if ($_config['max_result_lines']) $max_result_lines = parseInt($_config['max_result_lines']);
+if ($_config['max_result_lines']) { $max_result_lines = intval($_config['max_result_lines']); }
 $xml = '';
 
 $sock = fsockopen($_config['linknx_host'], $_config['linknx_port'], $errno, $errstr, 30);

@@ -160,7 +160,7 @@ jQuery(document).ready(function(){
 	$('#images-manager-dialog-file').change(function() {
 		$(this).upload('setup.php?ajax&uploadImage&path=' + imagesDir, function(responseXML) {
 			var xmlResponse = responseXML.documentElement;
-			if (xmlResponse.getAttribute('status')!='success') messageBox("Error: " + xmlResponse.textContent, "Error", "alert"); else openImagesManager();
+			if (xmlResponse.getAttribute('status')!='success') messageBox(tr("Error")+": " + xmlResponse.textContent, tr("Error"), "alert"); else openImagesManager();
 		}, 'xmlDoc');
 	});
 
@@ -256,7 +256,7 @@ function deleteImageFolder(folder) {
 			{
 				var xmlResponse = responseXML.documentElement;
 				if (xmlResponse.getAttribute('status') != 'success')
-					messageBox("An error has occured while deleting folder", "Error", "alert");
+					messageBox(tr("An error has occured while deleting folder"), tr("Error"), "alert");
 				else
 					openImagesManager();
 			}

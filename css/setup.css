@@ -292,7 +292,6 @@ table.form td {
 }
 
 .grid {
-/*border-bottom: 1px dashed Black;  border-left: 1px dashed Black;*/
 position:absolute;
 width: 1px;
 height:1px;
@@ -1315,3 +1314,4 @@ html.knm {
   border: 1px solid #0070A3;
 }                                       
 /***************** /Plugins  ********************/
+.goog-menu-vertical {overflow:scroll; max-height:100px;overflow-x:hidden;}

@@ -1,7 +1,7 @@
 <?php
-  $_lang = array();
-  $_lang["language"] = "Français";
-  $_lang['Loading, please wait'] = 'Chargement en cours, veuillez patienter';
+$_lang = array();
+$_lang["language"] = "Français";
+$_lang['Loading, please wait'] = 'Chargement en cours, veuillez patienter';
 $_lang['Services status'] = 'Etat des services';
 $_lang['ACTIVE'] = 'ACTIF';
 $_lang['DESACTIVE'] = 'INACTIF';
@@ -96,7 +96,7 @@ $_lang['Enable'] = 'Actif';
 $_lang['End'] = 'Fin';
 $_lang['Error'] = 'Erreur';
 $_lang['Evaluate'] = 'Evaluation';
-$_lang['Event properties'] = 'Propriété de l\'événement';
+$_lang['Event properties'] = 'Propriétés de l\'événement';
 $_lang['Events'] = 'Evénement';
 $_lang['Every'] = 'Toutes les';
 $_lang['Exception days'] = 'Jour exceptionnel';
@@ -113,7 +113,7 @@ $_lang['Formula : object'] = 'Formule : objet';
 $_lang['Framing'] = 'Encadrement';
 $_lang['From number'] = 'Depuis le nombre';
 $_lang['From object'] = 'Depuis l\'objet';
-$_lang['From'] = 'Depuis';
+$_lang['From'] = 'Du'; //Depuis
 $_lang['GAD'] = 'GAD';
 $_lang['General'] = 'Général';
 $_lang['Geographic coordinate'] = 'Coordonnée Géographique';
@@ -209,8 +209,9 @@ $_lang['Rule on "Init" value'] = 'Règle évaluée au démarrage de linknx';
 $_lang['Rule'] = 'Règle';
 $_lang['Rules'] = 'Règles';
 $_lang['RX Port'] = 'RX Port';
-$_lang['Save Config'] = 'Sauvegarde Configuration';
-$_lang['Save rule'] = 'Sauvegarde la Règle';
+$_lang['Save Config'] = 'Sauvegarde la configuration';
+$_lang['Save rule'] = 'Sauvegarde la règle';
+//$_lang['Save Rule'] = 'Sauvegarder la règle';
 $_lang['Save'] = 'Sauvegarder';
 $_lang['Script'] = 'Script';
 $_lang['seconde(s)'] = 'seconde(s)';
@@ -311,7 +312,6 @@ $_lang['Margin Widgets'] = 'Marge des Widgets';
 $_lang['Subpage name'] = 'Nom de la Sous-page';
 $_lang['Design saved successfully'] = 'Sauvegarde du Design avec succès';
 $_lang['Config saved successfully reload the web page for take effect in KnxWeb immediately'] = 'Configuration enregistrée avec succès rechargé la page pour prendre effet immédiatement';
-$_lang['Save Rule'] = 'Sauvegarder la règle';
 $_lang['Registration rule successfully'] = 'Règle enregistrée avec succès';
 $_lang['Please select an objet'] = 'Veuillez choisir un objet dans la liste';
 $_lang['Attention'] = 'Attention';
@@ -408,8 +408,8 @@ $_lang['Footer'] = 'Pied de page';
 $_lang['Update File'] = 'Mise à jour du fichier';
 $_lang['Reload'] = 'Recharger';
 
-$_lang['Sub-page properties'] = 'Propriété de la Sous-page';
-$_lang['Design properties'] = 'Propriété du Design';
+$_lang['Sub-page properties'] = 'Propriétés de la Sous-page';
+$_lang['Design properties'] = 'Propriétés du Design';
 $_lang['of'] = 'de';
 $_lang['EIS data type'] = 'type de donnée';
 
@@ -422,6 +422,35 @@ $_lang['inactive'] = 'inactive';
 $_lang['Refresh the list of objects'] = 'Actualiser la liste des objets';
 $_lang['-no description-'] = '-aucune description-';
 
+$_lang['Refresh design'] = 'Rafraichir le design';
+$_lang['New version on git'] = 'Nouvelle version disonible sur Git';
+$_lang['Please select a date from the list'] = 'Veuillez choisir une date dans la liste';
+$_lang['Warning'] = 'Attention';
+$_lang['Build in'] = 'Construit en';
+$_lang['Save the design'] = 'Sauvegarder le design';
+$_lang['Save the sub-page'] = 'Sauvegarder la sous-page';
+$_lang['Duplicate'] = 'Dupliquer';
+$_lang['Restart'] = 'Redémarrer';
+$_lang['Regex'] = 'Regex';
+$_lang['Hex'] = 'Hex';
+
+$_lang['Plugins'] = 'Plugins';
+$_lang['Plugins list'] = 'Liste de Plugins';
+$_lang['Add a plugin'] = 'Ajouter un plugin';
+$_lang['Reload plugins'] = 'Actualiser les plugins';
+$_lang['Select a plugin'] = 'Choisissez un plugin';
+
+$_lang['Choose a rule'] = 'Choisissez une règle';
+$_lang['Choose an IO-Port'] = 'Choisissez un IO-Port';
+$_lang['Choose a Plugin'] = 'Choisissez un Plugin';
+$_lang['Choose an IO-Port'] = 'Choisissez un IO-Port';
+$_lang['No Rule'] = 'Aucune Règle';
+$_lang['No IO-Port'] = 'Aucun IO-Port';
+
+$_lang['List of rules'] = 'Liste des règles';
+$_lang['Execute "True" Actions'] = 'Exécuter les actions de type \'Vrai\'';
+$_lang['Execute "False" Actions'] = 'Exécuter les actions de type \'Faux\'';
+$_lang['Hide'] = 'Cacher';
 /*             
 $_lang[''] = '';
 */

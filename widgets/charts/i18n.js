@@ -1,14 +1,4 @@
-function tr(msg)
-{
-  var cRet = (typeof(i18n)!='undefined') ? i18n[msg] : msg;
-  if(!cRet) {
-    //return "§§§" + msg + "§§§";
-    return msg;
-  }
-  return cRet;
-}
-
-var i18n = [];
+//var i18n = [];
 if (tab_config['lang'] == 'de')
 {
   i18n['January'] = 'Januar';

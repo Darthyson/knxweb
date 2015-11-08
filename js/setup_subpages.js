@@ -369,7 +369,7 @@ var subpages = {
 		var type=o.conf.getAttribute('type');
 		var eis_type=o.conf.getAttribute('eis_type');
 
-		$('#tab-subpages-properties div:first-child').html(type + ' properties');
+    $("#tab-subpages-properties div:first-child").html(tr('Properties')+' '+tr('of')+' '+type);
 
 		$('#tab-subpages-subpage-properties').hide();
 

@@ -129,6 +129,9 @@ if (isset($_GET["ip_locale"])) { // http://192.168.0.40/knxweb2/
 ?>
 </head>
 <body style="background-color: transparent;">
+<style type="text/css" style="display: none">
+  .goog-menu-vertical {overflow:scroll; max-height:200px; overflow-x:hidden;}
+</style>
 <?php
 if (!isset($_GET["ip_locale"])) { // http://192.168.0.40/knxweb2/
 ?>
@@ -184,7 +187,7 @@ if (!isset($_GET["ip_locale"])) { // http://192.168.0.40/knxweb2/
     <textarea id="importExport" rows="10" style="width: 100%;"></textarea>
   </p>
 
-  <xml id="toolbox" style="display: none">
+  <xml id="toolbox" style="display: none;">
     <category name="Objects">
       <block type="list_objects"></block>
       <block type="value"></block>
@@ -250,6 +253,7 @@ echo '</category>';
   var toolbox = document.getElementById('toolbox');
   Blockly.inject(document.getElementById('blocklyDiv'),
                  {path: './', toolbox: toolbox});
+  Blockly.pathToBlockly =  './';
   // Let the top-level application know that Blockly is ready.
   window.parent.blocklyLoaded(Blockly);
 
@@ -371,19 +375,17 @@ echo '</category>';
   var script;
   function reqLinknxValidRule () {
     var xml = Blockly.JavaScript.workspaceToCode();
-    var ip_locale = '<?php echo $_GET["ip_locale"]; ?>';
     script = document.createElement('script');
     script.type = 'application/javascript';
-    script.src = ip_locale + 'linknx_jsonp.php?jsonp=retLinknxValidRule&xml=<write><config><rules>'+xml+'</rules></config></write>';
+    script.src = '<?php echo $_GET["ip_locale"]; ?>linknx_jsonp.php?jsonp=retLinknxValidRule&xml=<write><config><rules>'+xml+'</rules></config></write>';
     document.getElementsByTagName('head')[0].appendChild(script);
   }
   
   function reqLinknxDeleteRule () {
     var id_rule = document.getElementsByName("id_rule")[0].value;
-    var ip_locale = '<?php echo $_GET["ip_locale"]; ?>';
     script = document.createElement('script');
     script.type = 'application/javascript';
-    script.src = ip_locale + 'linknx_jsonp.php?jsonp=retLinknxValidRule&xml=<write><config><rules><rule id="'+id_rule+'" delete="true"/></rules></config></write>';
+    script.src = '<?php echo $_GET["ip_locale"]; ?>linknx_jsonp.php?jsonp=retLinknxValidRule&xml=<write><config><rules><rule id="'+id_rule+'" delete="true"/></rules></config></write>';
     document.getElementsByTagName('head')[0].appendChild(script);
   }
   

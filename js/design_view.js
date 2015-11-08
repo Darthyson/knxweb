@@ -263,10 +263,9 @@ $(window).focus(function() {
     if (EIBCommunicator.stoppolling) {
       EIBCommunicator.stoppolling = false;
       var d = new Date();
-      console.log( "focus windows Restart le Polling à ", d.getHours(),"h", d.getMinutes(),"min.", d.getSeconds(),"sec."); // d.getTime()
-      //console.log( "Soit une pause de", d.getHours() - EIBCommunicator.date_stop_polling.getHours() ,"h", d.getMinutes() - EIBCommunicator.date_stop_polling.getMinutes(),"min.", d.getSeconds() - EIBCommunicator.date_stop_polling.getSeconds(),"sec."); // d.getTime()
+      //console.log( "focus windows Restart le Polling à ", d.getHours(),"h", d.getMinutes(),"min.", d.getSeconds(),"sec."); // d.getTime()
       var diff = dateDiff(EIBCommunicator.date_stop_polling, d);
-      console.log( "Soit une pause de", diff.hour ,"h", diff.min,"min.", diff.sec,"sec."); // d.getTime()
+      //console.log( "Soit une pause de", diff.hour ,"h", diff.min,"min.", diff.sec,"sec."); // d.getTime()
       EIBCommunicator.periodicUpdate();
     }
   }
@@ -292,5 +291,5 @@ function dateDiff(date1, date2){
 $(window).blur(function() {
   EIBCommunicator.stoppolling = true;
   EIBCommunicator.date_stop_polling = new Date();
-  console.log( "blur windows Stop le Polling à ", EIBCommunicator.date_stop_polling.getHours(),"h", EIBCommunicator.date_stop_polling.getMinutes(),"min.", EIBCommunicator.date_stop_polling.getSeconds(),"sec.");
+  //console.log( "blur windows Stop le Polling à ", EIBCommunicator.date_stop_polling.getHours(),"h", EIBCommunicator.date_stop_polling.getMinutes(),"min.", EIBCommunicator.date_stop_polling.getSeconds(),"sec.");
 });

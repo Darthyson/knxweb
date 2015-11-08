@@ -103,7 +103,7 @@ var ioports = {
 			var responseXML=queryLinknx(body);
 			if (responseXML!=false)	ioports.refreshIOportList();
 			loading.hide();
-		} else messageBox("You cannot delete this IO port because it's used in a rule.", 'Error','error');
+		} else messageBox(tr("You cannot delete this IO port because it's used in a rule."), tr('Error'),'error');
 	},
 
 	// Process add/edit ioport
@@ -206,11 +206,11 @@ jQuery(document).ready(function(){
 	$('#button-add-ioport').bind('click', ioports.newIOport);
 	$('#button-edit-ioport').bind('click', function() {
 		var selected=$('.row_selected:first','#ioports-tab-table')[0];
-		if (selected) ioports.editIOport(selected.data.getAttribute('id')); else messageBox('Please select an IO port in the list','Warning','alert');
+		if (selected) ioports.editIOport(selected.data.getAttribute('id')); else messageBox(tr('Please select an IO port in the list'),tr('Warning'),'alert');
 	});
 	$('#button-remove-ioport').bind('click', function() {
 		var selected=$('.row_selected:first','#ioports-tab-table')[0];
-		if (selected) ioports.deleteIOport(selected.data.getAttribute('id')); else messageBox('Please select an IO port in the list','Warning','alert');
+		if (selected) ioports.deleteIOport(selected.data.getAttribute('id')); else messageBox(tr('Please select an IO port in the list'),tr('Warning'),'alert');
 	});
 
 	// Setup ioport edit form

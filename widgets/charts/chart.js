@@ -446,7 +446,7 @@ function creategraph(widget) {
     graph = new Highcharts.Chart( options_chart,
       function(c) {
         c.setTitle(null, {
-        text: 'Construit en '+ (new Date() - start) +'ms'
+        text: tr('Build in')+' '+ (new Date() - start) +'ms'
       });}
     );
   }
