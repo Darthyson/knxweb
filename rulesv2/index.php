@@ -43,14 +43,16 @@ if (file_exists("../plugins.php")) {
     var TextAreaBlock_ = null;
     var _path_knxweb = '<?php echo str_replace('\\', '/', dirname(__FILE__))."/.."; ?>';
   </script>
-  <script type="text/javascript" src="blocks.js"></script>
+  <script type="text/javascript" src="blocks_2.js"></script>
 <?php
+if ($plugins_exist) {
   foreach ($plugins as $path)
   {
     if (file_exists($path."/blocks.js")) {
       echo '<script type="text/javascript" src="'.$path.'/blocks.js"></script>';
     }
   }
+}
 ?>
   <script type="text/javascript" src="importxml.js"></script>
   <script type="text/javascript" src="msg/js/<?php echo $lang; ?>.js"></script>
@@ -159,6 +161,7 @@ if (!isset($_GET["ip_locale"])) { // http://192.168.0.40/knxweb2/
   <input type="button" value="Valid the Rule" onclick="reqLinknxValidRule();">
   <input type="button" value="Delete the Rule" onclick="reqLinknxDeleteRule();"></b>
 <?php
+if ($plugins_exist) {
   foreach ($plugins as $path)
   {
   	$w=getPlugin($path);
@@ -170,6 +173,7 @@ if (!isset($_GET["ip_locale"])) { // http://192.168.0.40/knxweb2/
       }
     }
   }
+}
 ?>
   <div id="blocklyDiv" style="height: 480px; width: 100%;"></div>
   <b>Xml de la rule pour linknx :</b>
@@ -255,7 +259,7 @@ echo '</category>';
                  {path: './', toolbox: toolbox});
   Blockly.pathToBlockly =  './';
   // Let the top-level application know that Blockly is ready.
-  window.parent.blocklyLoaded(Blockly);
+  //window.parent.blocklyLoaded(Blockly);
 
   Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, Blockly.Xml.textToDom(xml));
 

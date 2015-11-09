@@ -211,7 +211,7 @@ $_lang['Rules'] = 'Règles';
 $_lang['RX Port'] = 'RX Port';
 $_lang['Save Config'] = 'Sauvegarde la configuration';
 $_lang['Save rule'] = 'Sauvegarde la règle';
-//$_lang['Save Rule'] = 'Sauvegarder la règle';
+
 $_lang['Save'] = 'Sauvegarder';
 $_lang['Script'] = 'Script';
 $_lang['seconde(s)'] = 'seconde(s)';

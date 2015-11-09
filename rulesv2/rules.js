@@ -12,7 +12,6 @@ var tab_rules_json = [];
 var json_data = {};
 function parseResponse ( data , xml) {
   //console.log("parseResponse", data, xml);
-  start1();
   json_data = data;
   init();
   start2();
@@ -138,10 +137,6 @@ function loadRule(rule_id) {
   }
 }
 
-function affiche_object(){
-  document.all["modal"].style.visibility="visible";
-  document.all["Choix_Object"].style.visibility="visible";
-}
 function affiche_script(){
   document.all["modal"].style.visibility="visible";
   document.all["Saisie_Script"].style.visibility="visible";
@@ -153,27 +148,6 @@ function centreDiv(gt_nom){
   var gt_hcal=document.all[gt_nom].offsetHeight;
   document.all[gt_nom].style.left=(gt_lfen-gt_lcal)/2;
   document.all[gt_nom].style.top=(gt_hfen-gt_hcal)/2;
-}
-function Valid_TextAreaBlock_object() {
-  if (document.all["Choix_Object"].style.visibility=="hidden") {
-    document.all["modal"].style.visibility="visible";
-    document.all["Choix_Object"].style.visibility="visible";
-  } else {
-    document.all["modal"].style.visibility="hidden";
-    document.all["Choix_Object"].style.visibility="hidden";
-    
-    var select_objects_list = document.getElementById('objects_list');
-    var nameObject = select_objects_list.options[select_objects_list.selectedIndex].text;
-    var idObject = select_objects_list.options[select_objects_list.selectedIndex].value; //select_objects_list.value;
-    var type_object = select_objects_list.options[select_objects_list.selectedIndex].getAttribute('data-type');
-    
-    if (typeof TextAreaBlock_ !== 'undefined' && TextAreaBlock_ !== null)
-    {
-      TextAreaBlock_.setText(nameObject, idObject, type_object);
-      TextAreaBlock_.idObject_ = idObject;
-      TextAreaBlock_ = null;
-    }
-  }
 }
 function Valid_TextAreaBlock_script() {
   if (document.all["Saisie_Script"].style.visibility=="hidden") {
@@ -223,41 +197,45 @@ function retLinknxValidRule( data , xml) {
   script = null;
 } 
 
-
-//window.onload=function(e){
-function start1 () {
-  loading.hide();
-  var toolbox = document.getElementById('toolbox');
-  Blockly.inject(document.getElementById('blocklyDiv'),
-                 {path: './rulesv2/', toolbox: toolbox});
-}
 function start2 () {
   //Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, Blockly.Xml.textToDom(xml_));
-  Blockly.addChangeListener(myUpdateFunction);
-  var select_list_rules = document.getElementById('select_list_rules');
-  select_list_rules.innerHTML = '';
+  console.log("start2", json_data, tab_rules_json );
+
+  //Blockly.addChangeListener(myUpdateFunction);
+
+  //var select_list_rules = document.getElementById('select_list_rules');
+  //select_list_rules.innerHTML = '';
+  $('#select_list_rules').html('<option value=""> -:| Select a rule |:- </option>');
   for (var i=0;i<tab_rules_json.length;i++)
   {
     //tab_rules_json[i] = { "id":list_rules_json[i].id , "json":list_rules_json[i]};
-    select_list_rules.innerHTML = select_list_rules.innerHTML + '<option value="'+tab_rules_json[i].id+'">'+tab_rules_json[i].id+'</option>';
+    //select_list_rules.innerHTML = select_list_rules.innerHTML + '<option value="'+tab_rules_json[i].id+'">'+tab_rules_json[i].id+'</option>';
+    var option='<option value="'+tab_rules_json[i].id+'">'+tab_rules_json[i].id+'</option>';
+    $('#select_list_rules').append(option);
   }
-  document.getElementsByName("id_rule")[0].value = tab_rules_json[0].json.id;
-  if (tab_rules_json[0].json.description) document.getElementsByName("description")[0].value = tab_rules_json[0].json.description;
+  //document.getElementsByName("id_rule")[0].value = tab_rules_json[0].json.id;
+  $("id_rule").val(tab_rules_json[0].json.id);
+  /*if (tab_rules_json[0].json.description) document.getElementsByName("description")[0].value = tab_rules_json[0].json.description;
   else document.getElementsByName("description")[0].value = '';
-  if (tab_rules_json[0].json.init)  document.getElementsByName("init")[0].checked = tab_rules_json[0].json.init == "true";
-  else document.getElementsByName("init")[0].checked = true;
-  var select_objects_list = document.getElementById('objects_list');
-  for (var i=0;i<list_objects_json.length;i++)
-  {
-    var name_obj = list_objects_json[i].$;
-    if (!list_objects_json[i].$) {
-      name_obj = list_objects_json[i].id;
-    } 
-    select_objects_list.innerHTML = select_objects_list.innerHTML + '<option value="'+list_objects_json[i].id+'" data-type="'+list_objects_json[i].type+'">'+name_obj+'</option>'; // ('+list_objects_json[i].type+')
-  }
-  centreDiv('Choix_Object');
-  centreDiv('Saisie_Script');
-  
+  */
+  $("description").val(tab_rules_json[0].json.description);
 
+  $("init").prop("checked", ((tab_rules_json[0].json.init == "true")? "checked":""));
+  /*if (tab_rules_json[0].json.init)  document.getElementsByName("init")[0].checked = tab_rules_json[0].json.init == "true";
+  else document.getElementsByName("init")[0].checked = true;
+  */
+
+  //centreDiv('Saisie_Script');
 };
-//};
+
+jQuery(document).ready(function(){
+  loading.hide();
+  var toolbox = document.getElementById('toolbox');
+  Blockly.inject(document.getElementById('blocklyDiv'),
+                 {path: './rulesv2/', media: './rulesv2/media/', toolbox: toolbox});
+  Blockly.pathToBlockly =  './rulesv2/';
+
+  Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, Blockly.Xml.textToDom(xml_));
+
+  Blockly.addChangeListener(myUpdateFunction);
+});
